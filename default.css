@@ -1,0 +1,87 @@
+#heading {
+  margin: 25px;
+  margin-bottom: 15px;
+  padding: 5px;
+  width: 100vw;
+  height: 10vh;
+}
+
+#amazon {
+  height: 60px;
+}
+
+#search {
+  position: relative;
+  display: inline-block;
+  margin: 2px;
+  left: 5%;
+  top: -30px;
+  width: 50%;
+  height: 40px;
+  border: 2px solid rgb(254,188,105);
+  border-radius: 5px;
+  background-color: white;
+}
+
+#text {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 2px;
+  border: 0;
+  width: 92%;
+  height: 30px;
+  font-size: 20px;
+}
+
+#button {
+  position: absolute;
+  padding-left: 0;
+  padding-right: 0;
+  right: 0;
+  width: 8%;
+  height: 40px;
+  border: none;
+  background-color: rgb(254,188,105);
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+#test {
+  border-radius: 5px;
+  border: 0;
+  height: 25px;
+  background-color: rgb(254,188,105);
+}
+
+#container {
+  position: relative;
+  width: 70%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+/*
+<div class="product">
+  <div class="ImageDiv"><img class="png" src="link.com"/></div>
+  <div class="info">
+    <div class="description"></div>
+    <div class="brand"></div>
+    <div class="price"></div>
+  </div>
+</div>
+*/
+
+.product {
+  position: absolute;
+  width: 100%;
+}
+
+.png {
+  width: 15%;
+  height: 20%;
+}
+
+.info {
+  position: relative;
+  display: inline-block;
+}
