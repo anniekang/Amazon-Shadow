@@ -1,3 +1,7 @@
+#title {
+  background-color: white;
+}
+
 #heading {
   margin: 25px;
   margin-bottom: 15px;
@@ -8,6 +12,10 @@
 
 #amazon {
   height: 60px;
+}
+
+#amazon:hover {
+  cursor: pointer;
 }
 
 #search {
@@ -62,7 +70,7 @@
 
 /*
 <div class="product">
-  <div class="ImageDiv"><img class="png" src="link.com"/></div>
+  <img class="image" src="link.com"/>
   <div class="info">
     <div class="description"></div>
     <div class="brand"></div>
@@ -70,18 +78,64 @@
   </div>
 </div>
 */
+#outcome {
+  margin: 10px;
+  font-family: sans-serif;
+}
 
-.product {
-  position: absolute;
+.products {
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  border: 2px solid black;
   width: 100%;
 }
 
-.png {
-  width: 15%;
-  height: 20%;
+.product {
+  position: relative;
+  display: inline-block;
+  margin: auto;
+  margin-top: 0;
+  padding: 10px;
+  width: 95%;
+  border-bottom: 1px solid gray;
+  font-family: sans-serif;
+}
+
+.image {
+  display: inline-block;
+  width: 25%;
+  max-height: 275px;
+}
+
+.image:hover {
+  cursor: pointer;
 }
 
 .info {
-  position: relative;
+  position: absolute;
   display: inline-block;
+  margin: auto;
+  width: 65%;
+  height: 20%;
+}
+
+.description {
+  top: 0;
+}
+
+.description:hover {
+  cursor: pointer;
+}
+
+.brand {
+  font-size: 11px;
+}
+
+.price {
+  margin-top: 2%;
+  font-size: 20px;
+}
+
+.price:hover {
+  cursor: pointer;
 }
