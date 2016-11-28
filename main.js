@@ -83,11 +83,8 @@ var jsProducts = [
     brand: "Roku",
     price: "$39.99",
     image: "https://images-na.ssl-images-amazon.com/images/I/61bqlBDRRML._SL1500_.jpg"},
-
-
 ];
 
-var jsLogo = document.getElementById("amazon"); //issue2
 var jsSearch = document.getElementById("search");
 var jsText = document.getElementById("text");
 var jsResults = document.getElementById("products");
@@ -96,45 +93,13 @@ var jsString;
 var jsResultString=document.getElementById("outcome");
 var jsResultStringText;
 
-//when page loads or amazon logo is clicked...
-function refresh() { //issue2
-  //event.preventDefault(); //issue2
-  jsText = document.getElementById("text"); //issue2
-  //empty(jsText); //issue2
-  empty(jsResultString); //issue2
-  empty(jsResults); //issue2
-  for (var i = 0; i < 9; i++) { //issue2
-    var jsRandom = Math.floor(Math.random() * jsProducts.length); //issue2
-    var jsImage = renderLoad(jsRandom, jsProducts[jsRandom]); //issue2
-    jsResults = document.getElementById("products"); //issue2
-    jsResults.appendChild(jsImage); //issue2
-  } //issue2
-  jsString = "Items to consider"; //issue2
-  jsResultStringText = document.createTextNode(jsString); //issue2
-  jsResultString.appendChild(jsResultStringText); //issue2
-} //issue2
-
-jsLogo.addEventListener("click", refresh); //issue2
-window.addEventListener("load", refresh); //issue2
-
-function renderLoad(i, product) { //issue2
-  var jsImage = document.createElement("img"); //issue2
-  jsImage.classList.add("image", i); //issue2
-  jsImage.setAttribute("src", product.image); //issue2
-  return jsImage;
-}
-
-
 function listener(event) {
   event.preventDefault();
   jsText = document.getElementById("text").value; //searched text
 
   //do nothing if search is empty
-  if (!jsText.trim()) {
-  // pass in event?
-  //  refresh(); //issue2
+  if (!jsText.trim())
     return;
-  }
 
   empty(jsResultString);
   empty(jsResults);
