@@ -1,0 +1,140 @@
+#title {
+  background-color: white;
+}
+
+#heading {
+  margin: 25px;
+  margin-bottom: 15px;
+  padding: 5px;
+  width: 100vw;
+  height: 10vh;
+}
+
+#amazon {
+  height: 60px;
+}
+
+#amazon:hover {
+  cursor: pointer;
+}
+
+#search {
+  position: relative;
+  display: inline-block;
+  margin: 2px;
+  left: 5%;
+  top: -30px;
+  width: 50%;
+  height: 40px;
+  border: 2px solid rgb(254,188,105);
+  border-radius: 5px;
+  background-color: white;
+}
+
+#text {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 2px;
+  border: 0;
+  width: 92%;
+  height: 30px;
+  font-size: 20px;
+}
+
+#button {
+  position: absolute;
+  padding-left: 0;
+  padding-right: 0;
+  right: 0;
+  width: 8%;
+  height: 40px;
+  border: none;
+  background-color: rgb(254,188,105);
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+#test {
+  border-radius: 5px;
+  border: 0;
+  height: 25px;
+  background-color: rgb(254,188,105);
+}
+
+#container {
+  position: relative;
+  width: 70%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+#outcome {
+  margin: 10px;
+  font-family: sans-serif;
+}
+
+.products {
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  border: 2px solid black;
+  width: 100%;
+}
+
+.product {
+  position: relative;
+  display: inline-block;
+  margin: auto;
+  margin-top: 0;
+  padding: 10px;
+  width: 95%;
+  border-bottom: 1px solid gray;
+  font-family: sans-serif;
+}
+
+.imageBox {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+}
+
+.image {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.imageBox:hover {
+  cursor: pointer;
+}
+
+.info {
+  position: absolute;
+  display: inline-block;
+  margin-left: 15px;
+  height: 20%;
+}
+
+.description {
+  top: 0;
+  width: 98%;
+}
+
+.description:hover {
+  cursor: pointer;
+}
+
+.brand {
+  font-size: 11px;
+}
+
+.price {
+  margin-top: 2%;
+  font-size: 20px;
+}
+
+.price:hover {
+  cursor: pointer;
+}
