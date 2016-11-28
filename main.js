@@ -109,8 +109,39 @@ var products = [
 var searchItem = document.getElementById("text");
 var searchResults = document.getElementById("products");
 var searchResult;
+var resultComment;
 var resultComments=document.getElementById("outcome");
+var logo = document.getElementById("amazon"); //issue2
 
+//when page loads or amazon logo is clicked
+function refresh(event) {
+  event.preventDefault();
+  document.getElementById("text").value = "";
+  empty(resultComments);
+  empty(searchResults);
+  for (var i = 0; i < 20; i++) {
+    var randomProduct = Math.floor(Math.random() * products.length);
+    var image = renderLoad(products[randomProduct]);
+    searchResults.appendChild(image);
+  }
+  resultComment = "Items to consider";
+  resultComment = document.createTextNode(resultComment);
+  resultComments.appendChild(resultComment);
+}
+
+function renderLoad(product) {
+  var imageBox = document.createElement("div");
+  imageBox.classList.add("imageBox", product.id);
+
+  var image = document.createElement("img");
+  image.classList.add("image", product.id);
+  image.setAttribute("src", product.image);
+
+  imageBox.appendChild(image);
+  return imageBox;
+}
+
+//when item is searched
 function listener(event) {
   event.preventDefault();
   searchItem = document.getElementById("text").value; //searched text
@@ -136,8 +167,6 @@ function listener(event) {
     }
   }
 
-  var resultComment;
-
   if (searchResults.firstChild) {
     resultComment = "Showing most relevant results. See all results for \"" + searchItem + "\".";
     resultComment = document.createTextNode(resultComment);
@@ -158,7 +187,6 @@ function empty(searchResults) {
   }
 }
 
-//returns whether searched text matches with jsProducts[i]
 //search function checks to see that each word of the search is contained in an item description
 function search(description, searchItem) {
   searchItem = searchItem.toLowerCase();
@@ -224,6 +252,8 @@ function renderResult(product) {
   return products;
 }
 
-var jsSearch = document.getElementById("search");
+var searchItems = document.getElementById("search");
 
-jsSearch.addEventListener("submit", listener);
+logo.addEventListener("click", refresh);
+window.addEventListener("load", refresh);
+searchItems.addEventListener("submit", listener);
