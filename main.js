@@ -1,4 +1,4 @@
-var jsProducts = [
+var products = [
   { id: 1,
     description: "Bose QuietComfort 20 Acoustic Noise Cancelling Headphones, Apple Devices, Black",
     brand: "Bose",
@@ -106,22 +106,21 @@ var jsProducts = [
     image: "https://images-na.ssl-images-amazon.com/images/I/61bqlBDRRML._SL1500_.jpg"},
 ];
 
-var jsText = document.getElementById("text");
-var jsResults = document.getElementById("products");
-var jsResult;
-var jsResultString=document.getElementById("outcome");
-var jsResultStringText;
+var searchItem = document.getElementById("text");
+var searchResults = document.getElementById("products");
+var searchResult;
+var resultComments=document.getElementById("outcome");
 
 function listener(event) {
   event.preventDefault();
-  jsText = document.getElementById("text").value; //searched text
+  searchItem = document.getElementById("text").value; //searched text
 
   //do nothing if search is empty
-  if (!jsText.trim())
+  if (!searchItem.trim())
     return;
 
-  empty(jsResultString);
-  empty(jsResults);
+  empty(resultComments);
+  empty(searchResults);
 
   /*1. compare search text with each array item in jsProducts
     2. if results are true, create div block to add to #products in document
@@ -129,56 +128,50 @@ function listener(event) {
     4. if there are any search results, add a div string that states results
     5. if no search results, We found 0 results for "gfsf aes"
   */
-  for (var i = 0; i < jsProducts.length; i++) {
-    if (search(jsProducts[i].description, jsText)) {
-      jsResult = renderResult(jsProducts[i]);
-      jsResults = document.getElementById("products");
-      jsResults.appendChild(jsResult);
+  for (var i = 0; i < products.length; i++) {
+    if (search(products[i].description, searchItem)) {
+      searchResult = renderResult(products[i]);
+      searchResults = document.getElementById("products");
+      searchResults.appendChild(searchResult);
     }
   }
 
-  var jsString;
+  var resultComment;
 
-  if (jsResults.firstChild) {
-    jsString = "Showing most relevant results. See all results for \"" + jsText + "\".";
-    jsResultStringText = document.createTextNode(jsString);
-    jsResultString.appendChild(jsResultStringText);
+  if (searchResults.firstChild) {
+    resultComment = "Showing most relevant results. See all results for \"" + searchItem + "\".";
+    resultComment = document.createTextNode(resultComment);
+    resultComments.appendChild(resultComment);
   }
   else {
-    jsString = "Your search \"" + jsText + "\" did not match any products.";
-    jsResultStringText = document.createTextNode(jsString);
-    jsResultString.appendChild(jsResultStringText);
+    resultComment = "Your search \"" + searchItem + "\" did not match any products.";
+    resultComment = document.createTextNode(resultComment);
+    resultComments.appendChild(resultComment);
   }
   //page is refreshed with same results if search button is pressed again
 }
 
 //empties out any elements within element with "product" ID
-function empty(jsResults) {
-  while (jsResults.firstChild) {
-    jsResults.removeChild(jsResults.firstChild);
+function empty(searchResults) {
+  while (searchResults.firstChild) {
+    searchResults.removeChild(searchResults.firstChild);
   }
 }
 
 //returns whether searched text matches with jsProducts[i]
 //search function checks to see that each word of the search is contained in an item description
-function search(description, jsText) {
-  jsText = jsText.toLowerCase();
-  jsText = jsText.trim();
+function search(description, searchItem) {
+  searchItem = searchItem.toLowerCase();
+  searchItem = searchItem.trim();
   var space = " ";
-  var tempStringArray = splitString(jsText, space);
-  var tempProducts = description.toLowerCase();
-  for (var k = 0; k < tempStringArray.length; k++) {
-    if (tempProducts.indexOf(tempStringArray[k]) < 0) {
+  var searchItemWords = searchItem.split(space);
+  var productDescription = description.toLowerCase();
+  for (var k = 0; k < searchItemWords.length; k++) {
+    if (productDescription.indexOf(searchItemWords[k]) < 0) {
       return false;
     }
   }
   return true;
-}
-
-//splits string into an array of strings using specified separator
-function splitString(stringToSplit, separator) {
-  var arrayOfStrings = stringToSplit.split(separator);
-  return arrayOfStrings;
 }
 
 function renderResult(product) {
@@ -194,42 +187,41 @@ function renderResult(product) {
   </div>
 </div>
 */
+  var products = document.createElement("div");
+  products.classList.add("product", product.id);
 
-var jsProduct2 = document.createElement("div");
-jsProduct2.classList.add("product", product.id);
+  var imageBox = document.createElement("div");
+  imageBox.classList.add("imageBox", product.id);
 
-var jsImageBox = document.createElement("div");
-jsImageBox.classList.add("imageBox", product.id);
+  var image = document.createElement("img");
+  image.classList.add("image", product.id);
+  image.setAttribute("src", product.image);
 
-var jsImage = document.createElement("img");
-jsImage.classList.add("image", product.id);
-jsImage.setAttribute("src", product.image);
+  imageBox.appendChild(image);
 
-jsImageBox.appendChild(jsImage);
+  var info = document.createElement("div");
+  info.classList.add("info", product.id);
 
-var jsInfo = document.createElement("div");
-jsInfo.classList.add("info", product.id);
+  var description = document.createElement("div");
+  description.classList.add("description", product.id);
+  description.textContent = product.description;
 
-var jsDescription = document.createElement("div");
-jsDescription.classList.add("description", product.id);
-jsDescription.textContent = product.description;
+  var brand = document.createElement("div");
+  brand.classList.add("brand", product.id);
+  brand.textContent = "by " + product.brand;
 
-var jsBrand = document.createElement("div");
-jsBrand.classList.add("brand", product.id);
-jsBrand.textContent = "by " + product.brand;
+  var price = document.createElement("div");
+  price.classList.add("price", product.id);
+  price.textContent = product.price;
 
-var jsPrice = document.createElement("div");
-jsPrice.classList.add("price", product.id);
-jsPrice.textContent = product.price;
+  info.appendChild(description);
+  info.appendChild(brand);
+  info.appendChild(price);
 
-jsInfo.appendChild(jsDescription);
-jsInfo.appendChild(jsBrand);
-jsInfo.appendChild(jsPrice);
+  products.appendChild(imageBox);
+  products.appendChild(info);
 
-jsProduct2.appendChild(jsImageBox);
-jsProduct2.appendChild(jsInfo);
-
-return jsProduct2;
+  return products;
 }
 
 var jsSearch = document.getElementById("search");
