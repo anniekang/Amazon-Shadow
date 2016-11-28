@@ -113,7 +113,7 @@ var resultComment;
 var resultComments=document.getElementById("outcome");
 var logo = document.getElementById("amazon"); //issue2
 
-//when page loads or amazon logo is clicked...
+//when page loads or amazon logo is clicked
 function refresh(event) {
   event.preventDefault();
   document.getElementById("text").value = "";
@@ -187,7 +187,6 @@ function empty(searchResults) {
   }
 }
 
-//returns whether searched text matches with jsProducts[i]
 //search function checks to see that each word of the search is contained in an item description
 function search(description, searchItem) {
   searchItem = searchItem.toLowerCase();
