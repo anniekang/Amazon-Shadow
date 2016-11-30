@@ -119,11 +119,14 @@ function refresh(event) {
   document.getElementById("text").value = "";
   empty(resultComments);
   empty(searchResults);
+  var allImages = document.createElement("div");
+  allImages.classList.add("allImages");
   for (var i = 0; i < 20; i++) {
     var randomProduct = Math.floor(Math.random() * products.length);
     var image = renderLoad(products[randomProduct]);
-    searchResults.appendChild(image);
+    allImages.appendChild(image);
   }
+  searchResults.appendChild(allImages);
   resultComment = "Items to consider";
   resultComment = document.createTextNode(resultComment);
   resultComments.appendChild(resultComment);
@@ -152,6 +155,8 @@ function listener(event) {
 
   empty(resultComments);
   empty(searchResults);
+  var allProducts = document.createElement("div");
+  allProducts.classList.add("allProducts")
 
   /*1. compare search text with each array item in jsProducts
     2. if results are true, create div block to add to #products in document
@@ -162,10 +167,10 @@ function listener(event) {
   for (var i = 0; i < products.length; i++) {
     if (search(products[i].description, searchItem)) {
       searchResult = renderResult(products[i]);
-      searchResults = document.getElementById("products");
-      searchResults.appendChild(searchResult);
+      allProducts.appendChild(searchResult);
     }
   }
+  searchResults.appendChild(allProducts);
 
   if (searchResults.firstChild) {
     resultComment = "Showing most relevant results. See all results for \"" + searchItem + "\".";
@@ -252,8 +257,99 @@ function renderResult(product) {
   return products;
 }
 
-var searchItems = document.getElementById("search");
+function productPage(event) {
+  //event.preventDefault();
+  if (event.target.classList.contains("image") || event.target.classList.contains("description") || event.target.classList.contains("price")) {
+    empty(resultComments);
+    empty(searchResults);
+
+    var id = event.target.classList[1];
+    id -= 1;
+    var storeProduct = renderProduct(products[id]);
+    var viewProduct = document.getElementById("products");
+    viewProduct.appendChild(storeProduct);
+  }
+  else return;
+}
+
+function renderProduct(product) {
+/*
+<div class="product">
+  <div class=imageBox>
+    <img class="image" src="link.com"/>
+  </div>
+  <div class="info">
+    <div class="description"></div>
+    <div class="brand"></div>
+    <div class="price"></div>
+  </div>
+  <div class="cartBox">
+    <button class="addButton" type="submit"><img class="addCart" src="link.com">Add to cart</button>
+  </div>
+</div>
+*/
+  var products = document.createElement("div");
+  products.classList.add("productPage", product.id);
+
+  var imageBox = document.createElement("div");
+  imageBox.classList.add("imageBoxProduct", product.id);
+
+  var image = document.createElement("img");
+  image.classList.add("imageProduct", product.id);
+  image.setAttribute("src", product.image);
+
+  imageBox.appendChild(image);
+
+  var info = document.createElement("div");
+  info.classList.add("infoProduct", product.id);
+
+  var description = document.createElement("div");
+  description.classList.add("descriptionProduct", product.id);
+  description.textContent = product.description;
+
+  var brand = document.createElement("div");
+  brand.classList.add("brandIntro", product.id);
+  brand.textContent = "by ";
+
+  var brandOnly = document.createElement("div");
+  brandOnly.classList.add("brandOnly", product.id);
+  brandOnly.textContent = product.brand;
+
+  brand.appendChild(brandOnly);
+
+  var price = document.createElement("div");
+  price.classList.add("priceProduct", product.id);
+  price.textContent = product.price;
+
+  info.appendChild(description);
+  info.appendChild(brand);
+  info.appendChild(price);
+
+  var cartBox = document.createElement("div");
+  cartBox.classList.add("cartBox", product.id);//code for Add to Cart buttom
+
+  var cartImage = document.createElement("img");
+  cartImage.classList.add("cartImage", product.id);
+  cartImage.setAttribute("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbcUxe4VHQHokouoRRT4epvvSEt8QeWtCaSXahS1u9tGbrFL9_");
+
+  var addButton = document.createElement("button");
+  addButton.classList.add("addButton", product.id);
+  addButton.appendChild(cartImage);
+  addButton.appendChild(document.createTextNode("Add to Cart"));
+
+  cartBox.appendChild(addButton);
+
+  products.appendChild(imageBox);
+  products.appendChild(info);
+  products.appendChild(cartBox);
+
+  return products;
+}
 
 logo.addEventListener("click", refresh);
 window.addEventListener("load", refresh);
+var searchItems = document.getElementById("search");
 searchItems.addEventListener("submit", listener);
+
+var container = document.getElementById("container");
+container.addEventListener("click", productPage);
