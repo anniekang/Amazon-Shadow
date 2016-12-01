@@ -431,7 +431,7 @@ function renderCart(product){
 /*
 <div class='addCart'
   <input type='number' name='Qty' min='1' max='10'>
-  <button class='addButton' type='submit'><img class='addCart' src='link.com'>Add to cart</button>
+  <button class='addButton' type='submit'><i class='cartImage' class='fa fa-shopping-cart'>Add to cart</button>
 </div>
 */
   var addCart = document.createElement('div');
@@ -447,21 +447,21 @@ function renderCart(product){
   quantityValue.setAttribute('name', 'quantity');
   quantityValue.setAttribute('min', '1');
   quantityValue.setAttribute('max', '10');
+  quantityValue.defaultValue = 1;
 
   quantity.appendChild(quantityValue);
-
-  var cartImage = document.createElement('img');
-  cartImage.classList.add('cartImage', product.id);
-  cartImage.setAttribute('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbcUxe4VHQHokouoRRT4epvvSEt8QeWtCaSXahS1u9tGbrFL9_');
 
   var addButton = document.createElement('button');
   addButton.classList.add('addButton', product.id);
   addButton.setAttribute('type', 'submit');
+
+  var cartImage = document.createElement('i');
+  cartImage.classList.add('cartImage', product.id, 'fa', 'fa-shopping-cart', 'fa-2x');
+
   addButton.appendChild(cartImage);
   addButton.appendChild(document.createTextNode('Add to Cart'));
 
   addCart.appendChild(quantity);
-  addCart.appendChild(cartImage);
   addCart.appendChild(addButton);
 
   return addCart;
@@ -485,10 +485,12 @@ function addToCart(event) {
           cart[cartCheck].quantity += quantity;
     }
     else {
-      id -= 1;
-      cart.push({product: products[id], quantity: quantity});
+      cart.push({product: products[id-1], quantity: quantity});
     }
-    renderAdded(id); //
+    var product = products[id-1];
+    var added = renderAdded(product);
+    var addedItem = document.getElementById('products');
+    addedItem.appendChild(added);
   }
   else return;
 }
@@ -502,94 +504,71 @@ function inCart(productID) {
   return false;
 }
 
-function renderAdded(productID) {
+function renderAdded(product) {
 /*
 <div class='addProduct'>
   <div class='itemQuantity'>
-    <img class='check' src='link.com'/>
-    <img class='image' src='link.com'/>
-    <div class='number'></div>
-    <div class='items'></div>
-    <div class='added'>Added to Cart</div>
+    <i class='check' class='fa fa-check'></>
+    <div class='numberAdded'></div>
+    <img class='imageAdded' src='link.com'/>
+    <div class='descriptionPriceAdded'>
+      <div class='descriptionAdded'></div>
+      <div class='priceAdded'></div>
+    </div>
   </div>
 </div>
 */
 
-/*
+  var hide = document.querySelector('.productPage');
+  hide.classList.add('hidden');
+
   var products = document.createElement('div');
-  products.classList.add('addProduct', productID);
+  products.classList.add('addProduct', product.id);
 
   var box = document.createElement('div');
-  products.classList.add('itemQuantity', productID);
+  box.classList.add('itemQuantity', product.id);
 
-  var imageBox = document.createElement('div');
-  imageBox.classList.add('imageBoxProduct', productID);
+  var check = document.createElement('i');
+  check.classList.add('check', product.id, 'fa', 'fa-check', 'fa-2x');
+
+  var numberAdded = document.createElement('div');
+  numberAdded.classList.add('numberAdded', product.id);
+  var tempText = document.querySelector('.quantityValue').value;
+  if (document.querySelector('.quantityValue').value === '1') {
+    tempText = tempText + ' item added to Cart';
+  }
+  else {
+    tempText = tempText + ' items added to Cart';
+  }
+  numberAdded.textContent = tempText;
 
   var image = document.createElement('img');
-  image.classList.add('imageProduct', product.id);
+  image.classList.add('imageAdded', product.id);
   image.setAttribute('src', product.image);
 
-  imageBox.appendChild(image);
-
-  var info = document.createElement('div');
-  info.classList.add('infoProduct', product.id);
+  var descriptionPrice = document.createElement('div');
+  descriptionPrice.classList.add('descriptionPriceAdded', product.id);
 
   var description = document.createElement('div');
-  description.classList.add('descriptionProduct', product.id);
+  description.classList.add('descriptionAdded', product.id);
   description.textContent = product.description;
 
-  var brand = document.createElement('div');
-  brand.classList.add('brandIntro', product.id);
-  brand.textContent = 'by ';
-
-  var brandOnly = document.createElement('div');
-  brandOnly.classList.add('brandOnly', product.id);
-  brandOnly.textContent = product.brand;
-
-  brand.appendChild(brandOnly);
-
   var price = document.createElement('div');
-  price.classList.add('priceProduct', product.id);
+  price.classList.add('priceAdded', product.id);
   price.textContent = product.price;
 
-  info.appendChild(description);
-  info.appendChild(brand);
-  info.appendChild(price);
+  descriptionPrice.appendChild(description);
+  descriptionPrice.appendChild(price);
 
-  if (product.details.length > 0) {
-    var details = document.createElement('ul');
-    details.classList.add('details', product.id);
-    for (var i = 0; i < product.details.length; i++) {
-      var detailLine = document.createElement('li');
-      var lineNumber = 'line' + i;
-      detailLine.classList.add('detailLine', product.id, lineNumber);
-      detailLine.textContent = product.details[i];
-      details.appendChild(detailLine);
-    }
-    info.appendChild(details);
-  }
+  box.appendChild(check);
+  box.appendChild(numberAdded);
+  box.appendChild(image);
+  box.appendChild(descriptionPrice);
 
-  var cartBox = document.createElement('div');
-  cartBox.classList.add('cartBox', product.id);
-
-  var cartImage = document.createElement('img');
-  cartImage.classList.add('cartImage', product.id);
-  cartImage.setAttribute('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbcUxe4VHQHokouoRRT4epvvSEt8QeWtCaSXahS1u9tGbrFL9_');
-
-  var addButton = document.createElement('button');
-  addButton.classList.add('addButton', product.id);
-  addButton.appendChild(cartImage);
-  addButton.appendChild(document.createTextNode('Add to Cart'));
-
-  cartBox.appendChild(addButton);
-
-  products.appendChild(imageBox);
-  products.appendChild(info);
-  products.appendChild(cartBox);
+  products.appendChild(box);
 
   return products;
-  */
-}
+  }
 
 
 ///////////////////////////////////////////////////////////
