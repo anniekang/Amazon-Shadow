@@ -68,7 +68,7 @@
 }
 
 #outcome {
-  width: 80%;
+  width: 100%;
   margin: auto;
   margin-bottom: 10px;
   font-family: sans-serif;
@@ -79,7 +79,31 @@
   margin: auto;
 }
 
-/* products from search result */
+.consider {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+/* product view from random view or search result */
+.backImages {
+  color: blue;
+}
+
+.backImages:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.backResults {
+  color: blue;
+}
+
+.backResults:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .allProducts {
   width: 80%;
   margin: auto;

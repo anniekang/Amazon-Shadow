@@ -196,9 +196,15 @@ function refresh(event) {
     allImages.appendChild(image);
   }
   searchResults.appendChild(allImages);
+
+  var consider=document.createElement('div');
+  consider.classList.add('consider');
+
   resultComment = 'Items to consider';
   resultComment = document.createTextNode(resultComment);
-  resultComments.appendChild(resultComment);
+
+  consider.appendChild(resultComment);
+  resultComments.appendChild(consider);
 }
 
 function renderLoad(product) {
@@ -241,16 +247,20 @@ function listener(event) {
   }
   searchResults.appendChild(allProducts);
 
+  var searchOutcome=document.createElement('div');
+  searchOutcome.classList.add('searchOutcome');
+
   if (searchResults.firstChild) {
     resultComment = 'Showing most relevant results. See all results for \'' + searchItem + '\'.';
     resultComment = document.createTextNode(resultComment);
-    resultComments.appendChild(resultComment);
+    searchOutcome.appendChild(resultComment);
   }
   else {
     resultComment = 'Your search \'' + searchItem + '\' did not match any products.';
     resultComment = document.createTextNode(resultComment);
-    resultComments.appendChild(resultComment);
+    searchOutcome.appendChild(resultComment);
   }
+  resultComments.appendChild (searchOutcome);
   //page is refreshed with same results if search button is pressed again
 }
 
@@ -290,6 +300,7 @@ function renderResult(product) {
   </div>
 </div>
 */
+
   var products = document.createElement('div');
   products.classList.add('product', product.id);
 
@@ -332,8 +343,36 @@ function renderResult(product) {
 function productPage(event) {
   event.preventDefault();
   if (event.target.classList.contains('image') || event.target.classList.contains('description') || event.target.classList.contains('price')) {
-    empty(resultComments);
-    empty(searchResults);
+    if (document.querySelector('.allProducts') != null) {
+      // <div class='back'> Back </div>
+
+      var hideOutcome = document.querySelector('.searchOutcome');
+      hideOutcome.classList.add('hidden');
+
+      var hideSearch = document.querySelector('.allProducts');
+      hideSearch.classList.add('hidden');
+
+      var backResults = document.createElement('div');
+      backResults.classList.add('backResults');
+
+      backResults.appendChild(document.createTextNode('Back to search results'));
+      resultComments.appendChild(backResults);
+    }
+    else {
+      // <div class='backResults'> Back to search results </div>
+
+      var hideConsider = document.querySelector('.consider');
+      hideConsider.classList.add('hidden');
+
+      var hideImages = document.querySelector('.allImages');
+      hideImages.classList.add('hidden');
+
+      var backImages = document.createElement('div');
+      backImages.classList.add('backImages');
+
+      backImages.appendChild(document.createTextNode('Back'));
+      resultComments.appendChild(backImages);
+    }
 
     var id = event.target.classList[1];
     id -= 1;
@@ -363,6 +402,7 @@ function renderProduct(product) {
   </div>
 </div>
 */
+
   var products = document.createElement('div');
   products.classList.add('productPage', product.id);
 
@@ -474,8 +514,6 @@ function addToCart(event) {
 
   if (event.target.classList.contains('addButton')) {
     event.stopPropagation();
-    //empty(resultComments);
-    //empty(searchResults);
     var id = event.target.classList[1];
     id = products[id-1].id;
     var i = cart.length;
@@ -519,8 +557,17 @@ function renderAdded(product) {
 </div>
 */
 
-  var hide = document.querySelector('.productPage');
-  hide.classList.add('hidden');
+  var hideProduct = document.querySelector('.productPage');
+  hideProduct.classList.add('hidden');
+
+  if (document.querySelector('.allProducts') != null) {
+    var backResults = document.querySelector('.backResults');
+    backResults.classList.add('hidden');
+  }
+  else {
+    var backImages = document.querySelector('.backImages');
+    backImages.classList.add('hidden');
+  }
 
   var products = document.createElement('div');
   products.classList.add('addProduct', product.id);
@@ -570,6 +617,36 @@ function renderAdded(product) {
   return products;
   }
 
+///////////////////////////////////////////////////////////
+//back to search results of images page
+function back(event) {
+  event.preventDefault();
+  if (event.target.classList.contains('backImages')) {
+    var hideProduct = document.querySelector('.productPage');
+    hideProduct.classList.add('hidden');
+    var showImages = document.querySelector('.allImages');
+    showImages.classList.remove('hidden');
+    var hideBack = document.querySelector('.backImages');
+    hideBack.classList.add('hidden');
+    var showConsider = document.querySelector('.consider');
+    showConsider.classList.remove('hidden');
+    searchResults.removeChild(searchResults.lastChild);
+    resultComments.removeChild(resultComments.lastChild);
+  }
+  else if (event.target.classList.contains('backResults')) {
+    var hideProductPage = document.querySelector('.productPage');
+    hideProductPage.classList.add('hidden');
+    var showProducts = document.querySelector('.allProducts');
+    showProducts.classList.remove('hidden');
+    var hideBackResults = document.querySelector('.backResults');
+    hideBackResults.classList.add('hidden');
+    var showOutcome = document.querySelector('.searchOutcome');
+    showOutcome.classList.remove('hidden');
+    searchResults.removeChild(searchResults.lastChild);
+    resultComments.removeChild(resultComments.lastChild);
+  }
+  return;
+}
 
 ///////////////////////////////////////////////////////////
 //event listeners
@@ -581,3 +658,4 @@ searchItems.addEventListener('submit', listener);
 var container = document.getElementById('container');
 container.addEventListener('click', productPage);
 container.addEventListener('click', addToCart);
+container.addEventListener('click', back);
