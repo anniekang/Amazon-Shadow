@@ -157,10 +157,12 @@
 .description {
   top: 0;
   width: 98%;
+  color: rgb(0,102,192);
 }
 
 .description:hover {
   cursor: pointer;
+  color: rgb(196,85,0);
 }
 
 .brand {
@@ -341,6 +343,12 @@
   position: relative;
   display: inline-block;
   font-size: 10px;
+  color: rgb(0,102,192);
+}
+
+.descriptionAdded:hover {
+  cursor: pointer;
+  color: rgb(196,85,0);
 }
 
 .priceAdded {

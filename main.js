@@ -618,7 +618,7 @@ function renderAdded(product) {
   }
 
 ///////////////////////////////////////////////////////////
-//back to search results of images page
+//back to search results or images page
 function back(event) {
   event.preventDefault();
   if (event.target.classList.contains('backImages')) {
@@ -649,6 +649,42 @@ function back(event) {
 }
 
 ///////////////////////////////////////////////////////////
+//back to product view from add to cart
+function backToProduct(event) {
+  event.preventDefault();
+  if (event.target.classList.contains('descriptionAdded')) {
+    var hideAdded = document.querySelector('.addProduct');
+    hideAdded.classList.add('hidden');
+    var showProduct = document.querySelector('.productPage');
+    showProduct.classList.remove('hidden');
+    searchResults.removeChild(searchResults.lastChild);
+    var quantityValue = document.querySelector('.quantityValue');
+    quantityValue.value = 1;
+    /*var hideBack = document.querySelector('.backImages');
+    hideBack.classList.add('hidden');
+    var showConsider = document.querySelector('.consider');
+    showConsider.classList.remove('hidden');
+
+    resultComments.removeChild(resultComments.lastChild);*/
+  }
+  /*
+  else if (event.target.classList.contains('backResults')) {
+    var hideProductPage = document.querySelector('.productPage');
+    hideProductPage.classList.add('hidden');
+    var showProducts = document.querySelector('.allProducts');
+    showProducts.classList.remove('hidden');
+    var hideBackResults = document.querySelector('.backResults');
+    hideBackResults.classList.add('hidden');
+    var showOutcome = document.querySelector('.searchOutcome');
+    showOutcome.classList.remove('hidden');
+    searchResults.removeChild(searchResults.lastChild);
+    resultComments.removeChild(resultComments.lastChild);
+  }
+  */
+  return;
+}
+
+///////////////////////////////////////////////////////////
 //event listeners
 logo.addEventListener('click', refresh);
 window.addEventListener('load', refresh);
@@ -659,3 +695,4 @@ var container = document.getElementById('container');
 container.addEventListener('click', productPage);
 container.addEventListener('click', addToCart);
 container.addEventListener('click', back);
+container.addEventListener('click', backToProduct);
