@@ -660,27 +660,7 @@ function backToProduct(event) {
     searchResults.removeChild(searchResults.lastChild);
     var quantityValue = document.querySelector('.quantityValue');
     quantityValue.value = 1;
-    /*var hideBack = document.querySelector('.backImages');
-    hideBack.classList.add('hidden');
-    var showConsider = document.querySelector('.consider');
-    showConsider.classList.remove('hidden');
-
-    resultComments.removeChild(resultComments.lastChild);*/
   }
-  /*
-  else if (event.target.classList.contains('backResults')) {
-    var hideProductPage = document.querySelector('.productPage');
-    hideProductPage.classList.add('hidden');
-    var showProducts = document.querySelector('.allProducts');
-    showProducts.classList.remove('hidden');
-    var hideBackResults = document.querySelector('.backResults');
-    hideBackResults.classList.add('hidden');
-    var showOutcome = document.querySelector('.searchOutcome');
-    showOutcome.classList.remove('hidden');
-    searchResults.removeChild(searchResults.lastChild);
-    resultComments.removeChild(resultComments.lastChild);
-  }
-  */
   return;
 }
 
