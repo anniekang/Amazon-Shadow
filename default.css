@@ -68,7 +68,7 @@
 }
 
 #outcome {
-  width: 80%;
+  width: 100%;
   margin: auto;
   margin-bottom: 10px;
   font-family: sans-serif;
@@ -79,7 +79,31 @@
   margin: auto;
 }
 
-/* products from search result */
+.consider {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+/* product view from random view or search result */
+.backImages {
+  color: blue;
+}
+
+.backImages:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.backResults {
+  color: blue;
+}
+
+.backResults:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .allProducts {
   width: 80%;
   margin: auto;
@@ -133,10 +157,12 @@
 .description {
   top: 0;
   width: 98%;
+  color: rgb(0,102,192);
 }
 
 .description:hover {
   cursor: pointer;
+  color: rgb(196,85,0);
 }
 
 .brand {
@@ -317,6 +343,12 @@
   position: relative;
   display: inline-block;
   font-size: 10px;
+  color: rgb(0,102,192);
+}
+
+.descriptionAdded:hover {
+  cursor: pointer;
+  color: rgb(196,85,0);
 }
 
 .priceAdded {
