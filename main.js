@@ -604,13 +604,13 @@ function renderAdded(product) {
   var hideProduct = document.querySelector('.productPage');
   hideProduct.classList.add('hidden');
 
-  if (document.querySelector('.allProducts') != null) {
+  if (document.querySelector('.backResults') != null) {
     var backResults = document.querySelector('.backResults');
-    backResults.classList.add('hidden');
+    resultComments.removeChild(backResults);
   }
-  else {
+  else if (document.querySelector('.backImages') != null) {
     var backImages = document.querySelector('.backImages');
-    backImages.classList.add('hidden');
+    resultComments.removeChild(backImages);
   }
 
   var products = document.createElement('div');
