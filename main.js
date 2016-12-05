@@ -748,7 +748,6 @@ function backToProduct(event) {
     productResults.removeChild(productResults.lastChild);
     var quantityValue = document.querySelector('.quantityValue');
     quantityValue.value = 1;
-<<<<<<< HEAD
   }
   return;
 }
@@ -764,8 +763,6 @@ function shoppingCart(event) {
     //unhide if shopping cart already exists
     var cartSummaryView = renderSummary(cart);
     cartResults.appendChild(cartSummaryView);
-=======
->>>>>>> master
   }
   return;
 }
