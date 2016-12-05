@@ -191,7 +191,6 @@ function summary(cart) {
 
 var logo = document.getElementById('amazon');
 var gotoCart = document.getElementById('goto-cart');
-var gotoIcon = document.getElementById('goto-icon');
 var resultComments=document.getElementById('outcome');
 var searchItem = document.getElementById('text');
 var productResults = document.getElementById('products');
