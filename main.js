@@ -951,11 +951,6 @@ subtotalPriceSummary.textContent = '$' + cartSummary[1];
 subtotalBoxSummary.appendChild(subtotalItemSummary);
 subtotalBoxSummary.appendChild(subtotalPriceSummary);
 
-/* var proceedButton = document.createElement('button');
-proceedButton.classList.add('proceedButton');
-proceedButton.setAttribute('type', 'submit');
-proceedButton.appendChild(document.createTextNode('Proceed to checkout')); */
-
 subtotalBox.appendChild(subtotalBoxSummary);
 
 allCart.appendChild(cartMain);
