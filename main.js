@@ -769,41 +769,50 @@ function shoppingCart(event) {
 
 function renderSummary(cart) {
 /*
-<div class='cartMain'>
-  <div class='cartHeader'>
-    <div class='cartHeaderLabel'><div>
-    <div class='cartPrice'></div>
-    <div class='cartQuantity'></div>
-  </div>
+<div class='allCart'>
+  <div class='cartMain'>
+    <div class='cartHeader'>
+      <div class='cartHeaderLabel'><div>
+      <div class='cartPrice'></div>
+      <div class='cartQuantity'></div>
+    </div>
 
-  <div class='productCart'>
-    <div class='productCartBox'>
-      <div class='imageInfoCart'>
-        <div class='imageCartBox'>
-          <img class='imageCart' src='link.com'/>
+    <div class='productCart'>
+      <div class='productCartBox'>
+        <div class='imageInfoCart'>
+          <div class='imageCartBox'>
+            <img class='imageCart' src='link.com'/>
+          </div>
+          <div class='infoCart'>
+            <div class='descriptionCart'></div>
+            <div class='brandCart'></div>
+            <div class='delete'></div>
+          </div>
         </div>
-        <div class='infoCart'>
-          <div class='descriptionCart'></div>
-          <div class='brandCart'></div>
-          <div class='delete'></div>
-        </div>
+        <div class='priceCart'></div>
+        <div class='quantityCart'></div>
       </div>
-      <div class='priceCart'></div>
-      <div class='quantityCart'></div>
+    </div>
+    <div class='subtotalCart'>
+      <div class='subtotalPriceCart'></div>
+      <div class='subtotalItemCart'></div>
     </div>
   </div>
-  <div class='subtotalCart'>
-    <div class='subtotalPriceCart'></div>
-    <div class='subtotalItemCart'></div>
-  <div>
-
-<div class='subtotalBox'>
-  <div class='subTotal'></div>
-  <button class='proceedButton' type='submit'>Proceed to checkout</button>
+  <div class='subtotalBox'>
+    <div class='subtotalBoxSummary'>
+      <div class='subtotalItemSummary'></div>
+      <div class='subtotalPriceSummary'></div>
+    </div>
+    <button class='proceedButton' type='submit'>Proceed to checkout</button>
+  </div>
 </div>
+
 */
 
 empty(cartResults);
+
+var allCart = document.createElement('div');
+allCart.classList.add('allCart');
 
 var cartMain = document.createElement('div');
 cartMain.classList.add('cartMain');
@@ -814,6 +823,16 @@ cartHeader.classList.add('cartHeader');
 var cartHeaderLabel = document.createElement('div');
 cartHeaderLabel.classList.add('cartHeaderLabel');
 cartHeaderLabel.textContent = 'Shopping Cart';
+
+if (cartSummary[0] === 0) {
+  var emptyCart = document.createElement('div');
+  emptyCart.classList.add('emptyCart');
+  emptyCart.textContent = 'Your Shopping Cart is empty';
+  cartHeader.appendChild(cartHeaderLabel);
+  cartHeader.appendChild(emptyCart);
+  cartMain.appendChild(cartHeader);
+  return cartMain;
+}
 
 var cartPrice = document.createElement('div');
 cartPrice.classList.add('cartPrice');
@@ -915,7 +934,35 @@ subtotalCart.appendChild(subtotalItemCart);
 
 cartMain.appendChild(subtotalCart);
 
-return cartMain;
+var subtotalBox = document.createElement('div');
+subtotalBox.classList.add('subtotalBox');
+
+var subtotalBoxSummary = document.createElement('div');
+subtotalBoxSummary.classList.add('subtotalBoxSummary');
+
+var subtotalItemSummary = document.createElement('div');
+subtotalItemSummary.classList.add('subtotalItemSummary');
+subtotalItemSummary.textContent = tempSubtotal
+
+var subtotalPriceSummary = document.createElement('div');
+subtotalPriceSummary.classList.add('subtotalPriceSummary');
+subtotalPriceSummary.textContent = '$' + cartSummary[1];
+
+subtotalBoxSummary.appendChild(subtotalItemSummary);
+subtotalBoxSummary.appendChild(subtotalPriceSummary);
+
+/* var proceedButton = document.createElement('button');
+proceedButton.classList.add('proceedButton');
+proceedButton.setAttribute('type', 'submit');
+proceedButton.appendChild(document.createTextNode('Proceed to checkout')); */
+
+subtotalBox.appendChild(subtotalBoxSummary);
+
+allCart.appendChild(cartMain);
+allCart.appendChild(subtotalBox);
+
+
+return allCart;
 
 }
 
@@ -931,7 +978,30 @@ function deleteProduct(event) {
         var cartSummaryView = renderSummary(cart);
         cartResults.appendChild(cartSummaryView);
     }
+  }
+}
 
+///////////////////////////////////////////////////////////
+//update quantity from shopping cart
+function updateQuantity(event) {
+  event.preventDefault();
+  //if passed in value is same as what it was, do nothing, otherwise, update quantity
+  if (event.target.classList.contains('quantityCart')) {
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].product.id === Number(event.target.classList[1])) {
+        if (cart[i].quantity === event.target.value) {
+          //do nothing if same value
+          return;
+        }
+        else {
+          cart[i].quantity = Number(event.target.value);
+          summary(cart);
+          var cartSummaryView = renderSummary(cart);
+          cartResults.appendChild(cartSummaryView);
+          return;
+        }
+      }
+    }
   }
 }
 
@@ -951,3 +1021,4 @@ container.addEventListener('click', shoppingCart);
 
 cartResults.addEventListener('click', productPage);
 cartResults.addEventListener('click', deleteProduct);
+cartResults.addEventListener('input', updateQuantity);

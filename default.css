@@ -402,7 +402,7 @@
 .cartMain {
   display: inline-block;
   margin: 0;
-  width: 80%;
+  width: 75%;
   font-family: sans-serif;
 }
 
@@ -414,6 +414,11 @@
   margin-top: 20px;
   margin-bottom: 20px;
   width: 65%;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.emptyCart {
   font-size: 25px;
   font-weight: bold;
 }
@@ -556,6 +561,37 @@
   margin-right: 5px;
   color: rgb(177,39,4);
   float: right;
+}
+
+.subtotalBox {
+  position: absolute;
+  display: inline-block;
+  margin-left: 4%;
+  width: 20%;
+  height: 200px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.subtotalBoxSummary {
+  margin-top: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: .02em;
+  font-family: sans-serif;
+}
+
+.subtotalItemSummary {
+  display: inline;
+  margin-left: 10px;
+  text-align: right;
+}
+
+.subtotalPriceSummary {
+  display: inline;
+  margin-left: 5px;
+  margin-right: 10px;
+  color: rgb(177,39,4);
 }
 
 .hidden {
