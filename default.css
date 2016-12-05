@@ -61,6 +61,19 @@
   background-color: rgb(254,188,105);
 }
 
+#goto-cart {
+  position: relative;
+  display: inline-block;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+#goto-cart:hover {
+  cursor: pointer;
+  border: .5px solid lightgray;
+  border-radius: 5px;
+}
+
 #container {
   position: relative;
   margin: 5%;
