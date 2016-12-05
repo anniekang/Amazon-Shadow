@@ -190,6 +190,7 @@ function summary(cart) {
 }
 
 var logo = document.getElementById('amazon');
+var gotoCart = document.getElementById('goto-cart');
 var resultComments=document.getElementById('outcome');
 var searchItem = document.getElementById('text');
 var productResults = document.getElementById('products');
@@ -203,10 +204,20 @@ function refresh(event) {
   if (cartResults.hasChildNodes()) {
     cartResults.removeChild(cartResults.lastChild);
   }
+  if (document.querySelector('.cart-quantity-header') != null) {
+    gotoCart.removeChild(document.querySelector('.cart-quantity-header'))
+  }
+
+  var cartQuantityHeader = document.createElement('div');
+  cartQuantityHeader.classList.add('cart-quantity-header');
+  cartQuantityHeader.textContent = cartSummary[0];
+
+  gotoCart.appendChild(cartQuantityHeader);
+
   empty(resultComments);
   empty(productResults);
   var allImages = document.createElement('div');
-  allImages.classList.add('allImages');
+  allImages.classList.add('all-images');
   for (var i = 0; i < 20; i++) {
     var randomProduct = Math.floor(Math.random() * products.length);
     var image = renderLoad(products[randomProduct]);
@@ -225,8 +236,9 @@ function refresh(event) {
 }
 
 function renderLoad(product) {
+
   var imageBox = document.createElement('div');
-  imageBox.classList.add('imageBox', product.id);
+  imageBox.classList.add('image-box', product.id);
 
   var image = document.createElement('img');
   image.classList.add('image', product.id);
@@ -248,7 +260,7 @@ function listener(event) {
   empty(resultComments);
   empty(productResults);
   var allProducts = document.createElement('div');
-  allProducts.classList.add('allProducts')
+  allProducts.classList.add('all-products')
 
   /*1. compare search text with each array item in jsProducts
     2. if results are true, create div block to add to #products in document
@@ -264,7 +276,7 @@ function listener(event) {
   }
 
   var searchOutcome=document.createElement('div');
-  searchOutcome.classList.add('searchOutcome');
+  searchOutcome.classList.add('search-outcome');
   var resultComment;
 
   if (allProducts.firstChild) {
@@ -313,7 +325,7 @@ function search(description, searchItem) {
 function renderResult(product) {
 /*
 <div class='product'>
-  <div id=imageBox>
+  <div id=image-box>
     <img class='image' src='link.com'/>
   </div>
   <div class='info'>
@@ -328,7 +340,7 @@ function renderResult(product) {
   products.classList.add('product', product.id);
 
   var imageBox = document.createElement('div');
-  imageBox.classList.add('imageBox', product.id);
+  imageBox.classList.add('image-box', product.id);
 
   var image = document.createElement('img');
   image.classList.add('image', product.id);
@@ -371,17 +383,17 @@ function productPage(event) {
       cartResults.removeChild(cartResults.lastChild);
     }
     if (productResults.hasChildNodes()) {
-      if (document.querySelector('.allProducts') != null) {
+      if (document.querySelector('.all-products') != null) {
         // <div class='back'> Back </div>
 
-        var hideOutcome = document.querySelector('.searchOutcome');
+        var hideOutcome = document.querySelector('.search-outcome');
         hideOutcome.classList.add('hidden');
 
-        var hideSearch = document.querySelector('.allProducts');
+        var hideSearch = document.querySelector('.all-products');
         hideSearch.classList.add('hidden');
 
         var backResults = document.createElement('div');
-        backResults.classList.add('backResults');
+        backResults.classList.add('back-results');
 
         backResults.appendChild(document.createTextNode('Back to search results'));
         resultComments.appendChild(backResults);
@@ -392,11 +404,11 @@ function productPage(event) {
         var hideConsider = document.querySelector('.consider');
         hideConsider.classList.add('hidden');
 
-        var hideImages = document.querySelector('.allImages');
+        var hideImages = document.querySelector('.all-images');
         hideImages.classList.add('hidden');
 
         var backImages = document.createElement('div');
-        backImages.classList.add('backImages');
+        backImages.classList.add('back-images');
 
         backImages.appendChild(document.createTextNode('Back'));
         resultComments.appendChild(backImages);
@@ -414,7 +426,7 @@ function productPage(event) {
 function renderProduct(product) {
 /*
 <div class='product'>
-  <div class='imageBox'>
+  <div class='image-box'>
     <img class='image' src='link.com'/>
   </div>
   <div class='info'>
@@ -422,46 +434,46 @@ function renderProduct(product) {
     <div class='brand'></div>
     <div class='price'></div>
   </div>
-  <div class='cartBox'>
-  <div class='addCart'
+  <div class='cart-box'>
+  <div class='add-cart'
     <input type='number' name='quantity' min='1' max='10'>
-    <button class='addButton' type='submit'><i class='cartImage' class='fa fa-shopping-cart'>Add to cart</button>
+    <button class='add-button' type='submit'><i class='cart-image' class='fa fa-shopping-cart'>Add to cart</button>
   </div>
   </div>
 </div>
 */
 
   var products = document.createElement('div');
-  products.classList.add('productPage', product.id);
+  products.classList.add('product-page', product.id);
 
   var imageBox = document.createElement('div');
-  imageBox.classList.add('imageBoxProduct', product.id);
+  imageBox.classList.add('image-box-product', product.id);
 
   var image = document.createElement('img');
-  image.classList.add('imageProduct', product.id);
+  image.classList.add('image-product', product.id);
   image.setAttribute('src', product.image);
 
   imageBox.appendChild(image);
 
   var info = document.createElement('div');
-  info.classList.add('infoProduct', product.id);
+  info.classList.add('info-product', product.id);
 
   var description = document.createElement('div');
-  description.classList.add('descriptionProduct', product.id);
+  description.classList.add('description-product', product.id);
   description.textContent = product.description;
 
   var brand = document.createElement('div');
-  brand.classList.add('brandIntro', product.id);
+  brand.classList.add('brand-intro', product.id);
   brand.textContent = 'by ';
 
   var brandOnly = document.createElement('div');
-  brandOnly.classList.add('brandOnly', product.id);
+  brandOnly.classList.add('brand-only', product.id);
   brandOnly.textContent = product.brand;
 
   brand.appendChild(brandOnly);
 
   var price = document.createElement('div');
-  price.classList.add('priceProduct', product.id);
+  price.classList.add('price-product', product.id);
   price.textContent = '$' + product.price;
 
   info.appendChild(description);
@@ -474,7 +486,7 @@ function renderProduct(product) {
     for (var i = 0; i < product.details.length; i++) {
       var detailLine = document.createElement('li');
       var lineNumber = 'line' + i;
-      detailLine.classList.add('detailLine', product.id, lineNumber);
+      detailLine.classList.add('detail-line', product.id, lineNumber);
       detailLine.textContent = product.details[i];
       details.appendChild(detailLine);
     }
@@ -482,7 +494,7 @@ function renderProduct(product) {
   }
 
   var cartBox = document.createElement('div');
-  cartBox.classList.add('cartBox', product.id);
+  cartBox.classList.add('cart-box', product.id);
 
   var addCart = renderCart(product);
   cartBox.appendChild(addCart);
@@ -497,20 +509,20 @@ function renderProduct(product) {
 function renderCart(product){
 //quantity plus add to cart
 /*
-<div class='addCart'
+<div class='add-cart'
   <input type='number' name='quantity' min='1' max='10'>
-  <button class='addButton' type='submit'><i class='cartImage' class='fa fa-shopping-cart'>Add to cart</button>
+  <button class='add-button' type='submit'><i class='cart-image' class='fa fa-shopping-cart'>Add to cart</button>
 </div>
 */
   var addCart = document.createElement('div');
-  addCart.classList.add('addCart', product.id);
+  addCart.classList.add('add-cart', product.id);
 
   var quantity = document.createElement('div');
   quantity.classList.add('quantity', product.id);
   quantity.textContent = 'Qty: ';
 
   var quantityValue = document.createElement('input');
-  quantityValue.classList.add('quantityValue', product.id);
+  quantityValue.classList.add('quantity-value', product.id);
   quantityValue.setAttribute('type', 'number');
   quantityValue.setAttribute('name', 'quantity');
   quantityValue.setAttribute('min', '1');
@@ -520,11 +532,11 @@ function renderCart(product){
   quantity.appendChild(quantityValue);
 
   var addButton = document.createElement('button');
-  addButton.classList.add('addButton', product.id);
+  addButton.classList.add('add-button', product.id);
   addButton.setAttribute('type', 'submit');
 
   var cartImage = document.createElement('i');
-  cartImage.classList.add('cartImage', product.id, 'fa', 'fa-shopping-cart', 'fa-2x');
+  cartImage.classList.add('cart-image', product.id, 'fa', 'fa-shopping-cart', 'fa-2x');
 
   addButton.appendChild(cartImage);
   addButton.appendChild(document.createTextNode('Add to Cart'));
@@ -540,7 +552,7 @@ function renderCart(product){
 function addToCart(event) {
   event.preventDefault();
 
-  if (event.target.classList.contains('addButton') || event.target.classList.contains('cartImage')) {
+  if (event.target.classList.contains('add-button') || event.target.classList.contains('cart-image')) {
     event.stopPropagation();
     if (cartResults.hasChildNodes()) {
       cartResults.removeChild(cartResults.lastChild);
@@ -548,16 +560,17 @@ function addToCart(event) {
     var id = event.target.classList[1];
     id = products[id-1].id;
     var i = cart.length;
-    var quantity = Number(document.querySelector('.quantityValue').value);
+    var quantity = Number(document.querySelector('.quantity-value').value);
     var cartCheck = inCart(id);
     if (i > 0 && cartCheck !== false) {
           cart[cartCheck].quantity += quantity;
-          summary(cart);
     }
     else {
       cart.push({product: products[id-1], quantity: quantity});
-      summary(cart);
     }
+    summary(cart);
+    var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+    cartQuantityHeader.textContent = cartSummary[0];
     var product = products[id-1];
     var added = renderAdded(product);
     var addedItem = document.getElementById('products');
@@ -577,58 +590,58 @@ function inCart(productID) {
 
 function renderAdded(product) {
 /*
-<div class='addProduct'>
-  <div class='itemQuantity'>
-    <div class='checkNumberAdded'>
+<div class='add-product'>
+  <div class='item-quantity'>
+    <div class='check-number-added'>
       <i class='check' class='fa fa-check'></>
-      <div class='numberAdded'></div>
+      <div class='number-added'></div>
     </div>
-    <div class='imageDescriptionAdded'>
-      <img class='imageAdded' src='link.com'/>
-      <div class='descriptionPriceAdded'>
-        <div class='descriptionAdded'></div>
-        <div class='priceAdded'></div>
+    <div class='image-description-added'>
+      <img class='image-added' src='link.com'/>
+      <div class='description-price-added'>
+        <div class='description-added'></div>
+        <div class='price-added'></div>
       </div>
     </div>
   </div>
-  <div class='miniSummary'>
-      <div class='miniItemTotal'></div>
-      <div class='miniSubtotal'></div>
-      <button class='viewCartButton' type='submit'><i class='viewCart' class='fa fa-shopping-cart'></button>
+  <div class='mini-summary'>
+      <div class='mini-item-total'></div>
+      <div class='mini-subtotal'></div>
+      <button class='view-cart-button' type='submit'><i class='view-cart' class='fa fa-shopping-cart'></button>
   </div>
 
   </div>
 </div>
 */
 
-  var hideProduct = document.querySelector('.productPage');
+  var hideProduct = document.querySelector('.product-page');
   hideProduct.classList.add('hidden');
 
-  if (document.querySelector('.backResults') != null) {
-    var backResults = document.querySelector('.backResults');
+  if (document.querySelector('.back-results') != null) {
+    var backResults = document.querySelector('.back-results');
     resultComments.removeChild(backResults);
   }
-  else if (document.querySelector('.backImages') != null) {
-    var backImages = document.querySelector('.backImages');
+  else if (document.querySelector('.back-images') != null) {
+    var backImages = document.querySelector('.back-images');
     resultComments.removeChild(backImages);
   }
 
   var products = document.createElement('div');
-  products.classList.add('addProduct', product.id);
+  products.classList.add('add-product', product.id);
 
   var box = document.createElement('div');
-  box.classList.add('itemQuantity', product.id);
+  box.classList.add('item-quantity', product.id);
 
   var checkNumberAdded = document.createElement('div');
-  checkNumberAdded.classList.add('checkNumberAdded');
+  checkNumberAdded.classList.add('check-number-added');
 
   var check = document.createElement('i');
   check.classList.add('check', product.id, 'fa', 'fa-check', 'fa-2x');
 
   var numberAdded = document.createElement('div');
-  numberAdded.classList.add('numberAdded', product.id);
-  var tempText = document.querySelector('.quantityValue').value;
-  if (document.querySelector('.quantityValue').value === '1') {
+  numberAdded.classList.add('number-added', product.id);
+  var tempText = document.querySelector('.quantity-value').value;
+  if (document.querySelector('.quantity-value').value === '1') {
     tempText = tempText + ' item added to Cart';
   }
   else {
@@ -642,21 +655,21 @@ function renderAdded(product) {
   box.appendChild(checkNumberAdded);
 
   var imageDescriptionAdded = document.createElement('div');
-  imageDescriptionAdded.classList.add('imageDescriptionAdded');
+  imageDescriptionAdded.classList.add('image-description-added');
 
   var image = document.createElement('img');
-  image.classList.add('imageAdded', product.id);
+  image.classList.add('image-added', product.id);
   image.setAttribute('src', product.image);
 
   var descriptionPrice = document.createElement('div');
-  descriptionPrice.classList.add('descriptionPriceAdded', product.id);
+  descriptionPrice.classList.add('description-price-added', product.id);
 
   var description = document.createElement('div');
-  description.classList.add('descriptionAdded', product.id);
+  description.classList.add('description-added', product.id);
   description.textContent = product.description;
 
   var price = document.createElement('div');
-  price.classList.add('priceAdded', product.id);
+  price.classList.add('price-added', product.id);
   price.textContent = '$' + product.price;
 
   descriptionPrice.appendChild(description);
@@ -668,7 +681,7 @@ function renderAdded(product) {
   box.appendChild(imageDescriptionAdded);
 
   var miniSummary = document.createElement('div');
-  miniSummary.classList.add('miniSummary');
+  miniSummary.classList.add('mini-summary');
 
   var tempSubtotal;
   if (cartSummary[0] > 1) {
@@ -679,22 +692,22 @@ function renderAdded(product) {
   }
 
   var miniItemTotal = document.createElement('div');
-  miniItemTotal.classList.add('miniItemTotal');
+  miniItemTotal.classList.add('mini-item-total');
   miniItemTotal.textContent = tempSubtotal;
 
   var miniSubtotal = document.createElement('div');
-  miniSubtotal.classList.add('miniSubtotal');
+  miniSubtotal.classList.add('mini-subtotal');
   miniSubtotal.textContent = '$' + cartSummary[1];
 
   miniSummary.appendChild(miniItemTotal);
   miniSummary.appendChild(miniSubtotal);
 
   var addButton = document.createElement('button');
-  addButton.classList.add('viewCartButton', product.id);
+  addButton.classList.add('view-cart-button', product.id);
   addButton.setAttribute('type', 'submit');
 
   var cartImage = document.createElement('i');
-  cartImage.classList.add('viewCart', product.id, 'fa', 'fa-shopping-cart', 'fa-3x');
+  cartImage.classList.add('view-cart', product.id, 'fa', 'fa-shopping-cart', 'fa-3x');
 
   addButton.appendChild(cartImage);
   miniSummary.appendChild(addButton);
@@ -709,26 +722,26 @@ function renderAdded(product) {
 //back to search results or images page
 function back(event) {
   event.preventDefault();
-  if (event.target.classList.contains('backImages')) {
-    var hideProduct = document.querySelector('.productPage');
+  if (event.target.classList.contains('back-images')) {
+    var hideProduct = document.querySelector('.product-page');
     hideProduct.classList.add('hidden');
-    var showImages = document.querySelector('.allImages');
+    var showImages = document.querySelector('.all-images');
     showImages.classList.remove('hidden');
-    var hideBack = document.querySelector('.backImages');
+    var hideBack = document.querySelector('.back-images');
     hideBack.classList.add('hidden');
     var showConsider = document.querySelector('.consider');
     showConsider.classList.remove('hidden');
     productResults.removeChild(productResults.lastChild);
     resultComments.removeChild(resultComments.lastChild);
   }
-  else if (event.target.classList.contains('backResults')) {
-    var hideProductPage = document.querySelector('.productPage');
+  else if (event.target.classList.contains('back-results')) {
+    var hideProductPage = document.querySelector('.product-page');
     hideProductPage.classList.add('hidden');
-    var showProducts = document.querySelector('.allProducts');
+    var showProducts = document.querySelector('.all-products');
     showProducts.classList.remove('hidden');
-    var hideBackResults = document.querySelector('.backResults');
+    var hideBackResults = document.querySelector('.back-results');
     hideBackResults.classList.add('hidden');
-    var showOutcome = document.querySelector('.searchOutcome');
+    var showOutcome = document.querySelector('.search-outcome');
     showOutcome.classList.remove('hidden');
     productResults.removeChild(productResults.lastChild);
     resultComments.removeChild(resultComments.lastChild);
@@ -740,13 +753,13 @@ function back(event) {
 //back to product view from add to cart
 function backToProduct(event) {
   event.preventDefault();
-  if (event.target.classList.contains('descriptionAdded')) {
-    var hideAdded = document.querySelector('.addProduct');
+  if (event.target.classList.contains('description-added')) {
+    var hideAdded = document.querySelector('.add-product');
     hideAdded.classList.add('hidden');
-    var showProduct = document.querySelector('.productPage');
+    var showProduct = document.querySelector('.product-page');
     showProduct.classList.remove('hidden');
     productResults.removeChild(productResults.lastChild);
-    var quantityValue = document.querySelector('.quantityValue');
+    var quantityValue = document.querySelector('.quantity-value');
     quantityValue.value = 1;
   }
   return;
@@ -756,7 +769,7 @@ function backToProduct(event) {
 //generate shopping cart
 function shoppingCart(event) {
   event.preventDefault();
-  if (event.target.classList.contains('viewCartButton') || event.target.classList.contains('viewCart')) {
+  if (event.target.classList.contains('view-cart-button') || event.target.classList.contains('view-cart') || event.target.classList.contains('goto-cart') || event.target.classList.contains('goto-icon') || event.target.classList.contains('cart-quantity-header')) {
     event.stopPropagation();
     empty(resultComments);
     empty(productResults);
@@ -769,41 +782,41 @@ function shoppingCart(event) {
 
 function renderSummary(cart) {
 /*
-<div class='allCart'>
-  <div class='cartMain'>
-    <div class='cartHeader'>
-      <div class='cartHeaderLabel'><div>
-      <div class='cartPrice'></div>
-      <div class='cartQuantity'></div>
+                                                                                                                                                        <div class='allCart'>
+  <div class='cart-main'>
+    <div class='cart-header'>
+      <div class='cart-header-label'><div>
+      <div class='cart-price'></div>
+      <div class='cart-quantity'></div>
     </div>
 
-    <div class='productCart'>
-      <div class='productCartBox'>
-        <div class='imageInfoCart'>
-          <div class='imageCartBox'>
-            <img class='imageCart' src='link.com'/>
+    <div class='product-cart'>
+      <div class='product-cart-box'>
+        <div class='image-info-cart'>
+          <div class='image-cart-box'>
+            <img class='image-cart' src='link.com'/>
           </div>
-          <div class='infoCart'>
-            <div class='descriptionCart'></div>
-            <div class='brandCart'></div>
+          <div class='info-cart'>
+            <div class='description-cart'></div>
+            <div class='brand-cart'></div>
             <div class='delete'></div>
           </div>
         </div>
-        <div class='priceCart'></div>
-        <div class='quantityCart'></div>
+        <div class='price-cart'></div>
+        <div class='quantity-cart'></div>
       </div>
     </div>
     <div class='subtotalCart'>
-      <div class='subtotalPriceCart'></div>
-      <div class='subtotalItemCart'></div>
+      <div class='subtotal-price-cart'></div>
+      <div class='subtotal-item-cart'></div>
     </div>
   </div>
-  <div class='subtotalBox'>
-    <div class='subtotalBoxSummary'>
-      <div class='subtotalItemSummary'></div>
-      <div class='subtotalPriceSummary'></div>
+  <div class='subtotal-box'>
+    <div class='subtotal-box-summary'>
+      <div class='subtotal-item-summary'></div>
+      <div class='subtotal-price-summary'></div>
     </div>
-    <button class='proceedButton' type='submit'>Proceed to checkout</button>
+    <button class='proceed-button' type='submit'>Proceed to checkout</button>
   </div>
 </div>
 
@@ -812,21 +825,21 @@ function renderSummary(cart) {
 empty(cartResults);
 
 var allCart = document.createElement('div');
-allCart.classList.add('allCart');
+allCart.classList.add('all-cart');
 
 var cartMain = document.createElement('div');
-cartMain.classList.add('cartMain');
+cartMain.classList.add('cart-main');
 
 var cartHeader = document.createElement('div');
-cartHeader.classList.add('cartHeader');
+cartHeader.classList.add('cart-header');
 
 var cartHeaderLabel = document.createElement('div');
-cartHeaderLabel.classList.add('cartHeaderLabel');
+cartHeaderLabel.classList.add('cart-header-label');
 cartHeaderLabel.textContent = 'Shopping Cart';
 
 if (cartSummary[0] === 0) {
   var emptyCart = document.createElement('div');
-  emptyCart.classList.add('emptyCart');
+  emptyCart.classList.add('empty-cart');
   emptyCart.textContent = 'Your Shopping Cart is empty';
   cartHeader.appendChild(cartHeaderLabel);
   cartHeader.appendChild(emptyCart);
@@ -835,11 +848,11 @@ if (cartSummary[0] === 0) {
 }
 
 var cartPrice = document.createElement('div');
-cartPrice.classList.add('cartPrice');
+cartPrice.classList.add('cart-price');
 cartPrice.textContent = 'Price';
 
 var cartQuantity = document.createElement('div');
-cartQuantity.classList.add('cartQuantity');
+cartQuantity.classList.add('cart-quantity');
 cartQuantity.textContent = 'Quantity';
 
 cartHeader.appendChild(cartHeaderLabel);
@@ -849,38 +862,38 @@ cartHeader.appendChild(cartQuantity);
 cartMain.appendChild(cartHeader);
 
 var productCart = document.createElement('div');
-productCart.classList.add('productCart');
+productCart.classList.add('product-cart');
 
 for (var i = 0; i < cart.length; i++) {
   var productCartBox = document.createElement('div');
-  productCartBox.classList.add('productCartBox', cart[i].product.id)
+  productCartBox.classList.add('product-cart-box', cart[i].product.id)
 
   var imageInfoCart = document.createElement ('div');
-  imageInfoCart.classList.add('imageInfoCart', cart[i].product.id);
+  imageInfoCart.classList.add('image-info-cart', cart[i].product.id);
 
   var imageCartBox = document.createElement('div');
-  imageCartBox.classList.add('imageCartBox', cart[i].product.id);
+  imageCartBox.classList.add('image-cart-box', cart[i].product.id);
 
   var imageCart = document.createElement('img');
-  imageCart.classList.add('imageCart', cart[i].product.id);
+  imageCart.classList.add('image-cart', cart[i].product.id);
   imageCart.setAttribute('src', cart[i].product.image);
 
   imageCartBox.appendChild(imageCart);
   imageInfoCart.appendChild(imageCartBox);
 
   var infoCart = document.createElement('div');
-  infoCart.classList.add('infoCart', cart[i].product.id);
+  infoCart.classList.add('info-cart', cart[i].product.id);
 
   var descriptionCart = document.createElement('div');
-  descriptionCart.classList.add('descriptionCart', cart[i].product.id);
+  descriptionCart.classList.add('description-cart', cart[i].product.id);
   descriptionCart.textContent = cart[i].product.description;
 
   var brandCart = document.createElement('div');
-  brandCart.classList.add('brandCart', cart[i].product.id);
+  brandCart.classList.add('brand-cart', cart[i].product.id);
   brandCart.textContent = 'by ' + cart[i].product.brand;
 
   var deleteProduct = document.createElement('div');
-  deleteProduct.classList.add('deleteProduct', cart[i].product.id);
+  deleteProduct.classList.add('delete-product', cart[i].product.id);
   deleteProduct.textContent = 'Delete';
 
   infoCart.appendChild(descriptionCart);
@@ -891,11 +904,11 @@ for (var i = 0; i < cart.length; i++) {
   productCartBox.appendChild(imageInfoCart);
 
   var priceCart = document.createElement('div');
-  priceCart.classList.add('priceCart', cart[i].product.id);
+  priceCart.classList.add('price-cart', cart[i].product.id);
   priceCart.textContent = '$' + cart[i].product.price;
 
   var quantityCart = document.createElement('input');
-  quantityCart.classList.add('quantityCart', cart[i].product.id);
+  quantityCart.classList.add('quantity-cart', cart[i].product.id);
   quantityCart.setAttribute('type', 'number');
   quantityCart.setAttribute('name', 'quantity');
   quantityCart.setAttribute('min', '1');
@@ -911,7 +924,7 @@ for (var i = 0; i < cart.length; i++) {
 cartMain.appendChild(productCart);
 
 var subtotalCart = document.createElement('div');
-subtotalCart.classList.add('subtotalCart');
+subtotalCart.classList.add('subtotal-cart');
 var tempSubtotal;
 
 if (cartSummary[0] > 1) {
@@ -922,11 +935,11 @@ else {
 }
 
 var subtotalItemCart = document.createElement('div');
-subtotalItemCart.classList.add('subtotalItemCart');
+subtotalItemCart.classList.add('subtotal-item-cart');
 subtotalItemCart.textContent = tempSubtotal;
 
 var subtotalPriceCart = document.createElement('div');
-subtotalPriceCart.classList.add('subtotalPriceCart');
+subtotalPriceCart.classList.add('subtotal-price-cart');
 subtotalPriceCart.textContent = '$' + cartSummary[1];
 
 subtotalCart.appendChild(subtotalPriceCart);
@@ -935,17 +948,17 @@ subtotalCart.appendChild(subtotalItemCart);
 cartMain.appendChild(subtotalCart);
 
 var subtotalBox = document.createElement('div');
-subtotalBox.classList.add('subtotalBox');
+subtotalBox.classList.add('subtotal-box');
 
 var subtotalBoxSummary = document.createElement('div');
-subtotalBoxSummary.classList.add('subtotalBoxSummary');
+subtotalBoxSummary.classList.add('subtotal-box-summary');
 
 var subtotalItemSummary = document.createElement('div');
-subtotalItemSummary.classList.add('subtotalItemSummary');
+subtotalItemSummary.classList.add('subtotal-item-summary');
 subtotalItemSummary.textContent = tempSubtotal
 
 var subtotalPriceSummary = document.createElement('div');
-subtotalPriceSummary.classList.add('subtotalPriceSummary');
+subtotalPriceSummary.classList.add('subtotal-price-summary');
 subtotalPriceSummary.textContent = '$' + cartSummary[1];
 
 subtotalBoxSummary.appendChild(subtotalItemSummary);
@@ -965,11 +978,13 @@ return allCart;
 //delete product from shopping cart
 function deleteProduct(event) {
   event.preventDefault();
-  if (event.target.classList.contains('deleteProduct')) {
+  if (event.target.classList.contains('delete-product')) {
     for (var i = 0; i < cart.length; i++) {
       if (cart[i].product.id === Number(event.target.classList[1]))
         cart.splice(i,1);
         summary(cart);
+        var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+        cartQuantityHeader.textContent = cartSummary[0];
         var cartSummaryView = renderSummary(cart);
         cartResults.appendChild(cartSummaryView);
     }
@@ -981,7 +996,7 @@ function deleteProduct(event) {
 function updateQuantity(event) {
   event.preventDefault();
   //if passed in value is same as what it was, do nothing, otherwise, update quantity
-  if (event.target.classList.contains('quantityCart')) {
+  if (event.target.classList.contains('quantity-cart')) {
     for (var i = 0; i < cart.length; i++) {
       if (cart[i].product.id === Number(event.target.classList[1])) {
         if (cart[i].quantity === event.target.value) {
@@ -991,6 +1006,8 @@ function updateQuantity(event) {
         else {
           cart[i].quantity = Number(event.target.value);
           summary(cart);
+          var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+          cartQuantityHeader.textContent = cartSummary[0];
           var cartSummaryView = renderSummary(cart);
           cartResults.appendChild(cartSummaryView);
           return;
@@ -1017,3 +1034,5 @@ container.addEventListener('click', shoppingCart);
 cartResults.addEventListener('click', productPage);
 cartResults.addEventListener('click', deleteProduct);
 cartResults.addEventListener('input', updateQuantity);
+
+gotoCart.addEventListener('click', shoppingCart);
