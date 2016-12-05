@@ -190,6 +190,8 @@ function summary(cart) {
 }
 
 var logo = document.getElementById('amazon');
+var gotoCart = document.getElementById('goto-cart');
+var gotoIcon = document.getElementById('goto-icon');
 var resultComments=document.getElementById('outcome');
 var searchItem = document.getElementById('text');
 var productResults = document.getElementById('products');
@@ -203,6 +205,16 @@ function refresh(event) {
   if (cartResults.hasChildNodes()) {
     cartResults.removeChild(cartResults.lastChild);
   }
+  if (document.querySelector('.cartQuantityHeader') != null) {
+    gotoCart.removeChild(document.querySelector('.cartQuantityHeader'))
+  }
+
+  var cartQuantityHeader = document.createElement('div');
+  cartQuantityHeader.classList.add('cartQuantityHeader');
+  cartQuantityHeader.textContent = cartSummary[0];
+
+  gotoCart.appendChild(cartQuantityHeader);
+
   empty(resultComments);
   empty(productResults);
   var allImages = document.createElement('div');
@@ -225,6 +237,7 @@ function refresh(event) {
 }
 
 function renderLoad(product) {
+
   var imageBox = document.createElement('div');
   imageBox.classList.add('imageBox', product.id);
 
@@ -552,12 +565,13 @@ function addToCart(event) {
     var cartCheck = inCart(id);
     if (i > 0 && cartCheck !== false) {
           cart[cartCheck].quantity += quantity;
-          summary(cart);
     }
     else {
       cart.push({product: products[id-1], quantity: quantity});
-      summary(cart);
     }
+    summary(cart);
+    var cartQuantityHeader = document.querySelector('.cartQuantityHeader');
+    cartQuantityHeader.textContent = cartSummary[0];
     var product = products[id-1];
     var added = renderAdded(product);
     var addedItem = document.getElementById('products');
@@ -756,7 +770,7 @@ function backToProduct(event) {
 //generate shopping cart
 function shoppingCart(event) {
   event.preventDefault();
-  if (event.target.classList.contains('viewCartButton') || event.target.classList.contains('viewCart')) {
+  if (event.target.classList.contains('viewCartButton') || event.target.classList.contains('viewCart') || event.target.classList.contains('goto-cart') || event.target.classList.contains('goto-icon') || event.target.classList.contains('cartQuantityHeader')) {
     event.stopPropagation();
     empty(resultComments);
     empty(productResults);
@@ -975,6 +989,8 @@ function deleteProduct(event) {
       if (cart[i].product.id === Number(event.target.classList[1]))
         cart.splice(i,1);
         summary(cart);
+        var cartQuantityHeader = document.querySelector('.cartQuantityHeader');
+        cartQuantityHeader.textContent = cartSummary[0];
         var cartSummaryView = renderSummary(cart);
         cartResults.appendChild(cartSummaryView);
     }
@@ -996,6 +1012,8 @@ function updateQuantity(event) {
         else {
           cart[i].quantity = Number(event.target.value);
           summary(cart);
+          var cartQuantityHeader = document.querySelector('.cartQuantityHeader');
+          cartQuantityHeader.textContent = cartSummary[0];
           var cartSummaryView = renderSummary(cart);
           cartResults.appendChild(cartSummaryView);
           return;
@@ -1022,3 +1040,5 @@ container.addEventListener('click', shoppingCart);
 cartResults.addEventListener('click', productPage);
 cartResults.addEventListener('click', deleteProduct);
 cartResults.addEventListener('input', updateQuantity);
+
+gotoCart.addEventListener('click', shoppingCart);
