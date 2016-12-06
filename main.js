@@ -189,12 +189,17 @@ function summary(cart) {
   return cartSummary;
 }
 
+var shippingAddress = [];
+var paymentMethod = [];
+
+var heading = document.getElementById('heading');
 var logo = document.getElementById('amazon');
 var gotoCart = document.getElementById('goto-cart');
 var resultComments=document.getElementById('outcome');
 var searchItem = document.getElementById('text');
 var productResults = document.getElementById('products');
 var cartResults = document.getElementById('cart');
+var checkoutResults = document.getElementById('checkout');
 
 ///////////////////////////////////////////////////////////
 //when page loads or amazon logo is clicked, random products are generated
@@ -378,7 +383,7 @@ function renderResult(product) {
 function productPage(event) {
   event.preventDefault();
 
-  if (event.target.classList.contains('image') || event.target.classList.contains('description') || event.target.classList.contains('price') || event.target.classList.contains('imageCart') || event.target.classList.contains('descriptionCart')) {
+  if (event.target.classList.contains('image') || event.target.classList.contains('description') || event.target.classList.contains('price') || event.target.classList.contains('image-cart') || event.target.classList.contains('description-cart')) {
     if (cartResults.hasChildNodes()) {
       cartResults.removeChild(cartResults.lastChild);
     }
@@ -608,6 +613,7 @@ function renderAdded(product) {
       <div class='mini-item-total'></div>
       <div class='mini-subtotal'></div>
       <button class='view-cart-button' type='submit'><i class='view-cart' class='fa fa-shopping-cart'></button>
+      <button class='add-proceed' type='submit'>Proceed to checkout</button>
   </div>
 
   </div>
@@ -712,6 +718,13 @@ function renderAdded(product) {
   addButton.appendChild(cartImage);
   miniSummary.appendChild(addButton);
 
+  var addProceed = document.createElement('button');
+  addProceed.classList.add('add-proceed', product.id);
+  addProceed.setAttribute('type', 'submit');
+  addProceed.textContent = 'Proceed to checkout';
+
+  miniSummary.appendChild(addProceed);
+
   products.appendChild(box);
   products.appendChild(miniSummary);
 
@@ -782,14 +795,13 @@ function shoppingCart(event) {
 
 function renderSummary(cart) {
 /*
-                                                                                                                                                        <div class='allCart'>
+<div class='cart-all'>
   <div class='cart-main'>
     <div class='cart-header'>
       <div class='cart-header-label'><div>
       <div class='cart-price'></div>
       <div class='cart-quantity'></div>
     </div>
-
     <div class='product-cart'>
       <div class='product-cart-box'>
         <div class='image-info-cart'>
@@ -816,7 +828,7 @@ function renderSummary(cart) {
       <div class='subtotal-item-summary'></div>
       <div class='subtotal-price-summary'></div>
     </div>
-    <button class='proceed-button' type='submit'>Proceed to checkout</button>
+    <button class='cart-proceed' type='submit'>Proceed to checkout</button>
   </div>
 </div>
 
@@ -824,8 +836,8 @@ function renderSummary(cart) {
 
 empty(cartResults);
 
-var allCart = document.createElement('div');
-allCart.classList.add('all-cart');
+var cartAll = document.createElement('div');
+cartAll.classList.add('cart-all');
 
 var cartMain = document.createElement('div');
 cartMain.classList.add('cart-main');
@@ -964,57 +976,549 @@ subtotalPriceSummary.textContent = '$' + cartSummary[1];
 subtotalBoxSummary.appendChild(subtotalItemSummary);
 subtotalBoxSummary.appendChild(subtotalPriceSummary);
 
+var cartProceed = document.createElement('button');
+cartProceed.classList.add('cart-proceed');
+cartProceed.setAttribute('type', 'submit');
+cartProceed.textContent = 'Proceed to checkout';
+
 subtotalBox.appendChild(subtotalBoxSummary);
+subtotalBox.appendChild(cartProceed);
 
-allCart.appendChild(cartMain);
-allCart.appendChild(subtotalBox);
+cartAll.appendChild(cartMain);
+cartAll.appendChild(subtotalBox);
 
 
-return allCart;
+return cartAll;
 
 }
 
 ///////////////////////////////////////////////////////////
 //delete product from shopping cart
 function deleteProduct(event) {
-  event.preventDefault();
-  if (event.target.classList.contains('delete-product')) {
-    for (var i = 0; i < cart.length; i++) {
-      if (cart[i].product.id === Number(event.target.classList[1]))
-        cart.splice(i,1);
-        summary(cart);
-        var cartQuantityHeader = document.querySelector('.cart-quantity-header');
-        cartQuantityHeader.textContent = cartSummary[0];
-        var cartSummaryView = renderSummary(cart);
-        cartResults.appendChild(cartSummaryView);
+event.preventDefault();
+if (event.target.classList.contains('delete-product')) {
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].product.id === Number(event.target.classList[1])) {
+      cart.splice(i,1);
+      summary(cart);
+      var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+      cartQuantityHeader.textContent = cartSummary[0];
+      var cartSummaryView = renderSummary(cart);
+      cartResults.appendChild(cartSummaryView);
     }
   }
+}
 }
 
 ///////////////////////////////////////////////////////////
 //update quantity from shopping cart
 function updateQuantity(event) {
-  event.preventDefault();
-  //if passed in value is same as what it was, do nothing, otherwise, update quantity
-  if (event.target.classList.contains('quantity-cart')) {
-    for (var i = 0; i < cart.length; i++) {
-      if (cart[i].product.id === Number(event.target.classList[1])) {
-        if (cart[i].quantity === event.target.value) {
-          //do nothing if same value
-          return;
-        }
-        else {
-          cart[i].quantity = Number(event.target.value);
-          summary(cart);
-          var cartQuantityHeader = document.querySelector('.cart-quantity-header');
-          cartQuantityHeader.textContent = cartSummary[0];
-          var cartSummaryView = renderSummary(cart);
-          cartResults.appendChild(cartSummaryView);
-          return;
-        }
+event.preventDefault();
+//if passed in value is same as what it was, do nothing, otherwise, update quantity
+if (event.target.classList.contains('quantity-cart')) {
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].product.id === Number(event.target.classList[1])) {
+      if (cart[i].quantity === event.target.value) {
+        //do nothing if same value
+        return;
+      }
+      else {
+        cart[i].quantity = Number(event.target.value);
+        summary(cart);
+        var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+        cartQuantityHeader.textContent = cartSummary[0];
+        var cartSummaryView = renderSummary(cart);
+        cartResults.appendChild(cartSummaryView);
+        return;
       }
     }
   }
+}
+}
+
+///////////////////////////////////////////////////////////
+//Payment and Checkout
+function checkout(event) {
+event.preventDefault();
+if (event.target.classList.contains('add-proceed') || event.target.classList.contains('cart-proceed')) {
+  empty(resultComments);
+  empty(productResults);
+  empty(cartResults);
+  heading.classList.add('hidden');
+  var checkoutSummary = renderCheckout(cart);
+  checkoutResults.appendChild(checkoutSummary);
+}
+}
+
+function renderCheckout(cart) {
+/*
+<div class='checkout-view'>
+  <div class='checkout-heading'>
+    <img class='checkout-logo' src='link.com'/>
+    <div class='checkout-item'>
+      <div class='checkout-header'> Checkout
+        <div class='checkout-items'></div>
+      </div>
+    </div>
+  </div>
+  <div class='checkout-main'>
+    <div class='checkout-address'>
+      <div class='checkout-address-step'></div>
+      <div class='shipping'>
+        <div class='shipping-name'>
+          <label class='full-name'>Full name:
+            <input class='name-input' type='text' name ='name'/>
+          </label>
+        </div>
+        <div class='shipping-address-one'>
+          <label class='address-one'>Address line 1:
+            <input class='one-input' type='text' name ='address'/>
+          </label>
+        </div>
+        <div class='shipping-address-two'>
+          <label class='address-two'>Address line 2:
+            <input class='two-input' type='text' name ='address'/>
+          </label>
+        </div>
+        <div class='shipping-city'>
+          <label class='address-city'>City:
+            <input class='city-input' type='text' name ='city'/>
+          </label>
+        </div>
+        <div class='shipping-state'>
+          <label class='address-state'>State/Province/Region:
+            <input class='state-input' type='text' name ='state'/>
+          </label>
+        </div>
+        <div class='shipping-zip'>
+          <label class='address-zip'>ZIP:
+            <input class='zip-input' type='text' name ='zip'/>
+          </label>
+        </div>
+        <div class='shipping-country'>
+          <label class='address-country'>Country:
+            <input class='country-input' type='text' name ='country'/>
+          </label>
+        </div>
+        <div class='shipping-phone'>
+          <label class='address-phone'>Phone number:
+            <input class='phone-input' type='text' name ='phone'/>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class='checkout-payment'>
+      <div class='checkout-payment-step'></div>
+      <div class='payment'>
+        <div class='card-number'>
+          <label class='number-label'>Card number:
+            <input class='number-input' type='text' name ='card-number'/>
+          </label>
+        </div>
+        <div class='card-name'>
+          <label class='card-label'>Name on card:
+            <input class='card-input' type='text' name ='card-name'/>
+          </label>
+        </div>
+        <div class='expiration'>
+          <label class='expiration-date'>Expiration date:
+            <input class='expiration-month' type='text' name ='expiration-month'/>
+            <input class='expiration-year' type='text' name ='expiration-year'/>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class='checkout-review'>
+      <div class='checkout-review-step'></div>
+      <div class='checkout-products'></div>
+      <div class='checkout-order'>
+        <button class='review-place' type='submit'>Place your order</button>
+        <div class='review-total'>Order total: $XX.XX</div>
+      </div>
+    </div>
+  </div>
+  <div class='checkout-summary'>
+    <button class='summary-place' type='submit'>Place your order</button>
+    <div class='summary-order'>
+      <div class='summary-items'>Items:
+        <div class='items-cost'></div>
+      </div>
+      <div class='summary-shipping'>Shipping & handling:
+        <div class='shipping-cost'></div>
+      </div>
+      <div class='summary-subtotal'>Total before tax:
+        <div class='subtotal-cost'></div>
+      </div>
+      <div class='summary-tax'>Estimated tax to be collected:
+        <div class='tax-cost'></div>
+      </div>
+      <div class='summary-total'>Order total:
+        <div class='total-cost'></div>
+      </div>
+    </div>
+  </div>
+</div>
+*/
+
+  var checkoutView = document.createElement('div');
+  checkoutView.classList.add('checkout-view');
+
+  var checkoutHeading = document.createElement('div');
+  checkoutHeading.classList.add('checkout-heading');
+
+  var checkoutLogo = document.createElement('img');
+  checkoutLogo.classList.add('checkout-logo');
+  checkoutLogo.setAttribute('src', 'http://logonoid.com/images/amazon-logo.png');
+
+  var checkoutItem = document.createElement('div');
+  checkoutItem.classList.add('checkout-item');
+
+  var checkoutHeader = document.createElement('div');
+  checkoutHeader.classList.add('checkout-header');
+  checkoutHeader.textContent = 'Checkout';
+
+  var tempSubtotal;
+
+  if (cartSummary[0] > 1) {
+    tempSubtotal = '(' + String(cartSummary[0]) + ' items)';
+  }
+  else {
+    tempSubtotal = '(' + String(cartSummary[0]) + ' item)';
+  }
+
+  var checkoutItems = document.createElement('div');
+  checkoutItems.classList.add('checkout-items');
+  checkoutItems.textContent = tempSubtotal;
+
+  checkoutHeader.appendChild(checkoutItems);
+  checkoutItem.appendChild(checkoutHeader);
+
+  checkoutHeading.appendChild(checkoutLogo);
+  checkoutHeading.appendChild(checkoutItem);
+
+  var checkoutMain = document.createElement('div');
+  checkoutMain.classList.add('checkout-main');
+
+  var checkoutAddress = document.createElement('div');
+  checkoutAddress.classList.add('checkout-address');
+  checkoutAddress.textContent = '1';
+
+  var checkoutAddressStep = document.createElement('div');
+  checkoutAddressStep.classList.add('checkout-address-step');
+  checkoutAddressStep.textContent = 'Shipping address';
+
+  var shipping = document.createElement('div');
+  shipping.classList.add('shipping');
+
+  var shippingName = document.createElement('div');
+  shippingName.classList.add('shipping-name');
+
+  var fullName = document.createElement('label');
+  fullName.classList.add('full-name');
+  fullName.textContent = 'Full name:';
+
+  var nameInput = document.createElement('input');
+  nameInput.classList.add('name-input');
+  nameInput.setAttribute('type', 'text');
+  nameInput.setAttribute('name', 'name');
+
+  fullName.appendChild(nameInput);
+  shippingName.appendChild(fullName);
+  shipping.appendChild(shippingName);
+
+  var shippingAddressOne = document.createElement('div');
+  shippingAddressOne.classList.add('shipping-address-one');
+
+  var addressOne = document.createElement('label');
+  addressOne.classList.add('address-one');
+  addressOne.textContent = 'Address line 1:';
+
+  var oneInput = document.createElement('input');
+  oneInput.classList.add('one-input');
+  oneInput.setAttribute('type', 'text');
+  oneInput.setAttribute('name', 'address');
+
+  addressOne.appendChild(oneInput);
+  shippingAddressOne.appendChild(addressOne);
+  shipping.appendChild(shippingAddressOne);
+
+  var shippingAddressTwo = document.createElement('div');
+  shippingAddressTwo.classList.add('shipping-address-two');
+
+  var addressTwo = document.createElement('label');
+  addressTwo.classList.add('address-two');
+  addressTwo.textContent = 'Address line 2:';
+
+  var twoInput = document.createElement('input');
+  twoInput.classList.add('two-input');
+  twoInput.setAttribute('type', 'text');
+  twoInput.setAttribute('name', 'address');
+
+  addressTwo.appendChild(twoInput);
+  shippingAddressTwo.appendChild(addressTwo);
+  shipping.appendChild(shippingAddressTwo);
+
+  var shippingCity = document.createElement('div');
+  shippingCity.classList.add('shipping-city');
+
+  var addressCity = document.createElement('label');
+  addressCity.classList.add('address-city');
+  addressCity.textContent = 'City:';
+
+  var cityInput = document.createElement('input');
+  cityInput.classList.add('city-input');
+  cityInput.setAttribute('type', 'text');
+  cityInput.setAttribute('name', 'city');
+
+  addressCity.appendChild(cityInput);
+  shippingCity.appendChild(addressCity);
+  shipping.appendChild(shippingCity);
+
+  var shippingState = document.createElement('div');
+  shippingState.classList.add('shipping-state');
+
+  var addressState = document.createElement('label');
+  addressState.classList.add('address-state');
+  addressState.textContent = 'State/Provine/Region:';
+
+  var stateInput = document.createElement('input');
+  stateInput.classList.add('state-input');
+  stateInput.setAttribute('type', 'text');
+  stateInput.setAttribute('name', 'state');
+
+  addressState.appendChild(stateInput);
+  shippingState.appendChild(addressState);
+  shipping.appendChild(shippingState);
+
+  var shippingZip = document.createElement('div');
+  shippingZip.classList.add('shipping-zip');
+
+  var addressZip = document.createElement('label');
+  addressZip.classList.add('address-zip');
+  addressZip.textContent = 'ZIP:';
+
+  var zipInput = document.createElement('input');
+  zipInput.classList.add('state-input');
+  zipInput.setAttribute('type', 'text');
+  zipInput.setAttribute('name', 'zip');
+
+  addressZip.appendChild(zipInput);
+  shippingZip.appendChild(addressZip);
+  shipping.appendChild(shippingZip);
+
+  var shippingCountry = document.createElement('div');
+  shippingCountry.classList.add('shipping-country');
+
+  var addressCountry = document.createElement('label');
+  addressCountry.classList.add('address-country');
+  addressCountry.textContent = 'Country:';
+
+  var countryInput = document.createElement('input');
+  countryInput.classList.add('country-input');
+  countryInput.setAttribute('type', 'text');
+  countryInput.setAttribute('name', 'country');
+
+  addressCountry.appendChild(countryInput);
+  shippingCountry.appendChild(addressCountry);
+  shipping.appendChild(shippingCountry);
+
+  var shippingPhone = document.createElement('div');
+  shippingPhone.classList.add('shipping-phone');
+
+  var addressPhone = document.createElement('label');
+  addressPhone.classList.add('address-phone');
+  addressPhone.textContent = 'Phone number:';
+
+  var phoneInput = document.createElement('input');
+  phoneInput.classList.add('phone-input');
+  phoneInput.setAttribute('type', 'text');
+  phoneInput.setAttribute('name', 'phone');
+
+  addressPhone.appendChild(phoneInput);
+  shippingPhone.appendChild(addressPhone);
+  shipping.appendChild(shippingPhone);
+
+  var checkoutPayment = document.createElement('div');
+  checkoutPayment.classList.add('checkout-payment');
+  checkoutPayment.textContent = '2';
+
+  var checkoutPaymentStep = document.createElement('div');
+  checkoutPaymentStep.classList.add('checkout-payment-step');
+  checkoutPaymentStep.textContent = 'Payment method';
+
+  var payment = document.createElement('div');
+  payment.classList.add('payment');
+
+  var cardNumber = document.createElement('div');
+  cardNumber.classList.add('card-number');
+
+  var numberLabel = document.createElement('label');
+  numberLabel.classList.add('number-label');
+  numberLabel.textContent = 'Card number:';
+
+  var numberInput = document.createElement('input');
+  numberInput.classList.add('number-input');
+  numberInput.setAttribute('type', 'text');
+  numberInput.setAttribute('name', 'card-number');
+
+  numberLabel.appendChild(numberInput);
+  cardNumber.appendChild(numberLabel);
+  payment.appendChild(cardNumber);
+
+  var cardName = document.createElement('div');
+  cardName.classList.add('card-name');
+
+  var cardLabel = document.createElement('label');
+  cardLabel.classList.add('card-label');
+  cardLabel.textContent = 'Name on card:';
+
+  var cardInput = document.createElement('input');
+  cardInput.classList.add('card-input');
+  cardInput.setAttribute('type', 'text');
+  cardInput.setAttribute('name', 'card-name');
+
+  cardLabel.appendChild(cardInput);
+  cardName.appendChild(cardLabel);
+  payment.appendChild(cardName);
+
+  var expiration = document.createElement('div');
+  expiration.classList.add('expiration');
+
+  var expirationDate = document.createElement('label');
+  expirationDate.classList.add('expiration-date');
+  expirationDate.textContent = 'Expiration date';
+
+  var expirationMonth = document.createElement('input');
+  expirationMonth.classList.add('expiration-month');
+  expirationMonth.setAttribute('type', 'text');
+  expirationMonth.setAttribute('name', 'expiration-month');
+  expirationMonth.setAttribute('placeholder', 'MM');
+
+  var expirationYear = document.createElement('input');
+  expirationYear.classList.add('expiration-year');
+  expirationYear.setAttribute('type', 'text');
+  expirationYear.setAttribute('name', 'expiration-year');
+  expirationYear.setAttribute('placeholder', 'YYYY');
+
+  expirationDate.appendChild(expirationMonth);
+  expirationDate.appendChild(expirationYear);
+  expiration.appendChild(expirationDate);
+  payment.appendChild(expiration);
+
+
+  var checkoutReview = document.createElement('div');
+  checkoutReview.classList.add('checkout-review');
+  checkoutReview.textContent = '3';
+
+  var checkoutReviewStep = document.createElement('div');
+  checkoutReviewStep.classList.add('checkout-review-step');
+  checkoutReviewStep.textContent = 'Review items and shipping';
+
+  var checkoutProducts = document.createElement('div');
+  checkoutProducts.classList.add('checkout-products');
+
+  var checkoutOrder = document.createElement('div');
+  checkoutOrder.classList.add('checkout-order');
+
+  var reviewPlace = document.createElement('button');
+  reviewPlace.classList.add('review-place');
+  reviewPlace.setAttribute('type', 'submit');
+  reviewPlace.textContent = 'Place your order';
+
+  var reviewTotal = document.createElement('div');
+  reviewTotal.classList.add('review-total');
+  var tempTotal = 'Order total: $' + cartSummary[1];
+  reviewTotal.textContent = tempTotal;
+
+  checkoutOrder.appendChild(reviewPlace);
+  checkoutOrder.appendChild(reviewTotal);
+
+  checkoutAddress.appendChild(checkoutAddressStep);
+  checkoutAddress.appendChild(shipping);
+
+  checkoutPayment.appendChild(checkoutPaymentStep);
+  checkoutPayment.appendChild(payment);
+  checkoutReview.appendChild(checkoutReviewStep);
+  checkoutReview.appendChild(checkoutProducts);
+  checkoutReview.appendChild(checkoutOrder);
+
+  checkoutMain.appendChild(checkoutAddress);
+  checkoutMain.appendChild(checkoutPayment);
+  checkoutMain.appendChild(checkoutReview);
+
+  var checkoutSummary = document.createElement('div');
+  checkoutSummary.classList.add('checkout-summary');
+
+  var summaryPlace = document.createElement('button');
+  summaryPlace.classList.add('summary-place');
+  summaryPlace.setAttribute('type', 'submit');
+  summaryPlace.textContent = 'Place your order';
+
+  var summaryOrder = document.createElement('div');
+  summaryOrder.classList.add('summary-order');
+  summaryOrder.textContent = 'Order Summary';
+
+  var summaryItems = document.createElement('div');
+  summaryItems.classList.add('summary-items');
+  summaryItems.textContent = 'Items:';
+
+  var itemsCost = document.createElement('div');
+  itemsCost.classList.add('items-cost');
+  itemsCost.textContent = cartSummary[1];
+
+  var summaryShipping = document.createElement('div');
+  summaryShipping.classList.add('summary-shipping');
+  summaryShipping.textContent = 'Shipping & handling:';
+
+  var shippingCost = document.createElement('div');
+  shippingCost.classList.add('shipping-cost');
+  //shippingCost.textContent = ;
+
+  var summarySubtotal = document.createElement('div');
+  summarySubtotal.classList.add('summary-subtotal');
+  summarySubtotal.textContent = 'Total before tax:';
+
+  var subtotalCost = document.createElement('div');
+  subtotalCost.classList.add('subtotal-cost');
+  //subtotalCost.textContent = ;
+
+  var summaryTax = document.createElement('div');
+  summaryTax.classList.add('summary-tax');
+  summaryTax.textContent = 'Estimated tax to be collected:';
+
+  var taxCost = document.createElement('div');
+  taxCost.classList.add('tax-cost');
+  //taxCost.textContent = ;
+
+  var summaryTotal = document.createElement('div');
+  summaryTotal.classList.add('summary-total');
+  summaryTotal.textContent = 'Order total:';
+
+  var totalCost = document.createElement('div');
+  totalCost.classList.add('total-cost');
+  //totalCost.textContent = ;
+
+  summaryItems.appendChild(itemsCost);
+  summaryShipping.appendChild(shippingCost);
+  summarySubtotal.appendChild(subtotalCost);
+  summaryTax.appendChild(taxCost);
+  summaryTotal.appendChild(totalCost);
+
+  summaryOrder.appendChild(summaryItems);
+  summaryOrder.appendChild(summaryShipping);
+  summaryOrder.appendChild(summarySubtotal);
+  summaryOrder.appendChild(summaryTax);
+  summaryOrder.appendChild(summaryTotal);
+
+  checkoutSummary.appendChild(summaryPlace);
+  checkoutSummary.appendChild(summaryOrder)
+
+  checkoutView.appendChild(checkoutHeading);
+  checkoutView.appendChild(checkoutMain);
+  checkoutView.appendChild(checkoutSummary);
+
+  return checkoutView;
+
 }
 
 ///////////////////////////////////////////////////////////
@@ -1030,9 +1534,11 @@ container.addEventListener('click', addToCart);
 container.addEventListener('click', back);
 container.addEventListener('click', backToProduct);
 container.addEventListener('click', shoppingCart);
+container.addEventListener('click', checkout);
 
 cartResults.addEventListener('click', productPage);
 cartResults.addEventListener('click', deleteProduct);
 cartResults.addEventListener('input', updateQuantity);
+cartResults.addEventListener('click', checkout);
 
 gotoCart.addEventListener('click', shoppingCart);
