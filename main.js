@@ -1090,31 +1090,31 @@ function placeOrder(event) {
   event.preventDefault();
   checkoutResults.classList.add('hidden');
 
-  var shippingAddress = [
-  {
-    name: document.getElementById('name-input').value,
-    addressone: document.getElementById('one-input').value,
-    addresstwo: document.getElementById('two-input').value,
-    city: document.getElementById('city-input').value,
-    state: document.getElementById('state-input').value,
-    zip: document.getElementById('zip-input').value,
-    country: document.getElementById('country-input').value,
-    phone: document.getElementById('phone-input').value},
-  ];
-  var paymentMethod = [
-  {
-    name: document.querySelector('.card-input').value,
-    number: document.querySelector('.number-input').value,
-    month: document.querySelector('.expiration-month').value,
-    year: document.querySelector('.expiration-year').value},
-  ];
+  var shippingAddress = [document.getElementById('name-input'), document.getElementById('one-input'),
+                        document.getElementById('two-input'), document.getElementById('city-input'),
+                        document.getElementById('state-input'), document.getElementById('zip-input'),
+                        document.getElementById('country-input'), document.getElementById('phone-input')];
 
-  //do nothing if search is empty
-  //if (!searchItem.trim())
+  var paymentMethod = [document.querySelector('.card-input'), document.querySelector('.number-input'),
+                      document.querySelector('.expiration-month'), document.querySelector('.expiration-year')];
+
+  for (var i = 0; i < if (!nameInput.value.trim() || !oneInput.value.trim() || !cityInput.value.trim()
+    || !stateInput.value.trim() || !zipInput.value.trim() || !countryInput.value.trim()
+    || !phoneInput.value.trim() || !cardInput.value.trim() || !expirationMonth.trim()
+    || !expirationYear.value.trim()) {
+
+    checkoutResults.classList.remove('hidden');
+    nameInput.setAttribute('placeholder','required field');
+    oneInput.setAttribute('placeholder','required field');
+    var cityInput = document.getElementById('city-input');
+    var stateInput = document.getElementById('state-input');
+    var zipInput = document.getElementById('zip-input');
+    var countryInput = document.getElementById('country-input');
+    var phoneInput
+
+  }
   //  return;
 }
-
-
 
 ///////////////////////////////////////////////////////////
 //event listeners
