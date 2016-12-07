@@ -49,16 +49,21 @@ body {
   width: 8%;
   height: 40px;
   border: none;
-  background-color: rgb(254,188,105);
+  background: linear-gradient(0deg,rgb(254,189,105),rgb(243,168,71));
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
+}
+
+#button:hover {
+  cursor: pointer;
+  background-color: rgb(243,168,71);
 }
 
 #search-icon {
   border-radius: 5px;
   border: 0;
   height: 25px;
-  background-color: rgb(254,188,105);
+  background: linear-gradient(0deg,rgb(254,189,105),rgb(243,168,71));
 }
 
 #goto-cart {
@@ -322,13 +327,14 @@ body {
   font-family: sans-serif;
   font-size: 12px;
   border-radius: 5px;
-  box-shadow: none;
-  background-color: rgb(245,213,137);
+  background: linear-gradient(0deg,rgb(254,189,105),rgb(243,168,71));
+  border: 1px solid gray;
   border: .8 solid black;
 }
 
 .add-button:hover {
   cursor: pointer;
+  background-color: rgb(243,168,71);
 }
 
 .cart-image {
@@ -424,11 +430,12 @@ body {
 
 .view-cart-button {
   position: relative;
-  width: 100px;
+  width: 70px;
   height: 40px;
   margin-top: 5%;
   margin-left: 50%;
   transform: translateX(-50%);
+  border-radius: 5px;
 }
 
 .view-cart-button:hover {
@@ -444,10 +451,14 @@ body {
   transform: translateX(-50%);
   font-family: sans-serif;
   font-size: 12px;
+  background: linear-gradient(0deg,rgb(254,189,105),rgb(243,168,71));
+  border: 1px solid gray;
   border-radius: 5px;
-  box-shadow: none;
-  background-color: rgb(245,213,137);
-  border: .8 solid black;
+}
+
+.add-proceed:hover {
+  cursor: pointer;
+  background-color: rgb(243,168,71);
 }
 
 /* Shopping Cart Summary */
@@ -659,9 +670,13 @@ body {
   font-family: sans-serif;
   font-size: 12px;
   border-radius: 5px;
-  box-shadow: none;
-  background-color: rgb(245,213,137);
-  border: .8 solid black;
+  background: linear-gradient(0deg,rgb(254,189,105),rgb(243,168,71));
+  border: 1px solid gray;
+}
+
+.cart-proceed {
+  cursor: pointer;
+  background-color: rgb(243,168,71);
 }
 
 /* Checkout */
@@ -758,6 +773,7 @@ body {
 .shipping-input {
   margin-left: 10px;
   width: 65%;
+  border: 1px solid gray;
   border-radius: 5px;
   font-size: 15px;
 }
@@ -796,7 +812,9 @@ body {
 .card-input {
   margin-left: 10px;
   width: 65%;
+  border: 1px solid gray;
   border-radius: 5px;
+  font-size: 15px;
 }
 
 .number-expiration {
@@ -814,7 +832,9 @@ body {
 
 .number-input {
   margin-left: 10px;
+  border: 1px solid gray;
   border-radius: 5px;
+  font-size: 15px;
 }
 
 .expiration-date {
@@ -824,13 +844,17 @@ body {
 
 .expiration-month {
   margin-left: 10px;
-  width: 20px;
+  width: 28px;
+  border: 1px solid gray;
   border-radius: 5px;
+  font-size: 15px;
 }
 
 .expiration-year {
-  width: 36px;
+  width: 40px;
+  border: 1px solid gray;
   border-radius: 5px;
+  font-size: 15px;
 }
 
 .checkout-order {
@@ -846,7 +870,14 @@ body {
   width: 150px;
   height: 35px;
   font-size: 13px;
+  border: 1px solid gray;
   border-radius: 5px;
+  background: linear-gradient(0deg,rgb(254,189,105),rgb(243,168,71));
+}
+
+#review:hover {
+  cursor: pointer;
+  background-color: rgb(243,168,71);
 }
 
 .review-total {
@@ -880,7 +911,14 @@ body {
   width: 90%;
   height: 35px;
   font-size: 13px;
+  border: 1px solid gray;
   border-radius: 5px;
+  background: linear-gradient(0deg,rgb(254,189,105),rgb(243,168,71));
+}
+
+#summary:hover {
+  cursor: pointer;
+  background-color: rgb(243,168,71);
 }
 
 .summary-order {
@@ -950,6 +988,39 @@ body {
   float: right;
 }
 
+#confirmation-box {
+  position: relative;
+  width: 400px;
+  margin: auto;
+  font-family: sans-serif;
+  border: 1px solid black;
+}
+
+#confirm-check {
+  position: absolute;
+  margin: 15px;
+  color: green;
+}
+
+#thanks {
+  display: inline-block;
+  margin: 15px;
+  margin-left: 60px;
+  width: 75%;
+}
+
+.address {
+  margin-left: 10px;
+}
+
+#address-name {
+  margin-top: 5px;
+}
+
 .hidden {
   display: none;
+}
+
+.missing {
+  border: 1px solid red;
 }

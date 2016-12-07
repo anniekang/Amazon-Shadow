@@ -1,172 +1,151 @@
-var products = [
-  { id: 1,
+var products = [{
+    id: 1,
     description: 'Bose QuietComfort 20 Acoustic Noise Cancelling Headphones, Apple Devices, Black',
     brand: 'Bose',
     price: '199.00',
     image: 'https://images-na.ssl-images-amazon.com/images/I/6162wKNVC7L._SX425_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 2,
+  },{
+    id: 2,
     description: 'Panasonic ErgoFit In-Ear Earbud Headphones RP-HJE120-K (Black) Dynamic Crystal Clear Sound, Ergonomic Comfort-Fit',
     brand: 'Panasonic',
     price: '7.12',
     image: 'https://images-na.ssl-images-amazon.com/images/I/31-nuw-iqAL.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 3,
+  },{
+    id: 3,
     description: 'Bose SoundSport Wireless Headphones, Black',
     brand: 'Bose',
     price: '149.00',
     image: 'https://images-na.ssl-images-amazon.com/images/I/61p7oi3BR%2BL._SL1500_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 4,
+  },{
+   id: 4,
     description: 'Powerbeats3 Wireless In-Ear Headphone - White',
     brand: 'Beats',
     price: '199.99',
     image: 'https://images-na.ssl-images-amazon.com/images/I/31CDuZiqLgL.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 5,
+  },{
+    id: 5,
     description: 'Plantronics BackBeat Fit Bluetooth Headphones - Blue',
     brand: 'Plantronics',
     price: '84.95',
     image: 'https://images-na.ssl-images-amazon.com/images/I/31C%2BG8wjpPL.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 6,
+  },{
+    id: 6,
     description: 'Bose SoundSport Pulse Wireless Headphones, Power Red',
     brand: 'Bose',
     price: '199.00',
     image: 'https://images-na.ssl-images-amazon.com/images/I/61w6LHZGs9L._SL1500_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 7,
+  },{
+    id: 7,
     description: 'Beats By Dr. Dre In Ear Head Phones Stereo Headset for HTC, Black',
     brand: 'Beats',
     price: '39.71',
     image: 'https://images-na.ssl-images-amazon.com/images/I/614pCdg40KL._SL1500_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 8,
+  },{
+    id: 8,
     description: 'Sony MDRXB50AP Extra Bass Earbud Headset (Black)',
     brand: 'Sony',
     price: '27.27',
     image: 'https://images-na.ssl-images-amazon.com/images/I/61p1oDWAPUL._SL1200_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 9,
+  },{
+    id: 9,
     description: 'Wilson Men\'s 2015 Ultra Complete Package Golf Set, Standard',
     brand: 'Wilson',
     price: '155.51',
     image: 'https://images-na.ssl-images-amazon.com/images/I/517bv3TTfRL._SL1000_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 10,
+  },{
+    id: 10,
     description: 'Skullcandy Hesh 2 Bluetooth Wireless Headphones with Mic, Black',
     brand: 'Skullcandy',
     price: '49.99',
     image: 'https://images-na.ssl-images-amazon.com/images/I/7197WSYscIL._SL1500_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 11,
+  },{
+    id: 11,
     description: 'Samsung 3.5mm Stereo Headset for Galaxy S5, S4, S3, Note - Non-Retail Packaging - White',
     brand: 'Samsung',
     price: '4.99',
     image: 'https://images-na.ssl-images-amazon.com/images/I/31tZplZhyEL.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 12,
+  },{
+    id: 12,
     description: 'Beats Studio Wireless Over-Ear Headphone - Titanium',
     brand: 'Beats',
     price: '219.99',
     image: 'https://images-na.ssl-images-amazon.com/images/I/71Hgw5UEEXL._SL1500_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 13,
+  },{
+    id: 13,
     description: 'Sony MDRXB950BT/B Extra Bass Bluetooth Headphones (Black)',
     brand: 'Sony',
     price: '88.00',
     image: 'https://images-na.ssl-images-amazon.com/images/I/61WaUPGzeKL._SL1200_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 14,
+  },{
+    id: 14,
     description: 'Beats Solo2 Wireless On-Ear Headphone - Black',
     brand: 'Bose',
     price: '149.99',
     image: 'https://images-na.ssl-images-amazon.com/images/I/61b8ZEFmCJL._SL1500_.jpg',
-    details: [],
-    cart: false,
-    quantity: 0},
-  { id: 15,
+    details: []
+  },{
+    id: 15,
     description: 'Bose QuietComfort 35 Wireless Headphones, Noise Cancelling - Black',
     brand: 'Bose',
     price: '349.00',
     image: 'https://images-na.ssl-images-amazon.com/images/I/61QwytXOcxL._SL1500_.jpg',
     details: ['World-class noise cancellation makes quiet sound quieter and music sound better','Volume-optimized EQ for balanced audio performance at any volume','Wireless convenience, with easy Bluetooth and NFC pairing aided by voice prompts','20-hour battery life per charge; up to 40 hours in wired mode','Noise-rejecting dual-microphone system for clear calls even in windy environments'],
-    cart: false,
-    quantity: 0},
-  { id: 16,
+  },{
+    id: 16,
     description: 'Beats Solo3 Wireless On-Ear Headphone - Rose Gold',
     brand: 'Beats',
     price: '249.99',
     image: 'https://images-na.ssl-images-amazon.com/images/I/41YByxxpv0L.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 17,
+  },{
+    id: 17,
     description: 'Sennheiser RS120 On-Ear Wireless RF Headphones with Charging Dock',
     brand: 'Sennheiser',
     price: '58.99',
     image: 'https://images-na.ssl-images-amazon.com/images/I/81NzuWuye9L._SL1500_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 18,
+  },{
+    id: 18,
     description: 'Bose SoundTrue around-ear headphones II - Apple devices, Charcoal',
     brand: 'Bose',
     price: '99.00',
     image: 'https://images-na.ssl-images-amazon.com/images/I/61l0i5ugsfL._SL1500_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 19,
+  },{
+    id: 19,
     description: 'Amazon Fire TV | Streaming Media Player',
     brand: 'Amazon',
     price: '74.99',
     image: 'https://images-na.ssl-images-amazon.com/images/I/61jPxT1VThL._SL1000_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 20,
+  },{
+    id: 20,
     description: 'Amazon Echo - Black',
     brand: 'Amazon',
     price: '139.99',
     image: 'https://images-na.ssl-images-amazon.com/images/I/61kJf5cN0gL._SL1000_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
-  { id: 21,
+  },{
+    id: 21,
     description: 'Roku Streaming Stick (3600R)',
     brand: 'Roku',
     price: '39.99',
     image: 'https://images-na.ssl-images-amazon.com/images/I/61bqlBDRRML._SL1500_.jpg',
     details: [],
-    cart: false,
-    quantity: 0},
+  }
 ];
 
 var cart = [];
@@ -176,7 +155,6 @@ var cart = [];
 
 var tax = .075;
 var shipping = 5.00;
-
 
 function summary(cart) {
   var quantity = 0;
@@ -199,12 +177,20 @@ var resultComments=document.getElementById('outcome');
 var productResults = document.getElementById('products');
 var cartResults = document.getElementById('cart');
 var checkoutResults = document.getElementById('checkout');
-//var checkoutView = document.querySelector('.checkout-view');
 var checkoutLogo = document.querySelector('.checkout-logo');
 var checkoutItems = document.querySelector('.checkout-items');
+var shippingInput = document.querySelectorAll('.shipping-input');
+var cardInput = document.querySelector('.card-input');
+var numberInput = document.querySelector('.number-input');
+var expirationMonth = document.querySelector('.expiration-month');
+var expirationYear = document.querySelector('.expiration-year');
 var reviewPlace = document.getElementById('review');
 var summaryPlace = document.getElementById('summary');
-
+var confirmation = document.getElementById('confirmation');
+var addressName = document.getElementById('address-name');
+var streetOne = document.getElementById('street-one');
+var streetTwo = document.getElementById('street-two');
+var cityState = document.getElementById('city-state');
 
 ///////////////////////////////////////////////////////////
 //when page loads or amazon logo is clicked, random products are generated
@@ -229,6 +215,7 @@ function refresh(event) {
   heading.classList.remove('hidden');
   container.classList.remove('hidden');
   checkoutResults.classList.add('hidden');
+  confirmation.classList.add('hidden');
 
   var allImages = document.createElement('div');
   allImages.classList.add('all-images');
@@ -272,6 +259,7 @@ function search(event) {
 
   empty(resultComments);
   empty(productResults);
+  confirmation.classList.add('hidden');
   var allProducts = document.createElement('div');
   allProducts.classList.add('all-products')
 
@@ -509,7 +497,7 @@ function renderProduct(product) {
   var cartBox = document.createElement('div');
   cartBox.classList.add('cart-box', product.id);
 
-  var addCart = renderCart(product);
+  var addCart = renderAdd(product);
   cartBox.appendChild(addCart);
 
   products.appendChild(imageBox);
@@ -519,7 +507,7 @@ function renderProduct(product) {
   return products;
 }
 
-function renderCart(product){
+function renderAdd(product){
 //quantity plus add to cart
 /*
 <div class='add-cart'
@@ -567,6 +555,7 @@ function addToCart(event) {
 
   if (event.target.classList.contains('add-button') || event.target.classList.contains('cart-image')) {
     event.stopPropagation();
+    confirmation.classList.add('hidden');
     if (cartResults.hasChildNodes()) {
       cartResults.removeChild(cartResults.lastChild);
     }
@@ -864,7 +853,8 @@ function renderSummary(cart) {
     cartHeader.appendChild(cartHeaderLabel);
     cartHeader.appendChild(emptyCart);
     cartMain.appendChild(cartHeader);
-    return cartMain;
+    cartAll.appendChild(cartMain);
+    return cartAll;
   }
 
   var cartPrice = document.createElement('div');
@@ -885,60 +875,62 @@ function renderSummary(cart) {
   productCart.classList.add('product-cart');
 
   for (var i = 0; i < cart.length; i++) {
-    var productCartBox = document.createElement('div');
-    productCartBox.classList.add('product-cart-box', cart[i].product.id)
+    if (cart[i].quantity != 0) {
+      var productCartBox = document.createElement('div');
+      productCartBox.classList.add('product-cart-box', cart[i].product.id)
 
-    var imageInfoCart = document.createElement ('div');
-    imageInfoCart.classList.add('image-info-cart', cart[i].product.id);
+      var imageInfoCart = document.createElement ('div');
+      imageInfoCart.classList.add('image-info-cart', cart[i].product.id);
 
-    var imageCartBox = document.createElement('div');
-    imageCartBox.classList.add('image-cart-box', cart[i].product.id);
+      var imageCartBox = document.createElement('div');
+      imageCartBox.classList.add('image-cart-box', cart[i].product.id);
 
-    var imageCart = document.createElement('img');
-    imageCart.classList.add('image-cart', cart[i].product.id);
-    imageCart.setAttribute('src', cart[i].product.image);
+      var imageCart = document.createElement('img');
+      imageCart.classList.add('image-cart', cart[i].product.id);
+      imageCart.setAttribute('src', cart[i].product.image);
 
-    imageCartBox.appendChild(imageCart);
-    imageInfoCart.appendChild(imageCartBox);
+      imageCartBox.appendChild(imageCart);
+      imageInfoCart.appendChild(imageCartBox);
 
-    var infoCart = document.createElement('div');
-    infoCart.classList.add('info-cart', cart[i].product.id);
+      var infoCart = document.createElement('div');
+      infoCart.classList.add('info-cart', cart[i].product.id);
 
-    var descriptionCart = document.createElement('div');
-    descriptionCart.classList.add('description-cart', cart[i].product.id);
-    descriptionCart.textContent = cart[i].product.description;
+      var descriptionCart = document.createElement('div');
+      descriptionCart.classList.add('description-cart', cart[i].product.id);
+      descriptionCart.textContent = cart[i].product.description;
 
-    var brandCart = document.createElement('div');
-    brandCart.classList.add('brand-cart', cart[i].product.id);
-    brandCart.textContent = 'by ' + cart[i].product.brand;
+      var brandCart = document.createElement('div');
+      brandCart.classList.add('brand-cart', cart[i].product.id);
+      brandCart.textContent = 'by ' + cart[i].product.brand;
 
-    var deleteProduct = document.createElement('div');
-    deleteProduct.classList.add('delete-product', cart[i].product.id);
-    deleteProduct.textContent = 'Delete';
+      var deleteProduct = document.createElement('div');
+      deleteProduct.classList.add('delete-product', cart[i].product.id);
+      deleteProduct.textContent = 'Delete';
 
-    infoCart.appendChild(descriptionCart);
-    infoCart.appendChild(brandCart);
-    infoCart.appendChild(deleteProduct);
+      infoCart.appendChild(descriptionCart);
+      infoCart.appendChild(brandCart);
+      infoCart.appendChild(deleteProduct);
 
-    imageInfoCart.appendChild(infoCart);
-    productCartBox.appendChild(imageInfoCart);
+      imageInfoCart.appendChild(infoCart);
+      productCartBox.appendChild(imageInfoCart);
 
-    var priceCart = document.createElement('div');
-    priceCart.classList.add('price-cart', cart[i].product.id);
-    priceCart.textContent = '$' + cart[i].product.price;
+      var priceCart = document.createElement('div');
+      priceCart.classList.add('price-cart', cart[i].product.id);
+      priceCart.textContent = '$' + cart[i].product.price;
 
-    var quantityCart = document.createElement('input');
-    quantityCart.classList.add('quantity-cart', cart[i].product.id);
-    quantityCart.setAttribute('type', 'number');
-    quantityCart.setAttribute('name', 'quantity');
-    quantityCart.setAttribute('min', '1');
-    quantityCart.setAttribute('max', '10');
-    quantityCart.value = cart[i].quantity;
+      var quantityCart = document.createElement('input');
+      quantityCart.classList.add('quantity-cart', cart[i].product.id);
+      quantityCart.setAttribute('type', 'number');
+      quantityCart.setAttribute('name', 'quantity');
+      quantityCart.setAttribute('min', '1');
+      quantityCart.setAttribute('max', '10');
+      quantityCart.value = cart[i].quantity;
 
-    productCartBox.appendChild(priceCart);
-    productCartBox.appendChild(quantityCart);
+      productCartBox.appendChild(priceCart);
+      productCartBox.appendChild(quantityCart);
 
-    productCart.appendChild(productCartBox);
+      productCart.appendChild(productCartBox);
+    }
   }
 
   cartMain.appendChild(productCart);
@@ -1029,6 +1021,7 @@ function updateQuantity(event) {
         summary(cart);
         var cartQuantityHeader = document.querySelector('.cart-quantity-header');
         cartQuantityHeader.textContent = summary(cart)[0];
+        empty(cartResults);
         var cartSummaryView = renderSummary(cart);
         cartResults.appendChild(cartSummaryView);
         return;
@@ -1085,35 +1078,91 @@ function checkout(event) {
   }
 }
 
-
 function placeOrder(event) {
   event.preventDefault();
-  checkoutResults.classList.add('hidden');
 
-  var shippingAddress = [document.getElementById('name-input'), document.getElementById('one-input'),
-                        document.getElementById('two-input'), document.getElementById('city-input'),
-                        document.getElementById('state-input'), document.getElementById('zip-input'),
-                        document.getElementById('country-input'), document.getElementById('phone-input')];
+  var shippingAddress = {
+    name: document.getElementById('name-input'),
+    address: document.getElementById('one-input'),
+    addressTwo: document.getElementById('two-input'),
+    city: document.getElementById('city-input'),
+    state: document.getElementById('state-input'),
+    zip: document.getElementById('zip-input'),
+    country: document.getElementById('country-input'),
+    phone: document.getElementById('phone-input')
+  };
 
-  var paymentMethod = [document.querySelector('.card-input'), document.querySelector('.number-input'),
-                      document.querySelector('.expiration-month'), document.querySelector('.expiration-year')];
-
-  for (var i = 0; i < if (!nameInput.value.trim() || !oneInput.value.trim() || !cityInput.value.trim()
-    || !stateInput.value.trim() || !zipInput.value.trim() || !countryInput.value.trim()
-    || !phoneInput.value.trim() || !cardInput.value.trim() || !expirationMonth.trim()
-    || !expirationYear.value.trim()) {
-
-    checkoutResults.classList.remove('hidden');
-    nameInput.setAttribute('placeholder','required field');
-    oneInput.setAttribute('placeholder','required field');
-    var cityInput = document.getElementById('city-input');
-    var stateInput = document.getElementById('state-input');
-    var zipInput = document.getElementById('zip-input');
-    var countryInput = document.getElementById('country-input');
-    var phoneInput
-
+  for (var key in shippingAddress) {
+    shippingAddress[key].classList.remove('missing');
   }
-  //  return;
+
+  var paymentMethod = {
+    name: document.querySelector('.card-input'),
+    number: document.querySelector('.number-input'),
+    expirationMonth: document.querySelector('.expiration-month'),
+    expirationYear: document.querySelector('.expiration-year')
+  };
+
+  for (var temp in paymentMethod) {
+    paymentMethod[temp].classList.remove('missing');
+  }
+
+  var missingAddress = missingField(shippingAddress);
+  var missingPayment = missingField(paymentMethod);
+
+  if (missingAddress || missingPayment) {
+    return;
+  }
+
+  cart = [];
+  summary(cart);
+  var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+  cartQuantityHeader.textContent = summary(cart)[0];
+
+  heading.classList.remove('hidden');
+  container.classList.remove('hidden');
+  checkoutResults.classList.add('hidden');
+  confirmation.classList.remove('hidden');
+
+  addressName.textContent = shippingAddress.name.value;
+  streetOne.textContent = shippingAddress.address.value;
+  streetTwo.textContent = shippingAddress.addressTwo.value;
+  cityState.textContent = shippingAddress.city.value + ', ' + shippingAddress.state.value + ' ' + shippingAddress.zip.value;
+
+  for (var del in shippingAddress) {
+    shippingAddress[del].value = '';
+  }
+  for (var omit in paymentMethod) {
+    paymentMethod[omit].value = '';
+  }
+
+}
+
+function missingField(info) {
+  var check = 0;
+  for (var key in info) {
+    if (info[key].value.trim() === '' && info[key] != document.getElementById('two-input')){
+      info[key].classList.add('missing');
+      check = check + 1;
+    }
+  }
+  if (check > 0 ) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+function checkMissing(event) {
+  if (event.target.classList.contains('missing')) {
+    if (!event.target.value.trim()) {
+      return;
+    }
+    else {
+      event.target.classList.remove('missing');
+    }
+  }
 }
 
 ///////////////////////////////////////////////////////////
@@ -1140,3 +1189,11 @@ checkoutItems.addEventListener('click', shoppingCart);
 
 reviewPlace.addEventListener('click', placeOrder);
 summaryPlace.addEventListener('click', placeOrder);
+
+for (var i = 0; i < shippingInput.length; i++) {
+  shippingInput[i].addEventListener('input', checkMissing);
+}
+cardInput.addEventListener('input', checkMissing);
+numberInput.addEventListener('input', checkMissing);
+expirationMonth.addEventListener('input', checkMissing);
+expirationYear.addEventListener('input', checkMissing);

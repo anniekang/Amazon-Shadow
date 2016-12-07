@@ -38,37 +38,37 @@
         <div class="checkout-address">1
           <div class="checkout-address-step">Shipping address</div>
           <div class="shipping-all">
-            <div class="shipping" id="name">
-              <div class="shipping-label" id="full-name">Full name:</div>
-              <input class="shipping-input" id="name-input" type="text" name ="name"/>
+            <div id="name" class="shipping">
+              <div id="full-name" class="shipping-label">Full name:</div>
+              <input id="name-input" class="shipping-input" type="text" name ="name"/>
             </div>
-            <div class="shipping" id="address-one">
-              <div class="shipping-label" id="one-label">Address line 1:</div>
-              <input class="shipping-input" id="one-input" type="text" name ="address"/>
+            <div id="address-one" class="shipping">
+              <div id="one-label" class="shipping-label">Address line 1:</div>
+              <input id="one-input" class="shipping-input" type="text" name ="address"/>
             </div>
-            <div class="shipping" id="address-two">
-              <div class="shipping-label" id="two-label">Address line 2:</div>
-              <input class="shipping-input" id="two-input" type="text" name ="address"/>
+            <div id="address-two" class="shipping">
+              <div id="two-label" class="shipping-label">Address line 2:</div>
+              <input id="two-input" class="shipping-input" type="text" name ="address"/>
             </div>
-            <div class="shipping" id="city">
-              <div class="shipping-label" id="city-label">City:</div>
-              <input class="shipping-input" id="city-input" type="text" name ="city"/>
+            <div id="city" class="shipping">
+              <div id="city-label" class="shipping-label">City:</div>
+              <input id="city-input" class="shipping-input" type="text" name ="city"/>
             </div>
-            <div class="shipping" id="state">
-              <div class="shipping-label" id="state-label">State/Province/Region:</div>
-              <input class="shipping-input" id="state-input" type="text" name ="state"/>
+            <div id="state" class="shipping">
+              <div id="state-label" class="shipping-label">State/Province/Region:</div>
+              <input id="state-input" class="shipping-input" type="text" name ="state"/>
             </div>
-            <div class="shipping" id="zip">
-              <div class="shipping-label" id="zip-label">ZIP:</div>
-              <input class="shipping-input" id="zip-input" type="text" name ="zip"/>
+            <div id="zip" class="shipping">
+              <div id="zip-label" class="shipping-label">ZIP:</div>
+              <input id="zip-input" class="shipping-input" type="text" name ="zip"/>
             </div>
-            <div class="shipping" id="country">
-              <div class="shipping-label" id="country-label">Country:</div>
-              <input class="shipping-input" id="country-input" type="text" name ="country"/>
+            <div id="country" class="shipping">
+              <div id="country-label" class="shipping-label">Country:</div>
+              <input id="country-input" class="shipping-input" type="text" name ="country"/>
             </div>
-            <div class="shipping" id="phone">
-              <div class="shipping-label" id="phone-label">Phone number:</div>
-              <input class="shipping-input" id="phone-input" type="text" name ="phone"/>
+            <div id="phone" class="shipping">
+              <div id="phone-label" class="shipping-label">Phone number:</div>
+              <input id="phone-input" class="shipping-input" type="text" name ="phone"/>
             </div>
           </div>
         </div>
@@ -89,12 +89,12 @@
           </div>
         </div>
         <div class="checkout-order">
-          <button class="place" id="review" type="submit">Place your order</button>
+          <button id="review" class="place" type="submit">Place your order</button>
           <div class="review-total">Order total:<div class="total-cost"></div></div>
         </div>
       </div>
       <div class="checkout-summary">
-        <button class="place" id="summary" type="submit">Place your order</button>
+        <button id="summary" class="place" type="submit">Place your order</button>
         <div class="summary-order">Order Summary
           <div class="summary-items">Items:
             <div class="items-cost"></div>
@@ -115,7 +115,17 @@
       </div>
     </div>
   </div>
-
+  <div id="confirmation" class="hidden">
+    <div id="confirmation-box">
+      <i id="confirm-check" class="fa fa-check fa-2x"></i>
+      <div id="thanks">Thank you, your order has been placed and will be shipped to:
+        <div id="address-name" class="address"></div>
+        <div id="street-one" class="address"></div>
+        <div id="street-two" class="address"></div>
+        <div id="city-state" class="address"></div>
+      </div>
+    </div>
+  </div>
   <script src="main.js"></script>
 </body>
 </html>
