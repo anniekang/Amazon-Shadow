@@ -14,7 +14,7 @@
     <img id="amazon" src="http://logonoid.com/images/amazon-logo.png"/>
     <form id="search">
       <input id="text" type="search" placeholder="Search items">
-      <button id="button" type="submit"><i id="test" class="fa fa-search fa-2x" aria-hidden="true"></i></button>
+      <button id="button" type="submit"><i id="search-icon" class="fa fa-search fa-2x" aria-hidden="true"></i></button>
     </form>
     <div id="goto-cart" class="goto-cart">
       <img id="goto-icon" class="goto-icon" src="http://simpleicon.com/wp-content/uploads/Shopping-Cart-9.png"/>
@@ -26,7 +26,96 @@
     <div id="products"></div>
   </div>
   <div id="cart"></div>
-<!-- <div id="checkout"></div> -->
+  <div id="checkout" class="hidden">
+    <div class="checkout-view">
+      <div class="checkout-heading">
+        <img class="checkout-logo" src="http://logonoid.com/images/amazon-logo.png"/>
+        <div class="checkout-item">
+          <div class="checkout-header">Checkout (<div class="checkout-items"></div> )</div>
+        </div>
+      </div>
+      <div class="checkout-main">
+        <div class="checkout-address">1
+          <div class="checkout-address-step">Shipping address</div>
+          <div class="shipping-all">
+            <div class="shipping" id="name">
+              <div class="shipping-label" id="full-name">Full name:</div>
+              <input class="shipping-input" id="name-input" type="text" name ="name"/>
+            </div>
+            <div class="shipping" id="address-one">
+              <div class="shipping-label" id="one-label">Address line 1:</div>
+              <input class="shipping-input" id="one-input" type="text" name ="address"/>
+            </div>
+            <div class="shipping" id="address-two">
+              <div class="shipping-label" id="two-label">Address line 2:</div>
+              <input class="shipping-input" id="two-input" type="text" name ="address"/>
+            </div>
+            <div class="shipping" id="city">
+              <div class="shipping-label" id="city-label">City:</div>
+              <input class="shipping-input" id="city-input" type="text" name ="city"/>
+            </div>
+            <div class="shipping" id="state">
+              <div class="shipping-label" id="state-label">State/Province/Region:</div>
+              <input class="shipping-input" id="state-input" type="text" name ="state"/>
+            </div>
+            <div class="shipping" id="zip">
+              <div class="shipping-label" id="zip-label">ZIP:</div>
+              <input class="shipping-input" id="zip-input" type="text" name ="zip"/>
+            </div>
+            <div class="shipping" id="country">
+              <div class="shipping-label" id="country-label">Country:</div>
+              <input class="shipping-input" id="country-input" type="text" name ="country"/>
+            </div>
+            <div class="shipping" id="phone">
+              <div class="shipping-label" id="phone-label">Phone number:</div>
+              <input class="shipping-input" id="phone-input" type="text" name ="phone"/>
+            </div>
+          </div>
+        </div>
+        <div class="checkout-payment">2
+          <div class="checkout-payment-step">Choose a payment method</div>
+          <div class="payment">
+            <div class="card-name">
+              <div class="card-label">Name on card:</div>
+              <input class="card-input" type="text" name ="card-name"/>
+            </div>
+            <div class="number-expiration">
+              <div class="number-label">Card number:</div>
+              <input class="number-input" type="text" name ="card-number"/>
+              <div class="expiration-date">Expiration date:</div>
+              <input class="expiration-month" type="text" name ="expiration-month" placeholder="MM"/>
+              <input class="expiration-year" type="text" name ="expiration-year" placeholder="YYYY"/>
+            </div>
+          </div>
+        </div>
+        <div class="checkout-order">
+          <button class="place" id="review" type="submit">Place your order</button>
+          <div class="review-total">Order total:<div class="total-cost"></div></div>
+        </div>
+      </div>
+      <div class="checkout-summary">
+        <button class="place" id="summary" type="submit">Place your order</button>
+        <div class="summary-order">Order Summary
+          <div class="summary-items">Items:
+            <div class="items-cost"></div>
+          </div>
+          <div class="summary-shipping">Shipping & handling:
+            <div class="shipping-cost"></div>
+          </div>
+          <div class="summary-subtotal">Total before tax:
+            <div class="subtotal-cost"></div>
+          </div>
+          <div class="summary-tax">Estimated tax to be collected:
+            <div class="tax-cost"></div>
+          </div>
+          <div class="summary-total">Order total:
+            <div class="total-costs"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="main.js"></script>
 </body>
 </html>
