@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  font-family: sans-serif;
 }
 
 /*  Header */
@@ -75,7 +76,6 @@ body {
   top: -10px;
   left: 10%;
   font-size: 20px;
-  font-family: sans-serif;
   font-weight: bold;
 }
 
@@ -111,7 +111,6 @@ body {
   width: 100%;
   margin: auto;
   margin-bottom: 10px;
-  font-family: sans-serif;
 }
 
 #products {
@@ -119,20 +118,20 @@ body {
   margin: auto;
 }
 
-.consider {
+#consider {
   width: 80%;
   margin: auto;
   margin-bottom: 10px;
 }
 
 /* Refresh view of random products */
-.all-images {
+#all-images {
   width: 80%;
   margin: auto;
 }
 
 /* Search Results */
-.all-products {
+#all-products {
   width: 80%;
   margin: auto;
 }
@@ -145,7 +144,6 @@ body {
   padding: 10px;
   width: 95%;
   border-bottom: 1px solid gray;
-  font-family: sans-serif;
 }
 
 .image-box {
@@ -211,23 +209,22 @@ body {
   text-decoration: underline;
 }
 
-.back-results {
+#back-results {
   color: blue;
 }
 
-.back-results:hover {
+#back-results:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
 /* Product View */
-.product-page {
+#product-page {
   position: relative;
   display: inline-block;
   margin: auto;
   margin-top: 0;
   width: 100%;
-  font-family: sans-serif;
 }
 
 .image-box-product {
@@ -281,7 +278,6 @@ body {
 .details {
   padding-left: 20px;
   margin-right: 5px;
-  font-family: sans-serif;
   font-size: 13px;
   letter-spacing: .03em;
   line-height: 15px;
@@ -324,7 +320,6 @@ body {
   left: 50%;
   transform: translateX(-50%);
   text-indent: 15%;
-  font-family: sans-serif;
   font-size: 12px;
   border-radius: 5px;
   background: linear-gradient(0deg,rgb(254,189,105),rgb(243,168,71));
@@ -349,7 +344,6 @@ body {
   position: relative;
   width: 90%;
   margin: auto;
-  font-family: sans-serif;
   border: 1px solid lightgray;
   border-radius: 5px;
 }
@@ -449,7 +443,6 @@ body {
   top: 60%;
   left: 50%;
   transform: translateX(-50%);
-  font-family: sans-serif;
   font-size: 12px;
   background: linear-gradient(0deg,rgb(254,189,105),rgb(243,168,71));
   border: 1px solid gray;
@@ -472,7 +465,6 @@ body {
   display: inline-block;
   margin: 0;
   width: 75%;
-  font-family: sans-serif;
 }
 
 .cart-header-label {
@@ -644,7 +636,6 @@ body {
   font-size: 17px;
   font-weight: bold;
   letter-spacing: .02em;
-  font-family: sans-serif;
 }
 
 .subtotal-item-summary {
@@ -667,7 +658,6 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  font-family: sans-serif;
   font-size: 12px;
   border-radius: 5px;
   background: linear-gradient(0deg,rgb(254,189,105),rgb(243,168,71));
@@ -681,7 +671,6 @@ body {
 
 /* Checkout */
 .checkout-view {
-  font-family: sans-serif;
 }
 
 .checkout-heading {
@@ -992,7 +981,6 @@ body {
   position: relative;
   width: 400px;
   margin: auto;
-  font-family: sans-serif;
   border: 1px solid black;
 }
 
