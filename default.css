@@ -124,6 +124,12 @@ body {
   margin-bottom: 10px;
 }
 
+#search-outcome {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
 /* Refresh view of random products */
 #all-images {
   width: 80%;
@@ -200,11 +206,11 @@ body {
 }
 
 /* Back */
-.back-images {
+#back-images {
   color: blue;
 }
 
-.back-images:hover {
+#back-images:hover {
   cursor: pointer;
   text-decoration: underline;
 }
@@ -1005,10 +1011,14 @@ body {
   margin-top: 5px;
 }
 
+.missing {
+  border: 1px solid red;
+}
+
 .hidden {
   display: none;
 }
 
-.missing {
-  border: 1px solid red;
+#product-page.hidden {
+  display: none;
 }

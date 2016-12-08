@@ -211,9 +211,9 @@ function refresh(event) {
     cartResults.removeChild(cartResults.lastChild);
   }*/
   empty(cartResults);
-  /*if (document.querySelector('.cart-quantity-header') != null) {
+  if (document.querySelector('.cart-quantity-header') != null) {
     gotoCart.removeChild(document.querySelector('.cart-quantity-header'))
-  }*/
+  }
   var cartQuantityHeader = createElement('div', {class: 'cart-quantity-header'}, [summary(cart)[0]]);
   gotoCart.appendChild(cartQuantityHeader);
 
@@ -369,9 +369,11 @@ function productPage(event) {
     var storeProduct = renderProduct(products[id-1]);
     var viewProduct = document.getElementById('products');
     viewProduct.appendChild(storeProduct);
-    for (var i = 0; i < products[id-1].details.length; i++) {
+    var tempLength = products[id-1].details.length;
+    for (var i = 0; i < tempLength; i++) {
       var details = createElement('li', {class: 'detail-line ' + id + ' line' + i}, [products[id-1].details[i]]);
-      document.querySelector('detail').appendChild(details);
+      var detail = document.querySelector('.detail');
+      detail.appendChild(details);
     }
     var quantity = document.querySelector('.quantity-value');
     quantity.defaultValue = 1;
@@ -382,7 +384,7 @@ function productPage(event) {
 function renderProduct(product) {
   var c = createElement;
   var products =
-    c('div', {id: 'product-page ' + product.id}, [
+    c('div', {id: 'product-page', class: product.id}, [
       c('div', {class: 'image-box-product ' + product.id}, [
         c('img', {class: 'image-product ' + product.id, src: product.image},[])
       ]),
@@ -417,9 +419,6 @@ function addToCart(event) {
   if (event.target.classList.contains('add-button') || event.target.classList.contains('cart-image')) {
     event.stopPropagation();
     hidden('confirmation', 'add');
-    if (cartResults.hasChildNodes()) {
-      cartResults.removeChild(cartResults.lastChild);
-    }
     var id = event.target.classList[1];
     id = products[id-1].id;
     var i = cart.length;
@@ -435,18 +434,31 @@ function addToCart(event) {
     var cartQuantityHeader = document.querySelector('.cart-quantity-header');
     cartQuantityHeader.textContent = summary(cart)[0];
     var product = products[id-1];
+    empty(resultComments);
+    empty(cartResults);
     hidden('product-page', 'add');
-    if (document.getElementById('back-results') != null) {
-      var backResults = document.getElementById('back-results');
-      resultComments.removeChild(backResults);
-    }
-    else if (document.getElementById('back-images') != null) {
-      var backImages = document.getElementById('.back-images');
-      resultComments.removeChild(backImages);
-    }
     var added = renderAdded(product);
-    var addedItem = document.getElementById('products');
-    addedItem.appendChild(added);
+    productResults.appendChild(added);
+
+    var tempText = document.querySelector('.quantity-value').value;
+    if (document.querySelector('.quantity-value').value === '1') {
+      tempText = tempText + ' item added to Cart';
+    }
+    else {
+      tempText = tempText + ' items added to Cart';
+    }
+    var numberAdded = document.querySelector('.number-added');
+    numberAdded.textContent = tempText;
+
+    var tempSubtotal;
+    if (summary(cart)[0] > 1) {
+      tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' items):';
+    }
+    else {
+      tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' item):';
+    }
+    var miniItemTotal = document.querySelector('.mini-item-total');
+    miniItemTotal.textContent = tempSubtotal;
   }
   else return;
 }
@@ -461,136 +473,40 @@ function inCart(productID) {
 }
 
 function renderAdded(product) {
-/*
-<div class='add-product'>
-  <div class='item-quantity'>
-    <div class='check-number-added'>
-      <i class='check' class='fa fa-check'></>
-      <div class='number-added'></div>
-    </div>
-    <div class='image-description-added'>
-      <img class='image-added' src='link.com'/>
-      <div class='description-price-added'>
-        <div class='description-added'></div>
-        <div class='price-added'></div>
-      </div>
-    </div>
-  </div>
-  <div class='mini-summary'>
-      <div class='mini-item-total'></div>
-      <div class='mini-subtotal'></div>
-      <button class='view-cart-button' type='submit'><i class='view-cart' class='fa fa-shopping-cart'></button>
-      <button class='add-proceed' type='submit'>Proceed to checkout</button>
-  </div>
+  var c = createElement;
 
-  </div>
-</div>
-*/
-
-  var products = document.createElement('div');
-  products.classList.add('add-product', product.id);
-
-  var box = document.createElement('div');
-  box.classList.add('item-quantity', product.id);
-
-  var checkNumberAdded = document.createElement('div');
-  checkNumberAdded.classList.add('check-number-added');
-
-  var check = document.createElement('i');
-  check.classList.add('check', product.id, 'fa', 'fa-check', 'fa-2x');
-
-  var numberAdded = document.createElement('div');
-  numberAdded.classList.add('number-added', product.id);
-  var tempText = document.querySelector('.quantity-value').value;
-  if (document.querySelector('.quantity-value').value === '1') {
-    tempText = tempText + ' item added to Cart';
-  }
-  else {
-    tempText = tempText + ' items added to Cart';
-  }
-  numberAdded.textContent = tempText;
-
-  checkNumberAdded.appendChild(check);
-  checkNumberAdded.appendChild(numberAdded);
-
-  box.appendChild(checkNumberAdded);
-
-  var imageDescriptionAdded = document.createElement('div');
-  imageDescriptionAdded.classList.add('image-description-added');
-
-  var image = document.createElement('img');
-  image.classList.add('image-added', product.id);
-  image.setAttribute('src', product.image);
-
-  var descriptionPrice = document.createElement('div');
-  descriptionPrice.classList.add('description-price-added', product.id);
-
-  var description = document.createElement('div');
-  description.classList.add('description-added', product.id);
-  description.textContent = product.description;
-
-  var price = document.createElement('div');
-  price.classList.add('price-added', product.id);
-  price.textContent = '$' + product.price;
-
-  descriptionPrice.appendChild(description);
-  descriptionPrice.appendChild(price);
-
-  imageDescriptionAdded.appendChild(image);
-  imageDescriptionAdded.appendChild(descriptionPrice);
-
-  box.appendChild(imageDescriptionAdded);
-
-  var miniSummary = document.createElement('div');
-  miniSummary.classList.add('mini-summary');
-
-  var tempSubtotal;
-  if (summary(cart)[0] > 1) {
-    tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' items):';
-  }
-  else {
-    tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' item):';
-  }
-
-  var miniItemTotal = document.createElement('div');
-  miniItemTotal.classList.add('mini-item-total');
-  miniItemTotal.textContent = tempSubtotal;
-
-  var miniSubtotal = document.createElement('div');
-  miniSubtotal.classList.add('mini-subtotal');
-  miniSubtotal.textContent = '$' + summary(cart)[1];
-
-  miniSummary.appendChild(miniItemTotal);
-  miniSummary.appendChild(miniSubtotal);
-
-  var addButton = document.createElement('button');
-  addButton.classList.add('view-cart-button', product.id);
-  addButton.setAttribute('type', 'submit');
-
-  var cartImage = document.createElement('i');
-  cartImage.classList.add('view-cart', product.id, 'fa', 'fa-shopping-cart', 'fa-3x');
-
-  addButton.appendChild(cartImage);
-  miniSummary.appendChild(addButton);
-
-  var addProceed = document.createElement('button');
-  addProceed.classList.add('add-proceed', product.id);
-  addProceed.setAttribute('type', 'submit');
-  addProceed.textContent = 'Proceed to checkout';
-
-  miniSummary.appendChild(addProceed);
-
-  products.appendChild(box);
-  products.appendChild(miniSummary);
-
+  var products =
+    c('div', {class: 'add-product ' + product.id}, [
+      c('div', {class: 'item-quantity ' + product.id}, [
+        c('div', {class: 'check-number-added'}, [
+          c('i', {class: 'check ' + product.id + ' fa fa-check fa-2x'}, []),
+          c('div', {class: 'number-added ' + product.id}, [])
+        ]),
+        c('div', {class: 'image-description-added'}, [
+          c('img', {class: 'image-added ' + product.id, src: product.image}, []),
+          c('div', {class: 'description-price-added ' + product.id}, [
+            c('div', {class: 'description-added ' + product.id}, [product.description]),
+            c('div', {class: 'price-added ' + product.id}, ['$' + product.price])
+          ])
+        ]),
+      ]),
+      c('div',{class: 'mini-summary ' + product.id}, [
+        c('div', {class: 'mini-item-total'}, []),
+        c('div', {class: 'mini-subtotal'}, ['$' + summary(cart)[1]]),
+        c('button', {class: 'view-cart-button ' + product.id, type: 'submit'}, [
+          c('i', {class: 'view-cart ' + product.id + ' fa fa-shopping-cart fa-3x'}, [])
+        ]),
+        c('button', {class: 'add-proceed ' + product.id, type: 'submit'}, ['Proceed to checkout'])
+      ])
+    ]);
   return products;
-  }
+}
 
 ///////////////////////////////////////////////////////////
 //back to search results or images page
 function back(event) {
   event.preventDefault();
-  if (event.target.getElementById('back-images')) {
+  if (event.target.id === 'back-images') {
     hidden('consider', 'remove');
     hidden('all-images', 'remove');
     hidden('back-images', 'add');
@@ -598,7 +514,7 @@ function back(event) {
     productResults.removeChild(productResults.lastChild);
     resultComments.removeChild(resultComments.lastChild);
   }
-  else if (event.target.getElementById('back-results')) {
+  else if (event.target.id === 'back-results') {
     hidden('search-outcome', 'remove');
     hidden('all-products','remove');
     hidden('back-results', 'add');
@@ -629,8 +545,18 @@ function backToProduct(event) {
 //generate shopping cart
 function shoppingCart(event) {
   event.preventDefault();
-  if (event.target.classList.contains('view-cart-button') || event.target.classList.contains('view-cart') || event.target.classList.contains('goto-cart') || event.target.classList.contains('goto-icon') || event.target.classList.contains('cart-quantity-header') || event.target.classList.contains('checkout-items')) {
+  if (event.target.classList.contains('view-cart-button') || event.target.classList.contains('view-cart')
+      || event.target.classList.contains('goto-cart') || event.target.classList.contains('goto-icon')
+      || event.target.classList.contains('cart-quantity-header') || event.target.classList.contains('checkout-items')
+      || event.target.classList.contains('quantity-cart') || event.target.classList.contains('delete-product')) {
     event.stopPropagation();
+    if (event.target.classList.contains('quantity-cart')) {
+      updateQuantity(event);
+    }
+    if (event.target.classList.contains('delete-product')) {
+      deleteProduct(event);
+    }
+
     empty(resultComments);
     empty(productResults);
     hidden('heading', 'remove');
@@ -639,63 +565,25 @@ function shoppingCart(event) {
     empty(cartResults);
     var cartSummaryView = renderSummary(cart);
     cartResults.appendChild(cartSummaryView);
+
+    var tempSubtotal;
+    if (summary(cart)[0] > 1) {
+      tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' items):';
+    }
+    else {
+      tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' item):';
+    }
+    var subtotalItemCart = document.querySelector('.subtotal-item-cart');
+    subtotalItemCart.textContent = tempSubtotal;
+    var subtotalItemSummary = document.querySelector('.subtotal-item-summary');
+    subtotalItemSummary.textContent = tempSubtotal;
+
+    var productCart = document.querySelector('.product-cart');
+    productCart = renderCartProducts(productCart);
+
   }
-  return;
 }
-
-function renderSummary(cart) {
 /*
-<div class='cart-all'>
-  <div class='cart-main'>
-    <div class='cart-header'>
-      <div class='cart-header-label'><div>
-      <div class='cart-price'></div>
-      <div class='cart-quantity'></div>
-    </div>
-    <div class='product-cart'>
-      <div class='product-cart-box'>
-        <div class='image-info-cart'>
-          <div class='image-cart-box'>
-            <img class='image-cart' src='link.com'/>
-          </div>
-          <div class='info-cart'>
-            <div class='description-cart'></div>
-            <div class='brand-cart'></div>
-            <div class='delete'></div>
-          </div>
-        </div>
-        <div class='price-cart'></div>
-        <div class='quantity-cart'></div>
-      </div>
-    </div>
-    <div class='subtotalCart'>
-      <div class='subtotal-price-cart'></div>
-      <div class='subtotal-item-cart'></div>
-    </div>
-  </div>
-  <div class='subtotal-box'>
-    <div class='subtotal-box-summary'>
-      <div class='subtotal-item-summary'></div>
-      <div class='subtotal-price-summary'></div>
-    </div>
-    <button class='cart-proceed' type='submit'>Proceed to checkout</button>
-  </div>
-</div>
-
-*/
-  var cartAll = document.createElement('div');
-  cartAll.classList.add('cart-all');
-
-  var cartMain = document.createElement('div');
-  cartMain.classList.add('cart-main');
-
-  var cartHeader = document.createElement('div');
-  cartHeader.classList.add('cart-header');
-
-  var cartHeaderLabel = document.createElement('div');
-  cartHeaderLabel.classList.add('cart-header-label');
-  cartHeaderLabel.textContent = 'Shopping Cart';
-
   if (summary(cart)[0] === 0) {
     var emptyCart = document.createElement('div');
     emptyCart.classList.add('empty-cart');
@@ -706,176 +594,93 @@ function renderSummary(cart) {
     cartAll.appendChild(cartMain);
     return cartAll;
   }
+*/
 
-  var cartPrice = document.createElement('div');
-  cartPrice.classList.add('cart-price');
-  cartPrice.textContent = 'Price';
+function renderSummary(cart) {
+  var c = createElement;
 
-  var cartQuantity = document.createElement('div');
-  cartQuantity.classList.add('cart-quantity');
-  cartQuantity.textContent = 'Quantity';
+  var cartAll =
+    c('div', {class: 'cart-all'}, [
+      c('div', {class: 'cart-main'}, [
+        c('div', {class: 'cart-header'}, [
+          c('div', {class: 'cart-header-label'}, ['Shopping Cart']),
+          c('div', {class: 'cart-price'}, ['Price']),
+          c('div', {class: 'cart-quantity'}, ['Quantity'])
+        ]),
+        c('div', {class: 'product-cart'}, []),
+        c('div', {class: 'subtotal-cart'}, [
+          c('div', {class: 'subtotal-price-cart'}, ['$' + summary(cart)[1]]),
+          c('div', {class: 'subtotal-item-cart'}, [])
+        ])
+      ]),
+      c('div', {class: 'subtotal-box'}, [
+        c('div', {class: 'subtotal-box-summary'}, [
+          c('div', {class: 'subtotal-item-summary'}, []),
+          c('div', {class: 'subtotal-price-summary'}, ['$' + summary(cart)[1]])
+        ]),
+        c('button', {class: 'cart-proceed', type: 'submit'}, ['Proceed to checkout'])
+      ])
+    ]);
+  return cartAll;
+}
 
-  cartHeader.appendChild(cartHeaderLabel);
-  cartHeader.appendChild(cartPrice);
-  cartHeader.appendChild(cartQuantity);
-
-  cartMain.appendChild(cartHeader);
-
-  var productCart = document.createElement('div');
-  productCart.classList.add('product-cart');
-
+function renderCartProducts(productCart) {
+  var c = createElement;
   for (var i = 0; i < cart.length; i++) {
     if (cart[i].quantity != 0) {
-      var productCartBox = document.createElement('div');
-      productCartBox.classList.add('product-cart-box', cart[i].product.id)
-
-      var imageInfoCart = document.createElement ('div');
-      imageInfoCart.classList.add('image-info-cart', cart[i].product.id);
-
-      var imageCartBox = document.createElement('div');
-      imageCartBox.classList.add('image-cart-box', cart[i].product.id);
-
-      var imageCart = document.createElement('img');
-      imageCart.classList.add('image-cart', cart[i].product.id);
-      imageCart.setAttribute('src', cart[i].product.image);
-
-      imageCartBox.appendChild(imageCart);
-      imageInfoCart.appendChild(imageCartBox);
-
-      var infoCart = document.createElement('div');
-      infoCart.classList.add('info-cart', cart[i].product.id);
-
-      var descriptionCart = document.createElement('div');
-      descriptionCart.classList.add('description-cart', cart[i].product.id);
-      descriptionCart.textContent = cart[i].product.description;
-
-      var brandCart = document.createElement('div');
-      brandCart.classList.add('brand-cart', cart[i].product.id);
-      brandCart.textContent = 'by ' + cart[i].product.brand;
-
-      var deleteProduct = document.createElement('div');
-      deleteProduct.classList.add('delete-product', cart[i].product.id);
-      deleteProduct.textContent = 'Delete';
-
-      infoCart.appendChild(descriptionCart);
-      infoCart.appendChild(brandCart);
-      infoCart.appendChild(deleteProduct);
-
-      imageInfoCart.appendChild(infoCart);
-      productCartBox.appendChild(imageInfoCart);
-
-      var priceCart = document.createElement('div');
-      priceCart.classList.add('price-cart', cart[i].product.id);
-      priceCart.textContent = '$' + cart[i].product.price;
-
-      var quantityCart = document.createElement('input');
-      quantityCart.classList.add('quantity-cart', cart[i].product.id);
-      quantityCart.setAttribute('type', 'number');
-      quantityCart.setAttribute('name', 'quantity');
-      quantityCart.setAttribute('min', '1');
-      quantityCart.setAttribute('max', '10');
-      quantityCart.value = cart[i].quantity;
-
-      productCartBox.appendChild(priceCart);
-      productCartBox.appendChild(quantityCart);
-
-      productCart.appendChild(productCartBox);
+      var productCartBox =
+        c('div', {class: 'product-cart-box ' + cart[i].product.id}, [
+          c('div', {class: 'image-info-cart ' + cart[i].product.id}, [
+            c('div', {class: 'image-cart-box ' + cart[i].product.id}, [
+              c('img', {class: 'image-cart ' + cart[i].product.id, src: cart[i].product.image}, [])
+            ]),
+            c('div', {class: 'info-cart ' + cart[i].product.id}, [
+              c('div', {class: 'description-cart ' + cart[i].product.id}, [cart[i].product.description]),
+              c('div', {class: 'brand-cart ' + cart[i].product.id}, ['by ' + cart[i].product.brand]),
+              c('div', {class: 'delete-product ' + cart[i].product.id}, ['Delete'])
+            ])
+          ]),
+          c('div', {class: 'price-cart ' + cart[i].product.id}, ['$' + cart[i].product.price]),
+          c('input', {class: 'quantity-cart ' + cart[i].product.id, type: 'number', name: 'quantity', min: 1, max: 10}, [])
+        ])
+        productCart.appendChild(productCartBox);
     }
   }
-
-  cartMain.appendChild(productCart);
-
-  var subtotalCart = document.createElement('div');
-  subtotalCart.classList.add('subtotal-cart');
-  var tempSubtotal;
-
-  if (summary(cart)[0] > 1) {
-    tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' items):';
+  var productQuantity = document.querySelectorAll('.quantity-cart');
+  for (var k = 0; k < cart.length; k++) {
+    productQuantity[k].value = cart[k].quantity;
   }
-  else {
-    tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' item):';
+  return productCart;
+}
+
+///////////////////////////////////////////////////////////
+//update quantity from shopping cart
+function updateQuantity(event) {
+  event.preventDefault();
+  if (event.target.classList.contains('quantity-cart')) {
+    var id = Number(event.target.classList[1]);
+    var newQuantity = Number(event.target.value);
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].product.id === id) {
+        cart[i].quantity = newQuantity;
+        summary(cart);
+        var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+        cartQuantityHeader.textContent = summary(cart)[0];
+        return;
+      }
+    }
   }
-
-  var subtotalItemCart = document.createElement('div');
-  subtotalItemCart.classList.add('subtotal-item-cart');
-  subtotalItemCart.textContent = tempSubtotal;
-
-  var subtotalPriceCart = document.createElement('div');
-  subtotalPriceCart.classList.add('subtotal-price-cart');
-  subtotalPriceCart.textContent = '$' + summary(cart)[1];
-
-  subtotalCart.appendChild(subtotalPriceCart);
-  subtotalCart.appendChild(subtotalItemCart);
-
-  cartMain.appendChild(subtotalCart);
-
-  var subtotalBox = document.createElement('div');
-  subtotalBox.classList.add('subtotal-box');
-
-  var subtotalBoxSummary = document.createElement('div');
-  subtotalBoxSummary.classList.add('subtotal-box-summary');
-
-  var subtotalItemSummary = document.createElement('div');
-  subtotalItemSummary.classList.add('subtotal-item-summary');
-  subtotalItemSummary.textContent = tempSubtotal
-
-  var subtotalPriceSummary = document.createElement('div');
-  subtotalPriceSummary.classList.add('subtotal-price-summary');
-  subtotalPriceSummary.textContent = '$' + summary(cart)[1];
-
-  subtotalBoxSummary.appendChild(subtotalItemSummary);
-  subtotalBoxSummary.appendChild(subtotalPriceSummary);
-
-  var cartProceed = document.createElement('button');
-  cartProceed.classList.add('cart-proceed');
-  cartProceed.setAttribute('type', 'submit');
-  cartProceed.textContent = 'Proceed to checkout';
-
-  subtotalBox.appendChild(subtotalBoxSummary);
-  subtotalBox.appendChild(cartProceed);
-
-  cartAll.appendChild(cartMain);
-  cartAll.appendChild(subtotalBox);
-
-  return cartAll;
 }
 
 ///////////////////////////////////////////////////////////
 //delete product from shopping cart
 function deleteProduct(event) {
-  event.preventDefault();
-  if (event.target.classList.contains('delete-product')) {
-    for (var i = 0; i < cart.length; i++) {
-      if (cart[i].product.id === Number(event.target.classList[1])) {
-        cart.splice(i,1);
-        summary(cart);
-        var cartQuantityHeader = document.querySelector('.cart-quantity-header');
-        cartQuantityHeader.textContent = summary(cart)[0];
-        var cartSummaryView = renderSummary(cart);
-        cartResults.appendChild(cartSummaryView);
-      }
-    }
-  }
-}
-
-//FIX!!
-///////////////////////////////////////////////////////////
-//update quantity from shopping cart
-function updateQuantity(event) {
-  event.preventDefault();
-  //if passed in value is same as what it was, do nothing, otherwise, update quantity
-  if (event.target.classList.contains('quantity-cart')) {
-    for (var i = 0; i < cart.length; i++) {
-      if (cart[i].product.id === Number(event.target.classList[1])) {
-        cart[i].quantity = Number(event.target.value);
-        summary(cart);
-        var cartQuantityHeader = document.querySelector('.cart-quantity-header');
-        cartQuantityHeader.textContent = summary(cart)[0];
-        empty(cartResults);
-        var cartSummaryView = renderSummary(cart);
-        cartResults.appendChild(cartSummaryView);
-        return;
-      }
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].product.id === Number(event.target.classList[1])) {
+      cart.splice(i,1);
+      summary(cart);
+      var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+      cartQuantityHeader.textContent = summary(cart)[0];
     }
   }
 }
@@ -1021,8 +826,7 @@ container.addEventListener('click', shoppingCart);
 container.addEventListener('click', checkout);
 
 cartResults.addEventListener('click', productPage);
-cartResults.addEventListener('click', deleteProduct);
-cartResults.addEventListener('input', updateQuantity);
+cartResults.addEventListener('click', shoppingCart);
 cartResults.addEventListener('click', checkout);
 
 gotoCart.addEventListener('click', shoppingCart);
