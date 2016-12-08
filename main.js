@@ -153,9 +153,6 @@ var cart = [];
   { product: products[i],
     quantity: x}, */
 
-var tax = .075;
-var shipping = 5.00;
-
 function summary(cart) {
   var quantity = 0;
   var subtotal = 0;
@@ -166,6 +163,9 @@ function summary(cart) {
   var cartSummary = [quantity,subtotal.toFixed(2)];
   return cartSummary;
 }
+
+var tax = .075;
+var shipping = 5.00;
 
 var heading = document.getElementById('heading');
 var logo = document.getElementById('amazon');
@@ -200,14 +200,13 @@ function refresh(event) {
   if (cartResults.hasChildNodes()) {
     cartResults.removeChild(cartResults.lastChild);
   }
+
   if (document.querySelector('.cart-quantity-header') != null) {
     gotoCart.removeChild(document.querySelector('.cart-quantity-header'))
   }
-
   var cartQuantityHeader = document.createElement('div');
   cartQuantityHeader.classList.add('cart-quantity-header');
   cartQuantityHeader.textContent = summary(cart)[0];
-
   gotoCart.appendChild(cartQuantityHeader);
 
   empty(resultComments);
@@ -217,8 +216,8 @@ function refresh(event) {
   checkoutResults.classList.add('hidden');
   confirmation.classList.add('hidden');
 
-  var allImages = document.createElement('div');
-  allImages.classList.add('all-images');
+  var c = createElement;
+  var allImages = c('div',{class: 'all-images'}, []);
   for (var i = 0; i < 20; i++) {
     var randomProduct = Math.floor(Math.random() * products.length);
     var image = renderLoad(products[randomProduct]);
@@ -226,42 +225,54 @@ function refresh(event) {
   }
   productResults.appendChild(allImages);
 
-  var consider=document.createElement('div');
-  consider.classList.add('consider');
-
-  var resultComment = 'Items to consider';
-  resultComment = document.createTextNode(resultComment);
-
-  consider.appendChild(resultComment);
+  var consider = c('div',{class: 'consider'},['Items to consider']);
   resultComments.appendChild(consider);
 }
 
 function renderLoad(product) {
-
-  var imageBox = document.createElement('div');
+  /*var imageBox = document.createElement('div');
   imageBox.classList.add('image-box', product.id);
 
   var image = document.createElement('img');
   image.classList.add('image', product.id);
   image.setAttribute('src', product.image);
 
-  imageBox.appendChild(image);
+  imageBox.appendChild(image);*/
+  var c = createElement;
+  var imageBox =
+    c('div',{class: 'image-box ' + product.id}, [
+      c('img', {src: product.image, class: 'image ' + product.id},[])
+    ]);
   return imageBox;
+}
+
+function createElement(tagName,attributes,children) {
+  var element = document.createElement(tagName);
+  for (var key in attributes) {
+    element.setAttribute(key, attributes[key]);
+  }
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i];
+    if (child instanceof Element) {
+      element.appendChild(child)
+    }
+    else {
+      element.appendChild(document.createTextNode(child))
+    }
+  }
+  return element;
 }
 
 function search(event) {
   event.preventDefault();
-  searchItem = document.getElementById('text').value; //searched text
-
-  //do nothing if search is empty
+  searchItem = document.getElementById('text').value;
   if (!searchItem.trim())
     return;
-
   empty(resultComments);
   empty(productResults);
   confirmation.classList.add('hidden');
-  var allProducts = document.createElement('div');
-  allProducts.classList.add('all-products')
+  var c = createElement;
+  var allProducts = c('div',{class: 'all-products'},[]);
 
   /*1. compare search text with each array item in jsProducts
     2. if results are true, create div block to add to #products in document
@@ -275,41 +286,34 @@ function search(event) {
       allProducts.appendChild(searchResult);
     }
   }
-
-  var searchOutcome=document.createElement('div');
-  searchOutcome.classList.add('search-outcome');
-  var resultComment;
-
+  var resultComment = '';
   if (allProducts.firstChild) {
     productResults.appendChild(allProducts);
     resultComment = 'Showing most relevant results. See all results for \'' + searchItem + '\'.';
-    resultComment = document.createTextNode(resultComment);
-    searchOutcome.appendChild(resultComment);
   }
   else {
     resultComment = 'Your search \'' + searchItem + '\' did not match any products.';
-    resultComment = document.createTextNode(resultComment);
-    searchOutcome.appendChild(resultComment);
   }
+  var searchOutcome = c('div',{class: 'search-outcome'},[resultComment]);
   resultComments.appendChild (searchOutcome);
   //page is refreshed with same results if search button is pressed again
   document.getElementById('text').value = '';
-
 }
 
 //empties out any elements within element with 'product' ID
-function empty(productResults) {
-  while (productResults.firstChild) {
-    productResults.removeChild(productResults.firstChild);
+function empty(clean) {
+  while (clean.firstChild) {
+    clean.removeChild(clean.firstChild);
   }
 }
 
 ///////////////////////////////////////////////////////////
 //search function checks to see that each word of the search is contained in an item description
 function isMatch(description, searchItem) {
-  if (cartResults.hasChildNodes()) {
+  /*if (cartResults.hasChildNodes()) {
     cartResults.removeChild(cartResults.lastChild);
-  }
+  }*/
+  empty(cartResults);
   searchItem = searchItem.toLowerCase();
   searchItem = searchItem.trim();
   var space = ' ';
@@ -324,52 +328,18 @@ function isMatch(description, searchItem) {
 }
 
 function renderResult(product) {
-/*
-<div class='product'>
-  <div id=image-box>
-    <img class='image' src='link.com'/>
-  </div>
-  <div class='info'>
-    <div class='description'></div>
-    <div class='brand'></div>
-    <div class='price'></div>
-  </div>
-</div>
-*/
-
-  var products = document.createElement('div');
-  products.classList.add('product', product.id);
-
-  var imageBox = document.createElement('div');
-  imageBox.classList.add('image-box', product.id);
-
-  var image = document.createElement('img');
-  image.classList.add('image', product.id);
-  image.setAttribute('src', product.image);
-
-  imageBox.appendChild(image);
-
-  var info = document.createElement('div');
-  info.classList.add('info', product.id);
-
-  var description = document.createElement('div');
-  description.classList.add('description', product.id);
-  description.textContent = product.description;
-
-  var brand = document.createElement('div');
-  brand.classList.add('brand', product.id);
-  brand.textContent = 'by ' + product.brand;
-
-  var price = document.createElement('div');
-  price.classList.add('price', product.id);
-  price.textContent = '$' + product.price;
-
-  info.appendChild(description);
-  info.appendChild(brand);
-  info.appendChild(price);
-
-  products.appendChild(imageBox);
-  products.appendChild(info);
+  var c = createElement;
+  var products =
+    c('div', {class: 'product ' + product.id}, [
+      c('div', {class: 'image-box ' + product.id}, [
+        c('img', {class: 'image ' + product.id, src: product.image}, [])
+      ]),
+      c('div', {class: 'info ' + product.id}, [
+        c('div', {class: 'description ' + product.id}, [product.description]),
+        c('div', {class: 'brand ' + product.id}, ['by ' + product.brand]),
+        c('div', {class: 'price ' + product.id}, ['$' + product.price])
+      ])
+    ]);
 
   return products;
 }
@@ -378,46 +348,34 @@ function renderResult(product) {
 //generate product productPage
 function productPage(event) {
   event.preventDefault();
-
-  if (event.target.classList.contains('image') || event.target.classList.contains('description') || event.target.classList.contains('price') || event.target.classList.contains('image-cart') || event.target.classList.contains('description-cart')) {
-    if (cartResults.hasChildNodes()) {
-      cartResults.removeChild(cartResults.lastChild);
-    }
+  if (event.target.classList.contains('image') || event.target.classList.contains('description')
+      || event.target.classList.contains('price') || event.target.classList.contains('image-cart')
+      || event.target.classList.contains('description-cart')) {
+    empty(cartResults);
     if (productResults.hasChildNodes()) {
       if (document.querySelector('.all-products') != null) {
-        // <div class='back'> Back </div>
-
         var hideOutcome = document.querySelector('.search-outcome');
         hideOutcome.classList.add('hidden');
-
         var hideSearch = document.querySelector('.all-products');
         hideSearch.classList.add('hidden');
-
         var backResults = document.createElement('div');
         backResults.classList.add('back-results');
-
         backResults.appendChild(document.createTextNode('Back to search results'));
         resultComments.appendChild(backResults);
       }
       else {
-        // <div class='backResults'> Back to search results </div>
-
         var hideConsider = document.querySelector('.consider');
         hideConsider.classList.add('hidden');
-
         var hideImages = document.querySelector('.all-images');
         hideImages.classList.add('hidden');
-
         var backImages = document.createElement('div');
         backImages.classList.add('back-images');
-
         backImages.appendChild(document.createTextNode('Back'));
         resultComments.appendChild(backImages);
       }
     }
     var id = event.target.classList[1];
-    id -= 1;
-    var storeProduct = renderProduct(products[id]);
+    var storeProduct = renderProduct(products[id-1]);
     var viewProduct = document.getElementById('products');
     viewProduct.appendChild(storeProduct);
   }
@@ -443,8 +401,17 @@ function renderProduct(product) {
   </div>
 </div>
 */
+  var c = createElement;
 
-  var products = document.createElement('div');
+  var products =
+    c('div', {class: 'product-page ' + product.id}, [
+      c('div', {class: 'image-box-product ' + product.id}, [
+        c('img', {class: 'image-product ' + product.id, src: product.image},[])
+      ]),
+      c()
+    ]);
+
+    document.createElement('div');
   products.classList.add('product-page', product.id);
 
   var imageBox = document.createElement('div');
