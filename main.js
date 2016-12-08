@@ -1146,12 +1146,7 @@ function missingField(info) {
       check = check + 1;
     }
   }
-  if (check > 0 ) {
-    return true;
-  }
-  else {
-    return false;
-  }
+  return check > 0;
 }
 
 function checkMissing(event) {
@@ -1159,9 +1154,7 @@ function checkMissing(event) {
     if (!event.target.value.trim()) {
       return;
     }
-    else {
-      event.target.classList.remove('missing');
-    }
+    event.target.classList.remove('missing');
   }
 }
 
