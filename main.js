@@ -597,7 +597,6 @@ function shoppingCart(event) {
     });
 
     var productQuantity = document.querySelectorAll('.quantity-cart');
-
     for (var k = 0; k < cart.length; k++) {
       productQuantity[k].value = cart[k].quantity;
     }
