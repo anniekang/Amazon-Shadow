@@ -788,7 +788,7 @@ function placeOrder(event) {
     return;
   }
 
-  while (cart.length > 1) {
+  while (cart.length > 0) {
     cart.pop();
   }
   summary(cart);

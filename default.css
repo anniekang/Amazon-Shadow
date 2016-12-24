@@ -1236,12 +1236,6 @@ body {
   text-align: right;
 }
 
-@media (min-width: 768px) {
-  .number-label {
-
-  }
-}
-
 .number-input {
   margin-left: 10px;
   border: 1px solid gray;
@@ -1435,9 +1429,13 @@ body {
   float: right;
 }
 
+#confirmation {
+  min-width: 400px;
+}
+
 #confirmation-box {
   position: relative;
-  width: 400px;
+  width: 380px;
   margin: auto;
   border: 1px solid black;
 }
