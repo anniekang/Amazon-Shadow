@@ -1,4 +1,4 @@
-var products = [{
+const products = [{
     id: 1,
     description: 'Bose QuietComfort 20 Acoustic Noise Cancelling Headphones, Apple Devices, Black',
     brand: 'Bose',
@@ -148,53 +148,50 @@ var products = [{
   }
 ];
 
-var cart = [];
+const cart = [];
   /*
   { product: products[i],
     quantity: x}, */
 
 function summary(cart) {
-  var quantity = cart.reduce(function addItemQty(total, cartItem) {
+  const quantity = cart.reduce(function addItemQty(total, cartItem) {
     return total + cartItem.quantity
   }, 0);
-  var subtotal = cart.reduce(function addItemQty(total, cartItem) {
+  const subtotal = cart.reduce(function addItemQty(total, cartItem) {
     return total + (cartItem.product.price * cartItem.quantity)
   }, 0);
 
-  var cartSummary = [quantity,subtotal.toFixed(2)];
+  const cartSummary = [quantity,subtotal.toFixed(2)];
   return cartSummary;
 }
 
-var tax = .075;
-var shipping = 5.00;
+const TAX = .075;
+const SHIPPING = 5.00;
 
-//var heading = document.getElementById('heading');
-var logo = document.getElementById('amazon');
-var searchItems = document.getElementById('search');
-var searchItem = document.getElementById('text');
-var gotoCart = document.getElementById('goto-cart');
-var container = document.getElementById('container');
-var resultComments=document.getElementById('outcome');
-var productResults = document.getElementById('products');
-var cartResults = document.getElementById('cart');
-//var checkoutResults = document.getElementById('checkout');
-var checkoutLogo = document.querySelector('.checkout-logo');
-var checkoutItems = document.querySelector('.checkout-items');
-var shippingInput = document.querySelectorAll('.shipping-input');
-var cardInput = document.querySelector('.card-input');
-var numberInput = document.querySelector('.number-input');
-var expirationMonth = document.querySelector('.expiration-month');
-var expirationYear = document.querySelector('.expiration-year');
-var reviewPlace = document.getElementById('review');
-var summaryPlace = document.getElementById('summary');
-//var confirmation = document.getElementById('confirmation');
-var addressName = document.getElementById('address-name');
-var streetOne = document.getElementById('street-one');
-var streetTwo = document.getElementById('street-two');
-var cityState = document.getElementById('city-state');
+const logo = document.getElementById('amazon');
+const searchItems = document.getElementById('search');
+const searchItem = document.getElementById('text');
+const gotoCart = document.getElementById('goto-cart');
+const container = document.getElementById('container');
+const resultComments=document.getElementById('outcome');
+const productResults = document.getElementById('products');
+const cartResults = document.getElementById('cart');
+const checkoutLogo = document.querySelector('.checkout-logo');
+const checkoutItems = document.querySelector('.checkout-items');
+const shippingInput = document.querySelectorAll('.shipping-input');
+const cardInput = document.querySelector('.card-input');
+const numberInput = document.querySelector('.number-input');
+const expirationMonth = document.querySelector('.expiration-month');
+const expirationYear = document.querySelector('.expiration-year');
+const reviewPlace = document.getElementById('review');
+const summaryPlace = document.getElementById('summary');
+const addressName = document.getElementById('address-name');
+const streetOne = document.getElementById('street-one');
+const streetTwo = document.getElementById('street-two');
+const cityState = document.getElementById('city-state');
 
 function hidden(item, change) {
-  var check = document.getElementById(item);
+  const check = document.getElementById(item);
   if (change === 'add') {
     check.classList.add('hidden');
   }
@@ -215,7 +212,7 @@ function refresh(event) {
   if (document.querySelector('.cart-quantity-header') != null) {
     gotoCart.removeChild(document.querySelector('.cart-quantity-header'))
   }
-  var cartQuantityHeader = createElement('div', {class: 'cart-quantity-header'}, [summary(cart)[0]]);
+  const cartQuantityHeader = createElement('div', {class: 'cart-quantity-header'}, [summary(cart)[0]]);
   gotoCart.appendChild(cartQuantityHeader);
 
   empty(resultComments);
@@ -225,22 +222,22 @@ function refresh(event) {
   hidden('checkout', 'add');
   hidden('confirmation', 'add');
 
-  var c = createElement;
-  var allImages = c('div',{id: 'all-images'}, []);
-  for (var i = 0; i < 20; i++) {
-    var randomProduct = Math.floor(Math.random() * products.length);
-    var image = renderLoad(products[randomProduct]);
+  const c = createElement;
+  const allImages = c('div',{id: 'all-images'}, []);
+  for (let i = 0; i < 20; i++) {
+    const randomProduct = Math.floor(Math.random() * products.length);
+    const image = renderLoad(products[randomProduct]);
     allImages.appendChild(image);
   }
   productResults.appendChild(allImages);
 
-  var consider = c('div',{id: 'consider'},['Items to consider']);
+  const consider = c('div',{id: 'consider'},['Items to consider']);
   resultComments.appendChild(consider);
 }
 
 function renderLoad(product) {
-  var c = createElement;
-  var imageBox =
+  const c = createElement;
+  const imageBox =
     c('div',{class: 'image-box ' + product.id}, [
       c('img', {src: product.image, class: 'image ' + product.id},[])
     ]);
@@ -248,12 +245,12 @@ function renderLoad(product) {
 }
 
 function createElement(tagName,attributes,children) {
-  var element = document.createElement(tagName);
-  for (var key in attributes) {
+  const element = document.createElement(tagName);
+  for (let key in attributes) {
     element.setAttribute(key, attributes[key]);
   }
-  for (var i = 0; i < children.length; i++) {
-    var child = children[i];
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i];
     if (child instanceof Element) {
       element.appendChild(child)
     }
@@ -266,14 +263,14 @@ function createElement(tagName,attributes,children) {
 
 function search(event) {
   event.preventDefault();
-  searchItem = document.getElementById('text').value;
+  const searchItemValue = document.getElementById('text').value;
   if (!searchItem.trim())
     return;
   empty(resultComments);
   empty(productResults);
   hidden('confirmation', 'add');
-  var c = createElement;
-  var allProducts = c('div',{id: 'all-products'},[]);
+  const c = createElement;
+  const allProducts = c('div',{id: 'all-products'},[]);
 
   /*1. compare search text with each array item in jsProducts
     2. if results are true, create div block to add to #products in document
@@ -281,21 +278,21 @@ function search(event) {
     4. if there are any search results, add a div string that states results
     5. if no search results, We found 0 results for 'gfsf aes'
   */
-  for (var i = 0; i < products.length; i++) {
-    if (isMatch(products[i].description, searchItem)) {
-      var searchResult = renderResult(products[i]);
+  for (let i = 0; i < products.length; i++) {
+    if (isMatch(products[i].description, searchItemValue)) {
+      const searchResult = renderResult(products[i]);
       allProducts.appendChild(searchResult);
     }
   }
-  var resultComment = '';
+  let resultComment = '';
   if (allProducts.firstChild) {
     productResults.appendChild(allProducts);
-    resultComment = 'Showing most relevant results. See all results for \'' + searchItem + '\'.';
+    resultComment = 'Showing most relevant results. See all results for \'' + searchItemValue + '\'.';
   }
   else {
-    resultComment = 'Your search \'' + searchItem + '\' did not match any products.';
+    resultComment = 'Your search \'' + searchItemValue + '\' did not match any products.';
   }
-  var searchOutcome = c('div', {id: 'search-outcome'}, [resultComment]);
+  const searchOutcome = c('div', {id: 'search-outcome'}, [resultComment]);
   resultComments.appendChild (searchOutcome);
   //page is refreshed with same results if search button is pressed again
   document.getElementById('text').value = '';
@@ -317,10 +314,10 @@ function isMatch(description, searchItem) {
   empty(cartResults);
   searchItem = searchItem.toLowerCase();
   searchItem = searchItem.trim();
-  var space = ' ';
-  var searchItemWords = searchItem.split(space);
-  var productDescription = description.toLowerCase();
-  for (var k = 0; k < searchItemWords.length; k++) {
+  const space = ' ';
+  const searchItemWords = searchItem.split(space);
+  const productDescription = description.toLowerCase();
+  for (let k = 0; k < searchItemWords.length; k++) {
     if (productDescription.indexOf(searchItemWords[k]) < 0) {
       return false;
     }
@@ -329,8 +326,8 @@ function isMatch(description, searchItem) {
 }
 
 function renderResult(product) {
-  var c = createElement;
-  var products =
+  const c = createElement;
+  const products =
     c('div', {class: 'product ' + product.id}, [
       c('div', {class: 'image-box ' + product.id}, [
         c('img', {class: 'image ' + product.id, src: product.image}, [])
@@ -356,24 +353,24 @@ function productPage(event) {
       if (document.getElementById('all-products') != null) {
         hidden('search-outcome', 'add');
         hidden('all-products', 'add');
-        var backResults = createElement('div', {id: 'back-results'}, ['Back to search results']);
+        const backResults = createElement('div', {id: 'back-results'}, ['Back to search results']);
         resultComments.appendChild(backResults);
       }
       else {
         hidden('consider', 'add');
         hidden('all-images', 'add');
-        var backImages = createElement('div', {id: 'back-images'},['Back']);
+        const backImages = createElement('div', {id: 'back-images'},['Back']);
         resultComments.appendChild(backImages);
       }
     }
-    var id = event.target.classList[1];
-    var storeProduct = renderProduct(products[id-1]);
-    var viewProduct = document.getElementById('products');
+    const id = event.target.classList[1];
+    const storeProduct = renderProduct(products[id-1]);
+    const viewProduct = document.getElementById('products');
     viewProduct.appendChild(storeProduct);
-    var tempLength = products[id-1].details.length;
-    for (var i = 0; i < tempLength; i++) {
-      var details = createElement('li', {class: 'detail-line ' + id + ' line' + i}, [products[id-1].details[i]]);
-      var detail = document.querySelector('.detail');
+    const tempLength = products[id-1].details.length;
+    for (let i = 0; i < tempLength; i++) {
+      const details = createElement('li', {class: 'detail-line ' + id + ' line' + i}, [products[id-1].details[i]]);
+      const detail = document.querySelector('.detail');
       detail.appendChild(details);
     }
   }
@@ -381,8 +378,8 @@ function productPage(event) {
 }
 
 function renderProduct(product) {
-  var c = createElement;
-  var products =
+  const c = createElement;
+  const products =
     c('div', {id: 'product-page', class: product.id}, [
       c('div', {class: 'image-box-product ' + product.id}, [
         c('img', {class: 'image-product ' + product.id, src: product.image},[])
@@ -430,11 +427,11 @@ function addToCart(event) {
   if (event.target.classList.contains('add-button') || event.target.classList.contains('cart-image')) {
     event.stopPropagation();
     hidden('confirmation', 'add');
-    var id = event.target.classList[1];
+    let id = event.target.classList[1];
     id = products[id-1].id;
-    var i = cart.length;
-    var quantity = Number(document.querySelector('.quantity-value').value);
-    var cartCheck = inCart(id);
+    const i = cart.length;
+    const quantity = Number(document.querySelector('.quantity-value').value);
+    const cartCheck = inCart(id);
     if (i > 0 && cartCheck !== false) {
           cart[cartCheck].quantity += quantity;
     }
@@ -442,40 +439,40 @@ function addToCart(event) {
       cart.push({product: products[id-1], quantity: quantity});
     }
     summary(cart);
-    var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+    const cartQuantityHeader = document.querySelector('.cart-quantity-header');
     cartQuantityHeader.textContent = summary(cart)[0];
-    var product = products[id-1];
+    const product = products[id-1];
     empty(resultComments);
     empty(cartResults);
     hidden('product-page', 'add');
-    var added = renderAdded(product);
+    const added = renderAdded(product);
     productResults.appendChild(added);
 
-    var tempText = document.querySelector('.quantity-value').value;
+    let tempText = document.querySelector('.quantity-value').value;
     if (document.querySelector('.quantity-value').value === '1') {
       tempText = tempText + ' item added to Cart';
     }
     else {
       tempText = tempText + ' items added to Cart';
     }
-    var numberAdded = document.querySelector('.number-added');
+    const numberAdded = document.querySelector('.number-added');
     numberAdded.textContent = tempText;
 
-    var tempSubtotal;
+    let tempSubtotal;
     if (summary(cart)[0] > 1) {
       tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' items):';
     }
     else {
       tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' item):';
     }
-    var miniItemTotal = document.querySelector('.mini-item-total');
+    const miniItemTotal = document.querySelector('.mini-item-total');
     miniItemTotal.textContent = tempSubtotal;
   }
   else return;
 }
 
 function inCart(productID) {
-  for (var k = 0; k < cart.length; k++) {
+  for (let k = 0; k < cart.length; k++) {
     if (cart[k].product.id === productID) {
       return k;
     }
@@ -484,9 +481,9 @@ function inCart(productID) {
 }
 
 function renderAdded(product) {
-  var c = createElement;
+  const c = createElement;
 
-  var products =
+  const products =
     c('div', {class: 'add-product ' + product.id}, [
       c('div', {class: 'item-quantity ' + product.id}, [
         c('div', {class: 'check-number-added'}, [
@@ -544,7 +541,7 @@ function back(event) {
 function backToProduct(event) {
   event.preventDefault();
   if (event.target.classList.contains('description-added')) {
-    var hideAdded = document.querySelector('.add-product');
+    const hideAdded = document.querySelector('.add-product');
     hideAdded.classList.add('hidden');
     hidden('product-page', 'remove');
     productResults.removeChild(productResults.lastChild);
@@ -571,55 +568,55 @@ function shoppingCart(event) {
     hidden('container', 'remove');
     hidden('checkout', 'add');
     empty(cartResults);
-    var cartSummaryView = renderSummary(cart);
+    const cartSummaryView = renderSummary(cart);
     cartResults.appendChild(cartSummaryView);
 
     if (summary(cart)[0] === 0) {
-      var emptyCart = createElement('div', {class: 'empty-cart'}, ['Your shopping Cart is empty']);
-      var cartAll = document.querySelector('.cart-all');
+      const emptyCart = createElement('div', {class: 'empty-cart'}, ['Your shopping Cart is empty']);
+      const cartAll = document.querySelector('.cart-all');
       cartAll.removeChild(cartAll.lastChild);
 
-      var cartMain = document.querySelector('.cart-main');
+      const cartMain = document.querySelector('.cart-main');
       cartMain.removeChild(cartMain.lastChild);
       cartMain.removeChild(cartMain.lastChild);
 
-      var cartHeader = document.querySelector ('.cart-header');
+      const cartHeader = document.querySelector ('.cart-header');
       cartHeader.removeChild(cartHeader.lastChild);
       cartHeader.removeChild(cartHeader.lastChild);
       cartHeader.appendChild(emptyCart);
       return;
     }
 
-    var productCart = document.querySelector('.product-cart');
-    var renderedProducts = cart.map(renderCartProducts);
+    const productCart = document.querySelector('.product-cart');
+    const renderedProducts = cart.map(renderCartProducts);
     renderedProducts.forEach(function(cartItems){
       productCart.appendChild(cartItems)
     });
 
-    var productQuantity = document.querySelectorAll('.quantity-cart');
-    for (var k = 0; k < cart.length; k++) {
+    const productQuantity = document.querySelectorAll('.quantity-cart');
+    for (let k = 0; k < cart.length; k++) {
       productQuantity[k].value = cart[k].quantity;
     }
 
-    var tempSubtotal;
+    let tempSubtotal;
     if (summary(cart)[0] > 1) {
       tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' items):';
     }
     else {
       tempSubtotal = 'Subtotal (' + String(summary(cart)[0]) + ' item):';
     }
-    var subtotalItemCart = document.querySelector('.subtotal-item-cart');
+    const subtotalItemCart = document.querySelector('.subtotal-item-cart');
     subtotalItemCart.textContent = tempSubtotal;
-    var subtotalItemSummary = document.querySelector('.subtotal-item-summary');
+    const subtotalItemSummary = document.querySelector('.subtotal-item-summary');
     subtotalItemSummary.textContent = tempSubtotal;
     return;
   }
 }
 
 function renderSummary(cart) {
-  var c = createElement;
+  const c = createElement;
 
-  var cartAll =
+  const cartAll =
     c('div', {class: 'cart-all'}, [
       c('div', {class: 'cart-main'}, [
         c('div', {class: 'cart-header'}, [
@@ -645,8 +642,8 @@ function renderSummary(cart) {
 }
 
 function renderCartProducts(cartItem) {
-  var c = createElement;
-  var productCartItem =
+  const c = createElement;
+  const productCartItem =
     c('div', {class: 'product-cart-box ' + cartItem.product.id}, [
       c('div', {class: 'image-info-cart ' + cartItem.product.id}, [
         c('div', {class: 'image-cart-box ' + cartItem.product.id}, [
@@ -680,13 +677,13 @@ function renderCartProducts(cartItem) {
 function updateQuantity(event) {
   event.preventDefault();
   event.target.classList.add('changed');
-  var id = Number(event.target.classList[1]);
-  var newQuantity = Number(event.target.value);
-  for (var i = 0; i < cart.length; i++) {
+  const id = Number(event.target.classList[1]);
+  const newQuantity = Number(event.target.value);
+  for (let i = 0; i < cart.length; i++) {
     if (cart[i].product.id === id) {
       cart[i].quantity = newQuantity;
       summary(cart);
-      var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+      const cartQuantityHeader = document.querySelector('.cart-quantity-header');
       cartQuantityHeader.textContent = summary(cart)[0];
       shoppingCart(event);
       return;
@@ -697,11 +694,11 @@ function updateQuantity(event) {
 ///////////////////////////////////////////////////////////
 //delete product from shopping cart
 function deleteProduct(event) {
-  for (var i = 0; i < cart.length; i++) {
+  for (let i = 0; i < cart.length; i++) {
     if (cart[i].product.id === Number(event.target.classList[1])) {
       cart.splice(i,1);
       summary(cart);
-      var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+      const cartQuantityHeader = document.querySelector('.cart-quantity-header');
       cartQuantityHeader.textContent = summary(cart)[0];
     }
   }
@@ -719,8 +716,8 @@ function checkout(event) {
     hidden('container', 'add');
     hidden('checkout', 'remove');
 
-    var checkoutItems = document.querySelector('.checkout-items')
-    var tempItems;
+    const checkoutItems = document.querySelector('.checkout-items')
+    let tempItems;
     if (summary(cart)[0] === 1) {
       tempItems = '1 item';
     }
@@ -729,27 +726,27 @@ function checkout(event) {
     }
     checkoutItems.textContent = tempItems;
 
-    var itemsCost = document.querySelector('.items-cost');
+    const itemsCost = document.querySelector('.items-cost');
     itemsCost.textContent = '$' + summary(cart)[1];
 
-    var shippingCost = document.querySelector('.shipping-cost');
-    shippingCost.textContent = '$' + shipping.toFixed(2);
+    const shippingCost = document.querySelector('.shipping-cost');
+    shippingCost.textContent = '$' + SHIPPING.toFixed(2);
 
-    var subtotalCost = document.querySelector('.subtotal-cost');
-    var tempSubtotal = Number(summary(cart)[1]) + shipping;
+    const subtotalCost = document.querySelector('.subtotal-cost');
+    let tempSubtotal = Number(summary(cart)[1]) + SHIPPING;
     tempSubtotal = tempSubtotal.toFixed(2);
     subtotalCost.textContent = '$' + String(tempSubtotal);
 
-    var taxCost = document.querySelector('.tax-cost');
-    var tempTax = Number(summary(cart)[1]) * tax;
+    const taxCost = document.querySelector('.tax-cost');
+    let tempTax = Number(summary(cart)[1]) * TAX;
     tempTax = tempTax.toFixed(2);
     taxCost.textContent = '$' + String(tempTax);
 
-    var totalCost = document.querySelector('.total-cost');
-    var tempTotal = Number(tempTax) + Number(tempSubtotal);
+    const totalCost = document.querySelector('.total-cost');
+    const tempTotal = Number(tempTax) + Number(tempSubtotal);
     totalCost.textContent = '$' + String(tempTotal.toFixed(2));
 
-    var totalCosts = document.querySelector('.total-costs');
+    const totalCosts = document.querySelector('.total-costs');
     totalCosts.textContent = '$' + String(tempTotal.toFixed(2));
 
   }
@@ -758,7 +755,7 @@ function checkout(event) {
 function placeOrder(event) {
   event.preventDefault();
 
-  var shippingAddress = {
+  const shippingAddress = {
     name: document.getElementById('name-input'),
     address: document.getElementById('one-input'),
     addressTwo: document.getElementById('two-input'),
@@ -769,31 +766,33 @@ function placeOrder(event) {
     phone: document.getElementById('phone-input')
   };
 
-  for (var key in shippingAddress) {
+  for (let key in shippingAddress) {
     shippingAddress[key].classList.remove('missing');
   }
 
-  var paymentMethod = {
+  const paymentMethod = {
     name: document.querySelector('.card-input'),
     number: document.querySelector('.number-input'),
     expirationMonth: document.querySelector('.expiration-month'),
     expirationYear: document.querySelector('.expiration-year')
   };
 
-  for (var temp in paymentMethod) {
+  for (let temp in paymentMethod) {
     paymentMethod[temp].classList.remove('missing');
   }
 
-  var missingAddress = missingField(shippingAddress);
-  var missingPayment = missingField(paymentMethod);
+  const missingAddress = missingField(shippingAddress);
+  const missingPayment = missingField(paymentMethod);
 
   if (missingAddress || missingPayment) {
     return;
   }
 
-  cart = [];
+  while (cart.length > 1) {
+    cart.pop();
+  }
   summary(cart);
-  var cartQuantityHeader = document.querySelector('.cart-quantity-header');
+  const cartQuantityHeader = document.querySelector('.cart-quantity-header');
   cartQuantityHeader.textContent = summary(cart)[0];
   hidden('heading', 'remove');
   hidden('container', 'remove');
@@ -805,18 +804,18 @@ function placeOrder(event) {
   streetTwo.textContent = shippingAddress.addressTwo.value;
   cityState.textContent = shippingAddress.city.value + ', ' + shippingAddress.state.value + ' ' + shippingAddress.zip.value;
 
-  for (var del in shippingAddress) {
+  for (let del in shippingAddress) {
     shippingAddress[del].value = '';
   }
-  for (var omit in paymentMethod) {
+  for (let omit in paymentMethod) {
     paymentMethod[omit].value = '';
   }
 
 }
 
 function missingField(info) {
-  var check = 0;
-  for (var key in info) {
+  let check = 0;
+  for (let key in info) {
     if (info[key].value.trim() === '' && info[key] != document.getElementById('two-input')){
       info[key].classList.add('missing');
       check = check + 1;
@@ -859,7 +858,7 @@ checkoutItems.addEventListener('click', shoppingCart);
 reviewPlace.addEventListener('click', placeOrder);
 summaryPlace.addEventListener('click', placeOrder);
 
-for (var i = 0; i < shippingInput.length; i++) {
+for (let i = 0; i < shippingInput.length; i++) {
   shippingInput[i].addEventListener('input', checkMissing);
 }
 cardInput.addEventListener('input', checkMissing);

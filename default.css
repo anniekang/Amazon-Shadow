@@ -114,6 +114,7 @@ body {
   position: absolute;
   display: inline-block;
   margin-right: 7px;
+  margin-top: 5px;
   top: 0;
   right: 0;
   padding: 5px;
@@ -169,12 +170,19 @@ body {
 #container {
   position: relative;
   margin-top: 20px;
+  max-width: 1150px;
 }
 
 @media (min-width: 768px) {
   #container {
     margin: 2%;
     margin-top: 35px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #container {
+    margin: auto;
   }
 }
 
@@ -548,6 +556,7 @@ body {
 .add-product {
   position: relative;
   width: 90%;
+  min-height: 110px;
   margin: auto;
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -563,6 +572,7 @@ body {
 .item-quantity {
   display: inline-block;
   width: 67%;
+  min-height: 110px;
   margin: 10px;
   border-right: 1px solid lightgray;
 }
@@ -680,6 +690,7 @@ body {
 
 .mini-item-total {
   display: inline-block;
+  margin-top: 2%;
   margin-left: 5px;
   margin-right: 5px;
 }
@@ -730,6 +741,11 @@ body {
 }
 
 /* Shopping Cart Summary */
+#cart {
+  max-width: 1200px;
+  margin: auto;
+}
+
 .cart-all {
   position: relative;
   margin: 2%;
@@ -788,11 +804,6 @@ body {
   .cart-price {
     width: 18%;
     font-size: 14px;
-  }
-}
-
-@media (min-width: 768px) {
-  .cart-price {
   }
 }
 
@@ -945,11 +956,6 @@ body {
   }
 }
 
-@media (min-width: 768px) {
-  .price-cart {
-  }
-}
-
 .quantity-cart {
   position: relative;
   display: inline-block;
@@ -999,9 +1005,11 @@ body {
 }
 
 .subtotal-box {
-  width: 80%;
   margin: auto;
   margin-top: 20px;
+  width: 80%;
+  min-width: 250px;
+  max-width: 365px;
   height: 90px;
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -1010,10 +1018,12 @@ body {
 
 @media (min-width: 768px) {
   .subtotal-box {
-    position: absolute;
+    position: fixed;
     display: inline-block;
     margin-left: 4%;
     width: 20%;
+    min-width: 0;
+    max-width: 242px;
     height: 130px;
     border: 1px solid lightgray;
     border-radius: 5px;
@@ -1041,6 +1051,7 @@ body {
   position: absolute;
   margin-top: 10px;
   width: 65%;
+  max-width: 285px;
   height: 30px;
   left: 50%;
   transform: translateX(-50%);
@@ -1053,7 +1064,7 @@ body {
 @media (min-width: 768px) {
   .cart-proceed {
     height: 40px;
-    top: 50%;
+    margin-top: 0;
   }
 }
 
@@ -1063,12 +1074,17 @@ body {
 }
 
 /* Checkout */
+.checkout-view {
+  min-width: 400px;
+}
+
 .checkout-heading {
   position: fixed;
   padding: 5px;
-  height: 13vh;
+  height: 90px;
   width: 100vw;
   background-color: rgb(248,248,248);
+  z-index: 5;
 }
 
 .checkout-logo {
@@ -1087,18 +1103,18 @@ body {
   margin: 2px;
   left: 50%;
   transform: translateX(-50%);
-  width: 30%;
-  height: 15vh;
+  width: 40%;
+  height: 90px;
   font-size: 25px;
+  text-align: center;
   letter-spacing: .01em;
 }
 
 .checkout-header {
   position: relative;
   display: inline-block;
-  left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  transform: translateY(-50%);
 }
 
 .checkout-items {
@@ -1113,14 +1129,24 @@ body {
   text-decoration: underline;
 }
 
+.checkout-body {
+  max-width: 1200px;
+}
+
 .checkout-main {
+  position: relative;
   display: inline-block;
-  margin: 15px;
-  margin-top: 7%;
-  width: 65vw;
+  width: 96%;
+  margin: 115px 15px 15px 20px;
   font-size: 18px;
   font-weight: bold;
   letter-spacing: .02em;
+}
+
+@media (min-width: 768px) {
+  .checkout-main {
+    width: 62vw;
+  }
 }
 
 .checkout-address {
@@ -1206,7 +1232,14 @@ body {
 .number-label {
   display: inline-block;
   width: 30%;
+  padding-bottom: 10px;
   text-align: right;
+}
+
+@media (min-width: 768px) {
+  .number-label {
+
+  }
 }
 
 .number-input {
@@ -1216,9 +1249,25 @@ body {
   font-size: 15px;
 }
 
+@media (min-width: 1024px) {
+  .expiration {
+    display: inline-block;
+  }
+}
+
 .expiration-date {
   display: inline-block;
-  margin-left: 20px;
+  width: 30%;
+  padding-bottom: 10px;
+  text-align: right;
+}
+
+@media (min-width: 1024px) {
+  .expiration-date {
+    display: inline-block;
+    margin-left: 15px;
+    width: 125px;
+  }
 }
 
 .expiration-month {
@@ -1237,11 +1286,18 @@ body {
 }
 
 .checkout-order {
-  margin-top: 20px;
-  margin-left: 30px;
-  margin-bottom: 15px;
-  border: 1px solid lightgray;
-  border-radius: 5px;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .checkout-order {
+    display: inline-block;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+  }
 }
 
 #review {
@@ -1262,6 +1318,7 @@ body {
 .review-total {
   display: inline-block;
   margin-left: 15px;
+  margin-right: 15px;
   color: rgb(177,39,4);
 }
 
@@ -1271,14 +1328,25 @@ body {
 }
 
 .checkout-summary {
-  position: fixed;
-  display: inline-block;
   padding: 15px;
-  margin: 15px;
-  margin-top: 7%;
-  width: 25vw;
+  margin: 5px auto 15px;
+  width: 350px;
   border: 1px solid lightgray;
   border-radius: 5px;
+}
+
+@media (min-width: 768px) {
+  .checkout-summary {
+    position: fixed;
+    display: inline-block;
+    padding: 15px;
+    margin: 115px 15px 15px 0;
+    width: 30vw;
+    min-width: 250px;
+    max-width: 360px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+  }
 }
 
 #summary {
