@@ -170,7 +170,6 @@ const SHIPPING = 5.00;
 
 const logo = document.getElementById('amazon');
 const searchItems = document.getElementById('search');
-const searchItem = document.getElementById('text');
 const gotoCart = document.getElementById('goto-cart');
 const container = document.getElementById('container');
 const resultComments=document.getElementById('outcome');
@@ -264,7 +263,7 @@ function createElement(tagName,attributes,children) {
 function search(event) {
   event.preventDefault();
   const searchItemValue = document.getElementById('text').value;
-  if (!searchItem.trim())
+  if (!searchItemValue.trim())
     return;
   empty(resultComments);
   empty(productResults);
