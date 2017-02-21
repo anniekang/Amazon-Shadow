@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Intro to JS with Amazon example",
   "engines": {
-  "node": "6.9.2"
+    "node": "6.9.2"
   },
   "main": "main.js",
   "dependencies": {
@@ -14,9 +14,8 @@
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "start": "node .",
-    "watch": "nodemon .",
-    "postinstall": ""
+    "start": "node index.js",
+    "watch": "nodemon ."
   },
   "repository": {
     "type": "git",
