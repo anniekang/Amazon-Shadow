@@ -2,6 +2,9 @@
   "name": "Amazon-Shadow",
   "version": "1.0.0",
   "description": "Intro to JS with Amazon example",
+  "engines": {
+  "node": "6.9.2"
+  },
   "main": "main.js",
   "dependencies": {
     "express": "^4.14.1",
@@ -12,7 +15,8 @@
   },
   "scripts": {
     "test": "node .",
-    "watch": "nodemon ."
+    "watch": "nodemon .",
+    "postinstall": ""
   },
   "repository": {
     "type": "git",
